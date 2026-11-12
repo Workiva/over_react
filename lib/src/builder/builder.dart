@@ -18,18 +18,14 @@ import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart' show LanguageVersionToken;
 import 'package:build/build.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
 import 'package:package_config/package_config.dart' as pc;
-import 'package:pub_semver/pub_semver.dart' as semver;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
 import 'codegen.dart';
 import 'codegen/language_version_util.dart';
-import 'dart_style_compat.dart';
 import 'parsing.dart';
 
 Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
@@ -227,26 +223,7 @@ class OverReactBuilder extends Builder {
       // Generated part files must have matching language version comments, so copy them over if they exist.
       final languageVersionComment = libraryUnit.languageVersionToken?.value();
 
-      DartFormatter? formatter;
-      try {
-        formatter = constructFormatter(
-          // Try to use the actual version of the library if possible:
-          // 1. to avoid any potential parse errors
-          // 2. to preserve existing formatting in checked-in generated files in this repo when running on Dart 2
-          languageVersion: libraryUnit.languageVersionToken?.asSemver() ??
-              packageConfigLanguageVersion?.asSemver() ??
-              // TODO use DartFormatter.latestLanguageVersion here once this package supports only Dart 3 and dart_style >=2.3.7
-              semver.Version.parse(Platform.version
-                  .split(RegExp(r'\s'))
-                  .first),
-        );
-      } catch (e, st) {
-        // Formatting is not critical, so if it we can't construct a formatter, just skip it.
-        log.warning('Error constructing Dart formatter, skipping formatting step', e, st);
-      }
-
       await _writePart(buildStep, outputId, outputs,
-          formatter: formatter,
           nullSafetyCommentText: nullSafetyCommentText,
           languageVersionComment: languageVersionComment);
     } else {
@@ -288,7 +265,6 @@ class OverReactBuilder extends Builder {
     BuildStep buildStep,
     AssetId outputId,
     Iterable<String> outputs, {
-    required DartFormatter? formatter,
     required String nullSafetyCommentText,
     String? languageVersionComment,
   }) async {
@@ -322,25 +298,8 @@ class OverReactBuilder extends Builder {
         ..writeln(item);
     }
 
-    var output = buffer.toString();
-    // Output the file even if formatting fails, so that it can be used to debug the issue.
-    if (formatter != null) {
-      try {
-        output = formatter.format(buffer.toString());
-      } catch (e, st) {
-        log.severe('Error formatting generated code', e, st);
-      }
-    }
-    await buildStep.writeAsString(outputId, output);
+    await buildStep.writeAsString(outputId, buffer.toString());
   }
-}
-
-extension on pc.LanguageVersion {
-  semver.Version asSemver() => semver.Version(major, minor, 0); // There's no patch available on this version.
-}
-
-extension on LanguageVersionToken {
-  semver.Version asSemver() => semver.Version(major, minor, 0); // There's no patch available on this version.
 }
 
 extension on BuildStep {

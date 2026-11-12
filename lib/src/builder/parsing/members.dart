@@ -69,7 +69,7 @@ abstract class BoilerplateTypedMapMember extends BoilerplateMember {
   BoilerplateTypedMapMember(VersionConfidences versionConfidence) : super(versionConfidence);
 
   @override
-  NamedCompilationUnitMember get node;
+  CompilationUnitMember get node;
 
   ClassishDeclaration get nodeHelper;
 

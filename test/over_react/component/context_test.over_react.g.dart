@@ -20,21 +20,17 @@ final $ContextTypeDynamicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ContextTypeDynamicProps _$ContextTypeDynamic([Map? backingProps]) =>
-    _$$ContextTypeDynamicProps(backingProps);
-
+_$$ContextTypeDynamicProps _$ContextTypeDynamic([Map? backingProps]) => _$$ContextTypeDynamicProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ContextTypeDynamicProps extends UiProps
-    with
-        ContextTypeDynamicProps,
-        // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
-        $ContextTypeDynamicProps {
-  _$$ContextTypeDynamicProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ContextTypeDynamicProps extends UiProps with
+ ContextTypeDynamicProps,
+ // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
+ $ContextTypeDynamicProps {
+  _$$ContextTypeDynamicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -46,8 +42,7 @@ class _$$ContextTypeDynamicProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ContextTypeDynamicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ContextTypeDynamicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -55,20 +50,16 @@ class _$$ContextTypeDynamicProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
-        ContextTypeDynamicProps: $ContextTypeDynamicProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
+    ContextTypeDynamicProps: $ContextTypeDynamicProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextTypeDynamicProps(
-          accessMap, (map) => _$$ContextTypeDynamicProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ContextTypeDynamicProps(accessMap, (map) => _$$ContextTypeDynamicProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ContextTypeDynamicProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -84,24 +75,21 @@ class _$ContextTypeDynamicComponent extends ContextTypeDynamicComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ContextTypeDynamicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$ContextTypeDynamicProps(backingMap);
+  _$$ContextTypeDynamicProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ContextTypeDynamicProps(backingMap);
 
   @override
-  _$$ContextTypeDynamicProps typedPropsFactory(Map? backingMap) =>
-      _$$ContextTypeDynamicProps(backingMap);
+  _$$ContextTypeDynamicProps typedPropsFactory(Map? backingMap) => _$$ContextTypeDynamicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -117,11 +105,10 @@ class _$ContextTypeDynamicComponent extends ContextTypeDynamicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
-        ContextTypeDynamicProps: $ContextTypeDynamicProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
+    ContextTypeDynamicProps: $ContextTypeDynamicProps.meta,
+  });
 }
-
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
@@ -135,22 +122,17 @@ final $ContextTypeWithoutDefaultComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ContextTypeWithoutDefaultProps _$ContextTypeWithoutDefault(
-        [Map? backingProps]) =>
-    _$$ContextTypeWithoutDefaultProps(backingProps);
-
+_$$ContextTypeWithoutDefaultProps _$ContextTypeWithoutDefault([Map? backingProps]) => _$$ContextTypeWithoutDefaultProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ContextTypeWithoutDefaultProps extends UiProps
-    with
-        ContextTypeWithoutDefaultProps,
-        // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
-        $ContextTypeWithoutDefaultProps {
-  _$$ContextTypeWithoutDefaultProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ContextTypeWithoutDefaultProps extends UiProps with
+ ContextTypeWithoutDefaultProps,
+ // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
+ $ContextTypeWithoutDefaultProps {
+  _$$ContextTypeWithoutDefaultProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -162,8 +144,7 @@ class _$$ContextTypeWithoutDefaultProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ContextTypeWithoutDefaultComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ContextTypeWithoutDefaultComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -171,28 +152,23 @@ class _$$ContextTypeWithoutDefaultProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
-        ContextTypeWithoutDefaultProps: $ContextTypeWithoutDefaultProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
+    ContextTypeWithoutDefaultProps: $ContextTypeWithoutDefaultProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextTypeWithoutDefaultProps(
-          accessMap, (map) => _$$ContextTypeWithoutDefaultProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ContextTypeWithoutDefaultProps(accessMap, (map) => _$$ContextTypeWithoutDefaultProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ContextTypeWithoutDefaultProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$ContextTypeWithoutDefaultComponent
-    extends ContextTypeWithoutDefaultComponent {
+class _$ContextTypeWithoutDefaultComponent extends ContextTypeWithoutDefaultComponent {
   late _$$ContextTypeWithoutDefaultProps _cachedTypedProps;
 
   @override
@@ -201,25 +177,21 @@ class _$ContextTypeWithoutDefaultComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ContextTypeWithoutDefaultProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$ContextTypeWithoutDefaultProps(backingMap);
+  _$$ContextTypeWithoutDefaultProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ContextTypeWithoutDefaultProps(backingMap);
 
   @override
-  _$$ContextTypeWithoutDefaultProps typedPropsFactory(Map? backingMap) =>
-      _$$ContextTypeWithoutDefaultProps(backingMap);
+  _$$ContextTypeWithoutDefaultProps typedPropsFactory(Map? backingMap) => _$$ContextTypeWithoutDefaultProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -235,11 +207,10 @@ class _$ContextTypeWithoutDefaultComponent
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
-        ContextTypeWithoutDefaultProps: $ContextTypeWithoutDefaultProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
+    ContextTypeWithoutDefaultProps: $ContextTypeWithoutDefaultProps.meta,
+  });
 }
-
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
@@ -253,21 +224,17 @@ final $ContextTypeWithDefaultComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$ContextTypeWithDefaultProps _$ContextTypeWithDefault([Map? backingProps]) =>
-    _$$ContextTypeWithDefaultProps(backingProps);
-
+_$$ContextTypeWithDefaultProps _$ContextTypeWithDefault([Map? backingProps]) => _$$ContextTypeWithDefaultProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ContextTypeWithDefaultProps extends UiProps
-    with
-        ContextTypeWithDefaultProps,
-        // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
-        $ContextTypeWithDefaultProps {
-  _$$ContextTypeWithDefaultProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ContextTypeWithDefaultProps extends UiProps with
+ ContextTypeWithDefaultProps,
+ // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
+ $ContextTypeWithDefaultProps {
+  _$$ContextTypeWithDefaultProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -279,8 +246,7 @@ class _$$ContextTypeWithDefaultProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ContextTypeWithDefaultComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ContextTypeWithDefaultComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -288,28 +254,23 @@ class _$$ContextTypeWithDefaultProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
-        ContextTypeWithDefaultProps: $ContextTypeWithDefaultProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
+    ContextTypeWithDefaultProps: $ContextTypeWithDefaultProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextTypeWithDefaultProps(
-          accessMap, (map) => _$$ContextTypeWithDefaultProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ContextTypeWithDefaultProps(accessMap, (map) => _$$ContextTypeWithDefaultProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ContextTypeWithDefaultProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$ContextTypeWithDefaultComponent
-    extends ContextTypeWithDefaultComponent {
+class _$ContextTypeWithDefaultComponent extends ContextTypeWithDefaultComponent {
   late _$$ContextTypeWithDefaultProps _cachedTypedProps;
 
   @override
@@ -318,24 +279,21 @@ class _$ContextTypeWithDefaultComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ContextTypeWithDefaultProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$ContextTypeWithDefaultProps(backingMap);
+  _$$ContextTypeWithDefaultProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ContextTypeWithDefaultProps(backingMap);
 
   @override
-  _$$ContextTypeWithDefaultProps typedPropsFactory(Map? backingMap) =>
-      _$$ContextTypeWithDefaultProps(backingMap);
+  _$$ContextTypeWithDefaultProps typedPropsFactory(Map? backingMap) => _$$ContextTypeWithDefaultProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -351,11 +309,10 @@ class _$ContextTypeWithDefaultComponent
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
-        ContextTypeWithDefaultProps: $ContextTypeWithDefaultProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
+    ContextTypeWithDefaultProps: $ContextTypeWithDefaultProps.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -371,6 +328,7 @@ mixin $ContextTypeDynamicProps on ContextTypeDynamicProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -396,6 +354,7 @@ mixin $ContextTypeWithoutDefaultProps on ContextTypeWithoutDefaultProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -421,6 +380,7 @@ mixin $ContextTypeWithDefaultProps on ContextTypeWithDefaultProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 

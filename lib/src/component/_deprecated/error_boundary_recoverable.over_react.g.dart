@@ -19,10 +19,8 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
-@Deprecated(
-    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
-mixin _$RecoverableErrorBoundaryPropsAccessorsMixin
-    implements _$RecoverableErrorBoundaryProps {
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+mixin _$RecoverableErrorBoundaryPropsAccessorsMixin implements _$RecoverableErrorBoundaryProps {
   @override
   Map get props;
 
@@ -37,25 +35,16 @@ const PropsMeta _$metaForRecoverableErrorBoundaryProps = PropsMeta(
   keys: _$RecoverableErrorBoundaryPropsAccessorsMixin.$propKeys,
 );
 
-@Deprecated(
-    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
-class RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps
-    with _$RecoverableErrorBoundaryPropsAccessorsMixin {
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+class RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps with _$RecoverableErrorBoundaryPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForRecoverableErrorBoundaryProps;
 }
-
-_$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
-        [Map? backingProps]) =>
-    _$$RecoverableErrorBoundaryProps(backingProps);
-
+_$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary([Map? backingProps]) => _$$RecoverableErrorBoundaryProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps
-    with _$RecoverableErrorBoundaryPropsAccessorsMixin
-    implements RecoverableErrorBoundaryProps {
-  _$$RecoverableErrorBoundaryProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps with _$RecoverableErrorBoundaryPropsAccessorsMixin implements RecoverableErrorBoundaryProps {
+  _$$RecoverableErrorBoundaryProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -67,26 +56,20 @@ class _$$RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $RecoverableErrorBoundaryComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RecoverableErrorBoundaryComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'RecoverableErrorBoundaryProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$RecoverableErrorBoundaryProps(
-          accessMap, (map) => _$$RecoverableErrorBoundaryProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$RecoverableErrorBoundaryProps(accessMap, (map) => _$$RecoverableErrorBoundaryProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$RecoverableErrorBoundaryProps = getPropKey;
-@Deprecated(
-    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
-mixin _$RecoverableErrorBoundaryStateAccessorsMixin
-    implements _$RecoverableErrorBoundaryState {
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+mixin _$RecoverableErrorBoundaryStateAccessorsMixin implements _$RecoverableErrorBoundaryState {
   @override
   Map get state;
 
@@ -101,21 +84,15 @@ const StateMeta _$metaForRecoverableErrorBoundaryState = StateMeta(
   keys: _$RecoverableErrorBoundaryStateAccessorsMixin.$stateKeys,
 );
 
-@Deprecated(
-    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
-class RecoverableErrorBoundaryState extends _$RecoverableErrorBoundaryState
-    with _$RecoverableErrorBoundaryStateAccessorsMixin {
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+class RecoverableErrorBoundaryState extends _$RecoverableErrorBoundaryState with _$RecoverableErrorBoundaryStateAccessorsMixin {
   static const StateMeta meta = _$metaForRecoverableErrorBoundaryState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$RecoverableErrorBoundaryState extends _$RecoverableErrorBoundaryState
-    with _$RecoverableErrorBoundaryStateAccessorsMixin
-    implements RecoverableErrorBoundaryState {
-  _$$RecoverableErrorBoundaryState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$RecoverableErrorBoundaryState extends _$RecoverableErrorBoundaryState with _$RecoverableErrorBoundaryStateAccessorsMixin implements RecoverableErrorBoundaryState {
+  _$$RecoverableErrorBoundaryState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -125,13 +102,11 @@ class _$$RecoverableErrorBoundaryState extends _$RecoverableErrorBoundaryState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$RecoverableErrorBoundaryComponent
-    extends RecoverableErrorBoundaryComponent {
+class _$RecoverableErrorBoundaryComponent extends RecoverableErrorBoundaryComponent {
   late _$$RecoverableErrorBoundaryProps _cachedTypedProps;
 
   @override
@@ -140,25 +115,21 @@ class _$RecoverableErrorBoundaryComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$RecoverableErrorBoundaryProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$RecoverableErrorBoundaryProps(backingMap);
+  _$$RecoverableErrorBoundaryProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$RecoverableErrorBoundaryProps(backingMap);
 
   @override
-  _$$RecoverableErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
-      _$$RecoverableErrorBoundaryProps(backingMap);
+  _$$RecoverableErrorBoundaryProps typedPropsFactory(Map? backingMap) => _$$RecoverableErrorBoundaryProps(backingMap);
 
   late _$$RecoverableErrorBoundaryState _cachedTypedState;
   @override
@@ -166,22 +137,18 @@ class _$RecoverableErrorBoundaryComponent
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$RecoverableErrorBoundaryState typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$RecoverableErrorBoundaryState(backingMap);
+  @override 
+  _$$RecoverableErrorBoundaryState typedStateFactoryJs(JsBackedMap? backingMap) => _$$RecoverableErrorBoundaryState(backingMap);
 
   @override
-  _$$RecoverableErrorBoundaryState typedStateFactory(Map? backingMap) =>
-      _$$RecoverableErrorBoundaryState(backingMap);
+  _$$RecoverableErrorBoundaryState typedStateFactory(Map? backingMap) => _$$RecoverableErrorBoundaryState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -193,7 +160,5 @@ class _$RecoverableErrorBoundaryComponent
   /// The default consumed props, taken from _$RecoverableErrorBoundaryProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForRecoverableErrorBoundaryProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForRecoverableErrorBoundaryProps];
 }

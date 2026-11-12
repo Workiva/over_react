@@ -18,133 +18,68 @@ final $NamespacedAccessorTestComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$NamespacedAccessorTestPropsAccessorsMixin
-    implements _$NamespacedAccessorTestProps {
+mixin _$NamespacedAccessorTestPropsAccessorsMixin implements _$NamespacedAccessorTestProps {
   @override
   Map get props;
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
-  String? get stringProp =>
-      (props[_$key__stringProp___$NamespacedAccessorTestProps] ?? null)
-          as String?;
-
+  String? get stringProp => (props[_$key__stringProp___$NamespacedAccessorTestProps] ?? null) as String?;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
-  set stringProp(String? value) =>
-      props[_$key__stringProp___$NamespacedAccessorTestProps] = value;
-
+  set stringProp(String? value) => props[_$key__stringProp___$NamespacedAccessorTestProps] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      (props[_$key__dynamicProp___$NamespacedAccessorTestProps] ?? null)
-          as dynamic;
-
+  dynamic get dynamicProp => (props[_$key__dynamicProp___$NamespacedAccessorTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.dynamicProp] -->
   @override
-  set dynamicProp(dynamic value) =>
-      props[_$key__dynamicProp___$NamespacedAccessorTestProps] = value;
-
+  set dynamicProp(dynamic value) => props[_$key__dynamicProp___$NamespacedAccessorTestProps] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.untypedProp] -->
   @override
-  get untypedProp =>
-      props[_$key__untypedProp___$NamespacedAccessorTestProps] ?? null;
-
+  get untypedProp => props[_$key__untypedProp___$NamespacedAccessorTestProps] ?? null;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.untypedProp] -->
   @override
-  set untypedProp(value) =>
-      props[_$key__untypedProp___$NamespacedAccessorTestProps] = value;
-
+  set untypedProp(value) => props[_$key__untypedProp___$NamespacedAccessorTestProps] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyProp =>
-      (props[_$key__customKeyProp___$NamespacedAccessorTestProps] ?? null)
-          as dynamic;
-
+  dynamic get customKeyProp => (props[_$key__customKeyProp___$NamespacedAccessorTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(dynamic value) =>
-      props[_$key__customKeyProp___$NamespacedAccessorTestProps] = value;
-
+  set customKeyProp(dynamic value) => props[_$key__customKeyProp___$NamespacedAccessorTestProps] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceProp =>
-      (props[_$key__customNamespaceProp___$NamespacedAccessorTestProps] ?? null)
-          as dynamic;
-
+  dynamic get customNamespaceProp => (props[_$key__customNamespaceProp___$NamespacedAccessorTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(dynamic value) =>
-      props[_$key__customNamespaceProp___$NamespacedAccessorTestProps] = value;
-
+  set customNamespaceProp(dynamic value) => props[_$key__customNamespaceProp___$NamespacedAccessorTestProps] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceProp =>
-      (props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps] ??
-          null) as dynamic;
-
+  dynamic get customKeyAndNamespaceProp => (props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(dynamic value) =>
-      props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps] =
-          value;
+  set customKeyAndNamespaceProp(dynamic value) => props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__stringProp___$NamespacedAccessorTestProps =
-      PropDescriptor(_$key__stringProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__dynamicProp___$NamespacedAccessorTestProps =
-      PropDescriptor(_$key__dynamicProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__untypedProp___$NamespacedAccessorTestProps =
-      PropDescriptor(_$key__untypedProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__customKeyProp___$NamespacedAccessorTestProps =
-      PropDescriptor(_$key__customKeyProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__customNamespaceProp___$NamespacedAccessorTestProps =
-      PropDescriptor(_$key__customNamespaceProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps =
-      PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps);
-  static const String _$key__stringProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**stringProp';
-  static const String _$key__dynamicProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**dynamicProp';
-  static const String _$key__untypedProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**untypedProp';
-  static const String _$key__customKeyProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**custom key!';
-  static const String
-      _$key__customNamespaceProp___$NamespacedAccessorTestProps =
-      'custom namespace~~customNamespaceProp';
-  static const String
-      _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps =
-      'custom namespace~~custom key!';
+  static const PropDescriptor _$prop__stringProp___$NamespacedAccessorTestProps = PropDescriptor(_$key__stringProp___$NamespacedAccessorTestProps);
+  static const PropDescriptor _$prop__dynamicProp___$NamespacedAccessorTestProps = PropDescriptor(_$key__dynamicProp___$NamespacedAccessorTestProps);
+  static const PropDescriptor _$prop__untypedProp___$NamespacedAccessorTestProps = PropDescriptor(_$key__untypedProp___$NamespacedAccessorTestProps);
+  static const PropDescriptor _$prop__customKeyProp___$NamespacedAccessorTestProps = PropDescriptor(_$key__customKeyProp___$NamespacedAccessorTestProps);
+  static const PropDescriptor _$prop__customNamespaceProp___$NamespacedAccessorTestProps = PropDescriptor(_$key__customNamespaceProp___$NamespacedAccessorTestProps);
+  static const PropDescriptor _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps = PropDescriptor(_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps);
+  static const String _$key__stringProp___$NamespacedAccessorTestProps = 'custom props class namespace**stringProp';
+  static const String _$key__dynamicProp___$NamespacedAccessorTestProps = 'custom props class namespace**dynamicProp';
+  static const String _$key__untypedProp___$NamespacedAccessorTestProps = 'custom props class namespace**untypedProp';
+  static const String _$key__customKeyProp___$NamespacedAccessorTestProps = 'custom props class namespace**custom key!';
+  static const String _$key__customNamespaceProp___$NamespacedAccessorTestProps = 'custom namespace~~customNamespaceProp';
+  static const String _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps = 'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__stringProp___$NamespacedAccessorTestProps,
-    _$prop__dynamicProp___$NamespacedAccessorTestProps,
-    _$prop__untypedProp___$NamespacedAccessorTestProps,
-    _$prop__customKeyProp___$NamespacedAccessorTestProps,
-    _$prop__customNamespaceProp___$NamespacedAccessorTestProps,
-    _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__stringProp___$NamespacedAccessorTestProps,
-    _$key__dynamicProp___$NamespacedAccessorTestProps,
-    _$key__untypedProp___$NamespacedAccessorTestProps,
-    _$key__customKeyProp___$NamespacedAccessorTestProps,
-    _$key__customNamespaceProp___$NamespacedAccessorTestProps,
-    _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__stringProp___$NamespacedAccessorTestProps, _$prop__dynamicProp___$NamespacedAccessorTestProps, _$prop__untypedProp___$NamespacedAccessorTestProps, _$prop__customKeyProp___$NamespacedAccessorTestProps, _$prop__customNamespaceProp___$NamespacedAccessorTestProps, _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps];
+  static const List<String> $propKeys = [_$key__stringProp___$NamespacedAccessorTestProps, _$key__dynamicProp___$NamespacedAccessorTestProps, _$key__untypedProp___$NamespacedAccessorTestProps, _$key__customKeyProp___$NamespacedAccessorTestProps, _$key__customNamespaceProp___$NamespacedAccessorTestProps, _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps];
 }
 
 const PropsMeta _$metaForNamespacedAccessorTestProps = PropsMeta(
@@ -152,22 +87,15 @@ const PropsMeta _$metaForNamespacedAccessorTestProps = PropsMeta(
   keys: _$NamespacedAccessorTestPropsAccessorsMixin.$propKeys,
 );
 
-class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
-    with _$NamespacedAccessorTestPropsAccessorsMixin {
+class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps with _$NamespacedAccessorTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForNamespacedAccessorTestProps;
 }
-
-_$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map? backingProps]) =>
-    _$$NamespacedAccessorTestProps(backingProps);
-
+_$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map? backingProps]) => _$$NamespacedAccessorTestProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
-    with _$NamespacedAccessorTestPropsAccessorsMixin
-    implements NamespacedAccessorTestProps {
-  _$$NamespacedAccessorTestProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps with _$NamespacedAccessorTestPropsAccessorsMixin implements NamespacedAccessorTestProps {
+  _$$NamespacedAccessorTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -179,150 +107,80 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $NamespacedAccessorTestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $NamespacedAccessorTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'custom props class namespace**';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$NamespacedAccessorTestProps(
-          accessMap, (map) => _$$NamespacedAccessorTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$NamespacedAccessorTestProps(accessMap, (map) => _$$NamespacedAccessorTestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NamespacedAccessorTestProps = getPropKey;
-mixin _$NamespacedAccessorTestStateAccessorsMixin
-    implements _$NamespacedAccessorTestState {
+mixin _$NamespacedAccessorTestStateAccessorsMixin implements _$NamespacedAccessorTestState {
   @override
   Map get state;
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
-  String? get stringState =>
-      (state[_$key__stringState___$NamespacedAccessorTestState] ?? null)
-          as String?;
-
+  String? get stringState => (state[_$key__stringState___$NamespacedAccessorTestState] ?? null) as String?;
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
-  set stringState(String? value) =>
-      state[_$key__stringState___$NamespacedAccessorTestState] = value;
-
+  set stringState(String? value) => state[_$key__stringState___$NamespacedAccessorTestState] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestState.dynamicState] -->
   @override
-  dynamic get dynamicState =>
-      (state[_$key__dynamicState___$NamespacedAccessorTestState] ?? null)
-          as dynamic;
-
+  dynamic get dynamicState => (state[_$key__dynamicState___$NamespacedAccessorTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestState.dynamicState] -->
   @override
-  set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$NamespacedAccessorTestState] = value;
-
+  set dynamicState(dynamic value) => state[_$key__dynamicState___$NamespacedAccessorTestState] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestState.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState___$NamespacedAccessorTestState] ?? null;
-
+  get untypedState => state[_$key__untypedState___$NamespacedAccessorTestState] ?? null;
   /// <!-- Generated from [_$NamespacedAccessorTestState.untypedState] -->
   @override
-  set untypedState(value) =>
-      state[_$key__untypedState___$NamespacedAccessorTestState] = value;
-
+  set untypedState(value) => state[_$key__untypedState___$NamespacedAccessorTestState] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  dynamic get customKeyState =>
-      (state[_$key__customKeyState___$NamespacedAccessorTestState] ?? null)
-          as dynamic;
-
+  dynamic get customKeyState => (state[_$key__customKeyState___$NamespacedAccessorTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(dynamic value) =>
-      state[_$key__customKeyState___$NamespacedAccessorTestState] = value;
-
+  set customKeyState(dynamic value) => state[_$key__customKeyState___$NamespacedAccessorTestState] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceState =>
-      (state[_$key__customNamespaceState___$NamespacedAccessorTestState] ??
-          null) as dynamic;
-
+  dynamic get customNamespaceState => (state[_$key__customNamespaceState___$NamespacedAccessorTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(dynamic value) =>
-      state[_$key__customNamespaceState___$NamespacedAccessorTestState] = value;
-
+  set customNamespaceState(dynamic value) => state[_$key__customNamespaceState___$NamespacedAccessorTestState] = value;
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceState => (state[
-          _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState] ??
-      null) as dynamic;
-
+  dynamic get customKeyAndNamespaceState => (state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(dynamic value) =>
-      state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState] =
-          value;
+  set customKeyAndNamespaceState(dynamic value) => state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__stringState___$NamespacedAccessorTestState =
-      StateDescriptor(_$key__stringState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__dynamicState___$NamespacedAccessorTestState =
-      StateDescriptor(_$key__dynamicState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__untypedState___$NamespacedAccessorTestState =
-      StateDescriptor(_$key__untypedState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__customKeyState___$NamespacedAccessorTestState =
-      StateDescriptor(_$key__customKeyState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$NamespacedAccessorTestState =
-      StateDescriptor(
-          _$key__customNamespaceState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState =
-      StateDescriptor(
-          _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState);
-  static const String _$key__stringState___$NamespacedAccessorTestState =
-      'custom state class namespace**stringState';
-  static const String _$key__dynamicState___$NamespacedAccessorTestState =
-      'custom state class namespace**dynamicState';
-  static const String _$key__untypedState___$NamespacedAccessorTestState =
-      'custom state class namespace**untypedState';
-  static const String _$key__customKeyState___$NamespacedAccessorTestState =
-      'custom state class namespace**custom key!';
-  static const String
-      _$key__customNamespaceState___$NamespacedAccessorTestState =
-      'custom namespace~~customNamespaceState';
-  static const String
-      _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState =
-      'custom namespace~~custom key!';
+  static const StateDescriptor _$prop__stringState___$NamespacedAccessorTestState = StateDescriptor(_$key__stringState___$NamespacedAccessorTestState);
+  static const StateDescriptor _$prop__dynamicState___$NamespacedAccessorTestState = StateDescriptor(_$key__dynamicState___$NamespacedAccessorTestState);
+  static const StateDescriptor _$prop__untypedState___$NamespacedAccessorTestState = StateDescriptor(_$key__untypedState___$NamespacedAccessorTestState);
+  static const StateDescriptor _$prop__customKeyState___$NamespacedAccessorTestState = StateDescriptor(_$key__customKeyState___$NamespacedAccessorTestState);
+  static const StateDescriptor _$prop__customNamespaceState___$NamespacedAccessorTestState = StateDescriptor(_$key__customNamespaceState___$NamespacedAccessorTestState);
+  static const StateDescriptor _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState = StateDescriptor(_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState);
+  static const String _$key__stringState___$NamespacedAccessorTestState = 'custom state class namespace**stringState';
+  static const String _$key__dynamicState___$NamespacedAccessorTestState = 'custom state class namespace**dynamicState';
+  static const String _$key__untypedState___$NamespacedAccessorTestState = 'custom state class namespace**untypedState';
+  static const String _$key__customKeyState___$NamespacedAccessorTestState = 'custom state class namespace**custom key!';
+  static const String _$key__customNamespaceState___$NamespacedAccessorTestState = 'custom namespace~~customNamespaceState';
+  static const String _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState = 'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__stringState___$NamespacedAccessorTestState,
-    _$prop__dynamicState___$NamespacedAccessorTestState,
-    _$prop__untypedState___$NamespacedAccessorTestState,
-    _$prop__customKeyState___$NamespacedAccessorTestState,
-    _$prop__customNamespaceState___$NamespacedAccessorTestState,
-    _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__stringState___$NamespacedAccessorTestState,
-    _$key__dynamicState___$NamespacedAccessorTestState,
-    _$key__untypedState___$NamespacedAccessorTestState,
-    _$key__customKeyState___$NamespacedAccessorTestState,
-    _$key__customNamespaceState___$NamespacedAccessorTestState,
-    _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__stringState___$NamespacedAccessorTestState, _$prop__dynamicState___$NamespacedAccessorTestState, _$prop__untypedState___$NamespacedAccessorTestState, _$prop__customKeyState___$NamespacedAccessorTestState, _$prop__customNamespaceState___$NamespacedAccessorTestState, _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState];
+  static const List<String> $stateKeys = [_$key__stringState___$NamespacedAccessorTestState, _$key__dynamicState___$NamespacedAccessorTestState, _$key__untypedState___$NamespacedAccessorTestState, _$key__customKeyState___$NamespacedAccessorTestState, _$key__customNamespaceState___$NamespacedAccessorTestState, _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState];
 }
 
 const StateMeta _$metaForNamespacedAccessorTestState = StateMeta(
@@ -330,19 +188,14 @@ const StateMeta _$metaForNamespacedAccessorTestState = StateMeta(
   keys: _$NamespacedAccessorTestStateAccessorsMixin.$stateKeys,
 );
 
-class NamespacedAccessorTestState extends _$NamespacedAccessorTestState
-    with _$NamespacedAccessorTestStateAccessorsMixin {
+class NamespacedAccessorTestState extends _$NamespacedAccessorTestState with _$NamespacedAccessorTestStateAccessorsMixin {
   static const StateMeta meta = _$metaForNamespacedAccessorTestState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
-    with _$NamespacedAccessorTestStateAccessorsMixin
-    implements NamespacedAccessorTestState {
-  _$$NamespacedAccessorTestState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState with _$NamespacedAccessorTestStateAccessorsMixin implements NamespacedAccessorTestState {
+  _$$NamespacedAccessorTestState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -352,20 +205,16 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$NamespacedAccessorTestComponent
-    extends NamespacedAccessorTestComponent {
+class _$NamespacedAccessorTestComponent extends NamespacedAccessorTestComponent {
   @override
-  _$$NamespacedAccessorTestProps typedPropsFactory(Map? backingMap) =>
-      _$$NamespacedAccessorTestProps(backingMap);
+  _$$NamespacedAccessorTestProps typedPropsFactory(Map? backingMap) => _$$NamespacedAccessorTestProps(backingMap);
 
   @override
-  _$$NamespacedAccessorTestState typedStateFactory(Map? backingMap) =>
-      _$$NamespacedAccessorTestState(backingMap);
+  _$$NamespacedAccessorTestState typedStateFactory(Map? backingMap) => _$$NamespacedAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -377,7 +226,5 @@ class _$NamespacedAccessorTestComponent
   /// The default consumed props, taken from _$NamespacedAccessorTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForNamespacedAccessorTestProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForNamespacedAccessorTestProps];
 }

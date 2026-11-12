@@ -24,26 +24,16 @@ mixin _$DummyPropsAccessorsMixin implements _$DummyProps {
 
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
-  Function get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$DummyProps] ?? null) as Function;
-
+  Function get onComponentDidMount => (props[_$key__onComponentDidMount___$DummyProps] ?? null) as Function;
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(Function value) =>
-      props[_$key__onComponentDidMount___$DummyProps] = value;
+  set onComponentDidMount(Function value) => props[_$key__onComponentDidMount___$DummyProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onComponentDidMount___$DummyProps =
-      PropDescriptor(_$key__onComponentDidMount___$DummyProps,
-          isRequired: true, isNullable: true, isLate: true);
-  static const String _$key__onComponentDidMount___$DummyProps =
-      'DummyProps.onComponentDidMount';
+  static const PropDescriptor _$prop__onComponentDidMount___$DummyProps = PropDescriptor(_$key__onComponentDidMount___$DummyProps, isRequired: true, isNullable: true, isLate: true);
+  static const String _$key__onComponentDidMount___$DummyProps = 'DummyProps.onComponentDidMount';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__onComponentDidMount___$DummyProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__onComponentDidMount___$DummyProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__onComponentDidMount___$DummyProps];
+  static const List<String> $propKeys = [_$key__onComponentDidMount___$DummyProps];
 }
 
 const PropsMeta _$metaForDummyProps = PropsMeta(
@@ -52,13 +42,10 @@ const PropsMeta _$metaForDummyProps = PropsMeta(
 );
 
 _$$DummyProps _$Dummy([Map? backingProps]) => _$$DummyProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$DummyProps extends _$DummyProps
-    with _$DummyPropsAccessorsMixin
-    implements DummyProps {
+class _$$DummyProps extends _$DummyProps with _$DummyPropsAccessorsMixin implements DummyProps {
   _$$DummyProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -71,22 +58,18 @@ class _$$DummyProps extends _$DummyProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $DummyComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $DummyComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'DummyProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$DummyProps(accessMap, (map) => _$$DummyProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$DummyProps(accessMap, (map) => _$$DummyProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$DummyProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -100,20 +83,18 @@ class _$DummyComponent extends DummyComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$DummyProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$DummyProps(backingMap);
+  _$$DummyProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$DummyProps(backingMap);
 
   @override
   _$$DummyProps typedPropsFactory(Map? backingMap) => _$$DummyProps(backingMap);

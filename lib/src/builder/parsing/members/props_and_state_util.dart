@@ -23,7 +23,7 @@ extension on String {
 
 /// A mixin containing getters that can be used to facilitate runtime [String] checks
 /// for a props and state class.
-abstract class PropsStateStringHelpers {
+mixin PropsStateStringHelpers {
   bool get isProps;
   String get propsOrStateString => isProps ? 'props' : 'state';
   String get propsOrStateStringCapitalized => propsOrStateString.capitalize();
@@ -39,15 +39,15 @@ abstract class PropsStateStringHelpers {
   RegExp get propsOrStateMixinNamePattern =>
       isProps ? propsMixinNamePattern : stateMixinNamePattern;
 
-  factory PropsStateStringHelpers.props() => _PropsStateStringHelpersImpl(isProps: true);
-  factory PropsStateStringHelpers.state() => _PropsStateStringHelpersImpl(isProps: false);
+  static PropsStateStringHelpers props() => const _PropsStateStringHelpersImpl(isProps: true);
+  static PropsStateStringHelpers state() => const _PropsStateStringHelpersImpl(isProps: false);
 }
 
 class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
   @override
   final bool isProps;
 
-  _PropsStateStringHelpersImpl({required this.isProps});
+  const _PropsStateStringHelpersImpl({required this.isProps});
 }
 
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
@@ -72,10 +72,11 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
     if (potentiallyIncompleteValue is annotations.Props) {
       if (meta.unsupportedArguments.length == 1) {
         final arg = meta.unsupportedArguments[0];
-        if (arg is NamedExpression && arg.name.label.name == 'disableRequiredPropValidation') {
+        final argParts = namedArgumentParts(arg);
+        if (argParts != null && argParts.name == 'disableRequiredPropValidation') {
           // Attempt to parse the value, and fall through if something goes wrong,
           // and let `meta?.value` below throw.
-          final expression = arg.expression;
+          final expression = argParts.value;
           if (expression is SetOrMapLiteral) {
             final simpleStringElements =
                 expression.elements.whereType<SimpleStringLiteral>().toList();

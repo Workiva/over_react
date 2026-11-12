@@ -10,7 +10,7 @@
          ("Fix bug" and not "Fixed bug" or "Fixes bug.") -->
 
 ## Review
-_[See CONTRIBUTING.md][contributing-review-types] for more details on review types (+1 / QA +1 / +10) and code review process._
+_[See CONTRIBUTING.md][contributing-review-types] for more details on review types and code review process._
 
   <!-- If you're making a PR from outside of the Frontend Frameworks Design team, then first off, thanks! :)
 

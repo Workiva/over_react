@@ -15,12 +15,10 @@ final $TestSubtypeOfComponent1ComponentFactory = registerComponent2(
   builderFactory: _$TestSubtypeOfComponent1,
   componentClass: TestSubtypeOfComponent1Component,
   isWrapper: false,
-  parentType:
-      $TestParentComponentFactory, /* from `subtypeOf: TestParentComponent` */
+  parentType: $TestParentComponentFactory, /* from `subtypeOf: TestParentComponent` */
 );
 
-mixin _$TestSubtypeOfComponent1PropsAccessorsMixin
-    implements _$TestSubtypeOfComponent1Props {
+mixin _$TestSubtypeOfComponent1PropsAccessorsMixin implements _$TestSubtypeOfComponent1Props {
   @override
   Map get props;
 
@@ -35,23 +33,15 @@ const PropsMeta _$metaForTestSubtypeOfComponent1Props = PropsMeta(
   keys: _$TestSubtypeOfComponent1PropsAccessorsMixin.$propKeys,
 );
 
-class TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
-    with _$TestSubtypeOfComponent1PropsAccessorsMixin {
+class TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props with _$TestSubtypeOfComponent1PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestSubtypeOfComponent1Props;
 }
-
-_$$TestSubtypeOfComponent1Props _$TestSubtypeOfComponent1(
-        [Map? backingProps]) =>
-    _$$TestSubtypeOfComponent1Props(backingProps);
-
+_$$TestSubtypeOfComponent1Props _$TestSubtypeOfComponent1([Map? backingProps]) => _$$TestSubtypeOfComponent1Props(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
-    with _$TestSubtypeOfComponent1PropsAccessorsMixin
-    implements TestSubtypeOfComponent1Props {
-  _$$TestSubtypeOfComponent1Props([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props with _$TestSubtypeOfComponent1PropsAccessorsMixin implements TestSubtypeOfComponent1Props {
+  _$$TestSubtypeOfComponent1Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -63,29 +53,23 @@ class _$$TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestSubtypeOfComponent1ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestSubtypeOfComponent1ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestSubtypeOfComponent1Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSubtypeOfComponent1Props(
-          accessMap, (map) => _$$TestSubtypeOfComponent1Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestSubtypeOfComponent1Props(accessMap, (map) => _$$TestSubtypeOfComponent1Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestSubtypeOfComponent1Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestSubtypeOfComponent1Component
-    extends TestSubtypeOfComponent1Component {
+class _$TestSubtypeOfComponent1Component extends TestSubtypeOfComponent1Component {
   late _$$TestSubtypeOfComponent1Props _cachedTypedProps;
 
   @override
@@ -94,25 +78,21 @@ class _$TestSubtypeOfComponent1Component
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestSubtypeOfComponent1Props typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestSubtypeOfComponent1Props(backingMap);
+  _$$TestSubtypeOfComponent1Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestSubtypeOfComponent1Props(backingMap);
 
   @override
-  _$$TestSubtypeOfComponent1Props typedPropsFactory(Map? backingMap) =>
-      _$$TestSubtypeOfComponent1Props(backingMap);
+  _$$TestSubtypeOfComponent1Props typedPropsFactory(Map? backingMap) => _$$TestSubtypeOfComponent1Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -124,7 +104,5 @@ class _$TestSubtypeOfComponent1Component
   /// The default consumed props, taken from _$TestSubtypeOfComponent1Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestSubtypeOfComponent1Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestSubtypeOfComponent1Props];
 }

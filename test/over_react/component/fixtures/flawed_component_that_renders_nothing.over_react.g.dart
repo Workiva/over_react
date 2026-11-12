@@ -18,8 +18,7 @@ final $FlawedWithNoChildComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$FlawedWithNoChildPropsAccessorsMixin
-    implements _$FlawedWithNoChildProps {
+mixin _$FlawedWithNoChildPropsAccessorsMixin implements _$FlawedWithNoChildProps {
   @override
   Map get props;
 
@@ -34,17 +33,12 @@ const PropsMeta _$metaForFlawedWithNoChildProps = PropsMeta(
   keys: _$FlawedWithNoChildPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedWithNoChildProps _$FlawedWithNoChild([Map? backingProps]) =>
-    _$$FlawedWithNoChildProps(backingProps);
-
+_$$FlawedWithNoChildProps _$FlawedWithNoChild([Map? backingProps]) => _$$FlawedWithNoChildProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
-    with _$FlawedWithNoChildPropsAccessorsMixin
-    implements FlawedWithNoChildProps {
-  _$$FlawedWithNoChildProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps with _$FlawedWithNoChildPropsAccessorsMixin implements FlawedWithNoChildProps {
+  _$$FlawedWithNoChildProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -56,23 +50,18 @@ class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $FlawedWithNoChildComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $FlawedWithNoChildComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FlawedWithNoChildProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$FlawedWithNoChildProps(
-          accessMap, (map) => _$$FlawedWithNoChildProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$FlawedWithNoChildProps(accessMap, (map) => _$$FlawedWithNoChildProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$FlawedWithNoChildProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -86,24 +75,21 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$FlawedWithNoChildProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$FlawedWithNoChildProps(backingMap);
+  _$$FlawedWithNoChildProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$FlawedWithNoChildProps(backingMap);
 
   @override
-  _$$FlawedWithNoChildProps typedPropsFactory(Map? backingMap) =>
-      _$$FlawedWithNoChildProps(backingMap);
+  _$$FlawedWithNoChildProps typedPropsFactory(Map? backingMap) => _$$FlawedWithNoChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -115,7 +101,5 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFlawedWithNoChildProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFlawedWithNoChildProps];
 }

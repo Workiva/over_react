@@ -18,8 +18,7 @@ final $AnnotationErrorDefaultPropsComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$AnnotationErrorDefaultPropsPropsAccessorsMixin
-    implements _$AnnotationErrorDefaultPropsProps {
+mixin _$AnnotationErrorDefaultPropsPropsAccessorsMixin implements _$AnnotationErrorDefaultPropsProps {
   @override
   Map get props;
 
@@ -34,25 +33,15 @@ const PropsMeta _$metaForAnnotationErrorDefaultPropsProps = PropsMeta(
   keys: _$AnnotationErrorDefaultPropsPropsAccessorsMixin.$propKeys,
 );
 
-class AnnotationErrorDefaultPropsProps
-    extends _$AnnotationErrorDefaultPropsProps
-    with _$AnnotationErrorDefaultPropsPropsAccessorsMixin {
+class AnnotationErrorDefaultPropsProps extends _$AnnotationErrorDefaultPropsProps with _$AnnotationErrorDefaultPropsPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForAnnotationErrorDefaultPropsProps;
 }
-
-_$$AnnotationErrorDefaultPropsProps _$AnnotationErrorDefaultProps(
-        [Map? backingProps]) =>
-    _$$AnnotationErrorDefaultPropsProps(backingProps);
-
+_$$AnnotationErrorDefaultPropsProps _$AnnotationErrorDefaultProps([Map? backingProps]) => _$$AnnotationErrorDefaultPropsProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$AnnotationErrorDefaultPropsProps
-    extends _$AnnotationErrorDefaultPropsProps
-    with _$AnnotationErrorDefaultPropsPropsAccessorsMixin
-    implements AnnotationErrorDefaultPropsProps {
-  _$$AnnotationErrorDefaultPropsProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$AnnotationErrorDefaultPropsProps extends _$AnnotationErrorDefaultPropsProps with _$AnnotationErrorDefaultPropsPropsAccessorsMixin implements AnnotationErrorDefaultPropsProps {
+  _$$AnnotationErrorDefaultPropsProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -64,35 +53,28 @@ class _$$AnnotationErrorDefaultPropsProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $AnnotationErrorDefaultPropsComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $AnnotationErrorDefaultPropsComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorDefaultPropsProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$AnnotationErrorDefaultPropsProps(
-          accessMap, (map) => _$$AnnotationErrorDefaultPropsProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$AnnotationErrorDefaultPropsProps(accessMap, (map) => _$$AnnotationErrorDefaultPropsProps(map));
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$AnnotationErrorDefaultPropsProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$AnnotationErrorDefaultPropsComponent
-    extends AnnotationErrorDefaultPropsComponent {
+class _$AnnotationErrorDefaultPropsComponent extends AnnotationErrorDefaultPropsComponent {
   @override
-  _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map? backingMap) =>
-      _$$AnnotationErrorDefaultPropsProps(backingMap);
+  _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map? backingMap) => _$$AnnotationErrorDefaultPropsProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -104,9 +86,7 @@ class _$AnnotationErrorDefaultPropsComponent
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForAnnotationErrorDefaultPropsProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForAnnotationErrorDefaultPropsProps];
 }
 
 // React component factory implementation.
@@ -135,22 +115,15 @@ const PropsMeta _$metaForAnnotationErrorProps = PropsMeta(
   keys: _$AnnotationErrorPropsAccessorsMixin.$propKeys,
 );
 
-class AnnotationErrorProps extends _$AnnotationErrorProps
-    with _$AnnotationErrorPropsAccessorsMixin {
+class AnnotationErrorProps extends _$AnnotationErrorProps with _$AnnotationErrorPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForAnnotationErrorProps;
 }
-
-_$$AnnotationErrorProps _$AnnotationError([Map? backingProps]) =>
-    _$$AnnotationErrorProps(backingProps);
-
+_$$AnnotationErrorProps _$AnnotationError([Map? backingProps]) => _$$AnnotationErrorProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$AnnotationErrorProps extends _$AnnotationErrorProps
-    with _$AnnotationErrorPropsAccessorsMixin
-    implements AnnotationErrorProps {
-  _$$AnnotationErrorProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$AnnotationErrorProps extends _$AnnotationErrorProps with _$AnnotationErrorPropsAccessorsMixin implements AnnotationErrorProps {
+  _$$AnnotationErrorProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -162,31 +135,25 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $AnnotationErrorComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $AnnotationErrorComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$AnnotationErrorProps(
-          accessMap, (map) => _$$AnnotationErrorProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$AnnotationErrorProps(accessMap, (map) => _$$AnnotationErrorProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$AnnotationErrorProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   @override
-  _$$AnnotationErrorProps typedPropsFactory(Map? backingMap) =>
-      _$$AnnotationErrorProps(backingMap);
+  _$$AnnotationErrorProps typedPropsFactory(Map? backingMap) => _$$AnnotationErrorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -198,9 +165,7 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   /// The default consumed props, taken from _$AnnotationErrorProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForAnnotationErrorProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForAnnotationErrorProps];
 }
 
 // React component factory implementation.
@@ -214,8 +179,7 @@ final $AnnotationErrorStatefulComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$AnnotationErrorStatefulPropsAccessorsMixin
-    implements _$AnnotationErrorStatefulProps {
+mixin _$AnnotationErrorStatefulPropsAccessorsMixin implements _$AnnotationErrorStatefulProps {
   @override
   Map get props;
 
@@ -230,23 +194,15 @@ const PropsMeta _$metaForAnnotationErrorStatefulProps = PropsMeta(
   keys: _$AnnotationErrorStatefulPropsAccessorsMixin.$propKeys,
 );
 
-class AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
-    with _$AnnotationErrorStatefulPropsAccessorsMixin {
+class AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps with _$AnnotationErrorStatefulPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForAnnotationErrorStatefulProps;
 }
-
-_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful(
-        [Map? backingProps]) =>
-    _$$AnnotationErrorStatefulProps(backingProps);
-
+_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful([Map? backingProps]) => _$$AnnotationErrorStatefulProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
-    with _$AnnotationErrorStatefulPropsAccessorsMixin
-    implements AnnotationErrorStatefulProps {
-  _$$AnnotationErrorStatefulProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps with _$AnnotationErrorStatefulPropsAccessorsMixin implements AnnotationErrorStatefulProps {
+  _$$AnnotationErrorStatefulProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -258,24 +214,19 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $AnnotationErrorStatefulComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $AnnotationErrorStatefulComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$AnnotationErrorStatefulProps(
-          accessMap, (map) => _$$AnnotationErrorStatefulProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$AnnotationErrorStatefulProps(accessMap, (map) => _$$AnnotationErrorStatefulProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$AnnotationErrorStatefulProps = getPropKey;
-mixin _$AnnotationErrorStatefulStateAccessorsMixin
-    implements _$AnnotationErrorStatefulState {
+mixin _$AnnotationErrorStatefulStateAccessorsMixin implements _$AnnotationErrorStatefulState {
   @override
   Map get state;
 
@@ -290,19 +241,14 @@ const StateMeta _$metaForAnnotationErrorStatefulState = StateMeta(
   keys: _$AnnotationErrorStatefulStateAccessorsMixin.$stateKeys,
 );
 
-class AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
-    with _$AnnotationErrorStatefulStateAccessorsMixin {
+class AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState with _$AnnotationErrorStatefulStateAccessorsMixin {
   static const StateMeta meta = _$metaForAnnotationErrorStatefulState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
-    with _$AnnotationErrorStatefulStateAccessorsMixin
-    implements AnnotationErrorStatefulState {
-  _$$AnnotationErrorStatefulState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState with _$AnnotationErrorStatefulStateAccessorsMixin implements AnnotationErrorStatefulState {
+  _$$AnnotationErrorStatefulState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -312,20 +258,16 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$AnnotationErrorStatefulComponent
-    extends AnnotationErrorStatefulComponent {
+class _$AnnotationErrorStatefulComponent extends AnnotationErrorStatefulComponent {
   @override
-  _$$AnnotationErrorStatefulProps typedPropsFactory(Map? backingMap) =>
-      _$$AnnotationErrorStatefulProps(backingMap);
+  _$$AnnotationErrorStatefulProps typedPropsFactory(Map? backingMap) => _$$AnnotationErrorStatefulProps(backingMap);
 
   @override
-  _$$AnnotationErrorStatefulState typedStateFactory(Map? backingMap) =>
-      _$$AnnotationErrorStatefulState(backingMap);
+  _$$AnnotationErrorStatefulState typedStateFactory(Map? backingMap) => _$$AnnotationErrorStatefulState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -337,9 +279,7 @@ class _$AnnotationErrorStatefulComponent
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForAnnotationErrorStatefulProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForAnnotationErrorStatefulProps];
 }
 
 // React component factory implementation.
@@ -353,8 +293,7 @@ final $AnnotationErrorStatefulDefaultPropsComponentFactory = registerComponent(
   parentType: null,
 );
 
-mixin _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
-    implements _$AnnotationErrorStatefulDefaultPropsProps {
+mixin _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin implements _$AnnotationErrorStatefulDefaultPropsProps {
   @override
   Map get props;
 
@@ -369,26 +308,15 @@ const PropsMeta _$metaForAnnotationErrorStatefulDefaultPropsProps = PropsMeta(
   keys: _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin.$propKeys,
 );
 
-class AnnotationErrorStatefulDefaultPropsProps
-    extends _$AnnotationErrorStatefulDefaultPropsProps
-    with _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin {
-  static const PropsMeta meta =
-      _$metaForAnnotationErrorStatefulDefaultPropsProps;
+class AnnotationErrorStatefulDefaultPropsProps extends _$AnnotationErrorStatefulDefaultPropsProps with _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForAnnotationErrorStatefulDefaultPropsProps;
 }
-
-_$$AnnotationErrorStatefulDefaultPropsProps
-    _$AnnotationErrorStatefulDefaultProps([Map? backingProps]) =>
-        _$$AnnotationErrorStatefulDefaultPropsProps(backingProps);
-
+_$$AnnotationErrorStatefulDefaultPropsProps _$AnnotationErrorStatefulDefaultProps([Map? backingProps]) => _$$AnnotationErrorStatefulDefaultPropsProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$AnnotationErrorStatefulDefaultPropsProps
-    extends _$AnnotationErrorStatefulDefaultPropsProps
-    with _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
-    implements AnnotationErrorStatefulDefaultPropsProps {
-  _$$AnnotationErrorStatefulDefaultPropsProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$AnnotationErrorStatefulDefaultPropsProps extends _$AnnotationErrorStatefulDefaultPropsProps with _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin implements AnnotationErrorStatefulDefaultPropsProps {
+  _$$AnnotationErrorStatefulDefaultPropsProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -400,28 +328,22 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ??
-      $AnnotationErrorStatefulDefaultPropsComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $AnnotationErrorStatefulDefaultPropsComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'AnnotationErrorStatefulDefaultPropsProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(
-          accessMap, (map) => _$$AnnotationErrorStatefulDefaultPropsProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps(accessMap, (map) => _$$AnnotationErrorStatefulDefaultPropsProps(map));
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'id'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$AnnotationErrorStatefulDefaultPropsProps = getPropKey;
-mixin _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
-    implements _$AnnotationErrorStatefulDefaultPropsState {
+mixin _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin implements _$AnnotationErrorStatefulDefaultPropsState {
   @override
   Map get state;
 
@@ -436,22 +358,14 @@ const StateMeta _$metaForAnnotationErrorStatefulDefaultPropsState = StateMeta(
   keys: _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin.$stateKeys,
 );
 
-class AnnotationErrorStatefulDefaultPropsState
-    extends _$AnnotationErrorStatefulDefaultPropsState
-    with _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin {
-  static const StateMeta meta =
-      _$metaForAnnotationErrorStatefulDefaultPropsState;
+class AnnotationErrorStatefulDefaultPropsState extends _$AnnotationErrorStatefulDefaultPropsState with _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin {
+  static const StateMeta meta = _$metaForAnnotationErrorStatefulDefaultPropsState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$AnnotationErrorStatefulDefaultPropsState
-    extends _$AnnotationErrorStatefulDefaultPropsState
-    with _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
-    implements AnnotationErrorStatefulDefaultPropsState {
-  _$$AnnotationErrorStatefulDefaultPropsState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$AnnotationErrorStatefulDefaultPropsState extends _$AnnotationErrorStatefulDefaultPropsState with _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin implements AnnotationErrorStatefulDefaultPropsState {
+  _$$AnnotationErrorStatefulDefaultPropsState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -461,22 +375,16 @@ class _$$AnnotationErrorStatefulDefaultPropsState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$AnnotationErrorStatefulDefaultPropsComponent
-    extends AnnotationErrorStatefulDefaultPropsComponent {
+class _$AnnotationErrorStatefulDefaultPropsComponent extends AnnotationErrorStatefulDefaultPropsComponent {
   @override
-  _$$AnnotationErrorStatefulDefaultPropsProps typedPropsFactory(
-          Map? backingMap) =>
-      _$$AnnotationErrorStatefulDefaultPropsProps(backingMap);
+  _$$AnnotationErrorStatefulDefaultPropsProps typedPropsFactory(Map? backingMap) => _$$AnnotationErrorStatefulDefaultPropsProps(backingMap);
 
   @override
-  _$$AnnotationErrorStatefulDefaultPropsState typedStateFactory(
-          Map? backingMap) =>
-      _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
+  _$$AnnotationErrorStatefulDefaultPropsState typedStateFactory(Map? backingMap) => _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -488,7 +396,5 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForAnnotationErrorStatefulDefaultPropsProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForAnnotationErrorStatefulDefaultPropsProps];
 }

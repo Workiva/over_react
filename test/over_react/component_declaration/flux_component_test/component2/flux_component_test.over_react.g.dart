@@ -33,22 +33,15 @@ const PropsMeta _$metaForTestBasicProps = PropsMeta(
   keys: _$TestBasicPropsAccessorsMixin.$propKeys,
 );
 
-class TestBasicProps extends _$TestBasicProps
-    with _$TestBasicPropsAccessorsMixin {
+class TestBasicProps extends _$TestBasicProps with _$TestBasicPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestBasicProps;
 }
-
-_$$TestBasicProps _$TestBasic([Map? backingProps]) =>
-    _$$TestBasicProps(backingProps);
-
+_$$TestBasicProps _$TestBasic([Map? backingProps]) => _$$TestBasicProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestBasicProps extends _$TestBasicProps
-    with _$TestBasicPropsAccessorsMixin
-    implements TestBasicProps {
-  _$$TestBasicProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestBasicProps extends _$TestBasicProps with _$TestBasicPropsAccessorsMixin implements TestBasicProps {
+  _$$TestBasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,23 +53,18 @@ class _$$TestBasicProps extends _$TestBasicProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestBasicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestBasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestBasicProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestBasicProps(
-          accessMap, (map) => _$$TestBasicProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestBasicProps(accessMap, (map) => _$$TestBasicProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestBasicProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -90,24 +78,21 @@ class _$TestBasicComponent extends TestBasicComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestBasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestBasicProps(backingMap);
+  _$$TestBasicProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestBasicProps(backingMap);
 
   @override
-  _$$TestBasicProps typedPropsFactory(Map? backingMap) =>
-      _$$TestBasicProps(backingMap);
+  _$$TestBasicProps typedPropsFactory(Map? backingMap) => _$$TestBasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -119,9 +104,7 @@ class _$TestBasicComponent extends TestBasicComponent {
   /// The default consumed props, taken from _$TestBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestBasicProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestBasicProps];
 }
 
 // React component factory implementation.
@@ -135,8 +118,7 @@ final $TestHandlerLifecycleComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestHandlerLifecyclePropsAccessorsMixin
-    implements _$TestHandlerLifecycleProps {
+mixin _$TestHandlerLifecyclePropsAccessorsMixin implements _$TestHandlerLifecycleProps {
   @override
   Map get props;
 
@@ -151,22 +133,15 @@ const PropsMeta _$metaForTestHandlerLifecycleProps = PropsMeta(
   keys: _$TestHandlerLifecyclePropsAccessorsMixin.$propKeys,
 );
 
-class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
-    with _$TestHandlerLifecyclePropsAccessorsMixin {
+class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps with _$TestHandlerLifecyclePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestHandlerLifecycleProps;
 }
-
-_$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map? backingProps]) =>
-    _$$TestHandlerLifecycleProps(backingProps);
-
+_$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map? backingProps]) => _$$TestHandlerLifecycleProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
-    with _$TestHandlerLifecyclePropsAccessorsMixin
-    implements TestHandlerLifecycleProps {
-  _$$TestHandlerLifecycleProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps with _$TestHandlerLifecyclePropsAccessorsMixin implements TestHandlerLifecycleProps {
+  _$$TestHandlerLifecycleProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -178,23 +153,18 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestHandlerLifecycleComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestHandlerLifecycleComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestHandlerLifecycleProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestHandlerLifecycleProps(
-          accessMap, (map) => _$$TestHandlerLifecycleProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestHandlerLifecycleProps(accessMap, (map) => _$$TestHandlerLifecycleProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestHandlerLifecycleProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -208,24 +178,21 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestHandlerLifecycleProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestHandlerLifecycleProps(backingMap);
+  _$$TestHandlerLifecycleProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestHandlerLifecycleProps(backingMap);
 
   @override
-  _$$TestHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
-      _$$TestHandlerLifecycleProps(backingMap);
+  _$$TestHandlerLifecycleProps typedPropsFactory(Map? backingMap) => _$$TestHandlerLifecycleProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -237,9 +204,7 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   /// The default consumed props, taken from _$TestHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestHandlerLifecycleProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestHandlerLifecycleProps];
 }
 
 // React component factory implementation.
@@ -253,8 +218,7 @@ final $TestHandlerPrecedenceComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestHandlerPrecedencePropsAccessorsMixin
-    implements _$TestHandlerPrecedenceProps {
+mixin _$TestHandlerPrecedencePropsAccessorsMixin implements _$TestHandlerPrecedenceProps {
   @override
   Map get props;
 
@@ -269,22 +233,15 @@ const PropsMeta _$metaForTestHandlerPrecedenceProps = PropsMeta(
   keys: _$TestHandlerPrecedencePropsAccessorsMixin.$propKeys,
 );
 
-class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
-    with _$TestHandlerPrecedencePropsAccessorsMixin {
+class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps with _$TestHandlerPrecedencePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestHandlerPrecedenceProps;
 }
-
-_$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map? backingProps]) =>
-    _$$TestHandlerPrecedenceProps(backingProps);
-
+_$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map? backingProps]) => _$$TestHandlerPrecedenceProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
-    with _$TestHandlerPrecedencePropsAccessorsMixin
-    implements TestHandlerPrecedenceProps {
-  _$$TestHandlerPrecedenceProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps with _$TestHandlerPrecedencePropsAccessorsMixin implements TestHandlerPrecedenceProps {
+  _$$TestHandlerPrecedenceProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -296,23 +253,18 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestHandlerPrecedenceComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestHandlerPrecedenceComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestHandlerPrecedenceProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestHandlerPrecedenceProps(
-          accessMap, (map) => _$$TestHandlerPrecedenceProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestHandlerPrecedenceProps(accessMap, (map) => _$$TestHandlerPrecedenceProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestHandlerPrecedenceProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -326,24 +278,21 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestHandlerPrecedenceProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestHandlerPrecedenceProps(backingMap);
+  _$$TestHandlerPrecedenceProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestHandlerPrecedenceProps(backingMap);
 
   @override
-  _$$TestHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
-      _$$TestHandlerPrecedenceProps(backingMap);
+  _$$TestHandlerPrecedenceProps typedPropsFactory(Map? backingMap) => _$$TestHandlerPrecedenceProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -355,9 +304,7 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   /// The default consumed props, taken from _$TestHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestHandlerPrecedenceProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestHandlerPrecedenceProps];
 }
 
 // React component factory implementation.
@@ -371,35 +318,24 @@ final $TestPropValidationComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestPropValidationPropsAccessorsMixin
-    implements _$TestPropValidationProps {
+mixin _$TestPropValidationPropsAccessorsMixin implements _$TestPropValidationProps {
   @override
   Map get props;
 
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  String? get required =>
-      (props[_$key__required___$TestPropValidationProps] ?? null) as String?;
-
+  String? get required => (props[_$key__required___$TestPropValidationProps] ?? null) as String?;
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  set required(String? value) =>
-      props[_$key__required___$TestPropValidationProps] = value;
+  set required(String? value) => props[_$key__required___$TestPropValidationProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__required___$TestPropValidationProps =
-      PropDescriptor(_$key__required___$TestPropValidationProps,
-          isRequired: true);
-  static const String _$key__required___$TestPropValidationProps =
-      'TestPropValidationProps.required';
+  static const PropDescriptor _$prop__required___$TestPropValidationProps = PropDescriptor(_$key__required___$TestPropValidationProps, isRequired: true);
+  static const String _$key__required___$TestPropValidationProps = 'TestPropValidationProps.required';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__required___$TestPropValidationProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__required___$TestPropValidationProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__required___$TestPropValidationProps];
+  static const List<String> $propKeys = [_$key__required___$TestPropValidationProps];
 }
 
 const PropsMeta _$metaForTestPropValidationProps = PropsMeta(
@@ -407,22 +343,15 @@ const PropsMeta _$metaForTestPropValidationProps = PropsMeta(
   keys: _$TestPropValidationPropsAccessorsMixin.$propKeys,
 );
 
-class TestPropValidationProps extends _$TestPropValidationProps
-    with _$TestPropValidationPropsAccessorsMixin {
+class TestPropValidationProps extends _$TestPropValidationProps with _$TestPropValidationPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestPropValidationProps;
 }
-
-_$$TestPropValidationProps _$TestPropValidation([Map? backingProps]) =>
-    _$$TestPropValidationProps(backingProps);
-
+_$$TestPropValidationProps _$TestPropValidation([Map? backingProps]) => _$$TestPropValidationProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestPropValidationProps extends _$TestPropValidationProps
-    with _$TestPropValidationPropsAccessorsMixin
-    implements TestPropValidationProps {
-  _$$TestPropValidationProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestPropValidationProps extends _$TestPropValidationProps with _$TestPropValidationPropsAccessorsMixin implements TestPropValidationProps {
+  _$$TestPropValidationProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -434,23 +363,18 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestPropValidationComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestPropValidationComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestPropValidationProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestPropValidationProps(
-          accessMap, (map) => _$$TestPropValidationProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestPropValidationProps(accessMap, (map) => _$$TestPropValidationProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestPropValidationProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -464,24 +388,21 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestPropValidationProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestPropValidationProps(backingMap);
+  _$$TestPropValidationProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestPropValidationProps(backingMap);
 
   @override
-  _$$TestPropValidationProps typedPropsFactory(Map? backingMap) =>
-      _$$TestPropValidationProps(backingMap);
+  _$$TestPropValidationProps typedPropsFactory(Map? backingMap) => _$$TestPropValidationProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -493,9 +414,7 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   /// The default consumed props, taken from _$TestPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestPropValidationProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestPropValidationProps];
 }
 
 // React component factory implementation.
@@ -524,22 +443,15 @@ const PropsMeta _$metaForTestRedrawOnProps = PropsMeta(
   keys: _$TestRedrawOnPropsAccessorsMixin.$propKeys,
 );
 
-class TestRedrawOnProps extends _$TestRedrawOnProps
-    with _$TestRedrawOnPropsAccessorsMixin {
+class TestRedrawOnProps extends _$TestRedrawOnProps with _$TestRedrawOnPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestRedrawOnProps;
 }
-
-_$$TestRedrawOnProps _$TestRedrawOn([Map? backingProps]) =>
-    _$$TestRedrawOnProps(backingProps);
-
+_$$TestRedrawOnProps _$TestRedrawOn([Map? backingProps]) => _$$TestRedrawOnProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestRedrawOnProps extends _$TestRedrawOnProps
-    with _$TestRedrawOnPropsAccessorsMixin
-    implements TestRedrawOnProps {
-  _$$TestRedrawOnProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestRedrawOnProps extends _$TestRedrawOnProps with _$TestRedrawOnPropsAccessorsMixin implements TestRedrawOnProps {
+  _$$TestRedrawOnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -551,23 +463,18 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestRedrawOnComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestRedrawOnComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestRedrawOnProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestRedrawOnProps(
-          accessMap, (map) => _$$TestRedrawOnProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestRedrawOnProps(accessMap, (map) => _$$TestRedrawOnProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestRedrawOnProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -581,24 +488,21 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestRedrawOnProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestRedrawOnProps(backingMap);
+  _$$TestRedrawOnProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestRedrawOnProps(backingMap);
 
   @override
-  _$$TestRedrawOnProps typedPropsFactory(Map? backingMap) =>
-      _$$TestRedrawOnProps(backingMap);
+  _$$TestRedrawOnProps typedPropsFactory(Map? backingMap) => _$$TestRedrawOnProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -610,9 +514,7 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   /// The default consumed props, taken from _$TestRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestRedrawOnProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestRedrawOnProps];
 }
 
 // React component factory implementation.
@@ -626,8 +528,7 @@ final $TestStoreHandlersComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStoreHandlersPropsAccessorsMixin
-    implements _$TestStoreHandlersProps {
+mixin _$TestStoreHandlersPropsAccessorsMixin implements _$TestStoreHandlersProps {
   @override
   Map get props;
 
@@ -642,22 +543,15 @@ const PropsMeta _$metaForTestStoreHandlersProps = PropsMeta(
   keys: _$TestStoreHandlersPropsAccessorsMixin.$propKeys,
 );
 
-class TestStoreHandlersProps extends _$TestStoreHandlersProps
-    with _$TestStoreHandlersPropsAccessorsMixin {
+class TestStoreHandlersProps extends _$TestStoreHandlersProps with _$TestStoreHandlersPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStoreHandlersProps;
 }
-
-_$$TestStoreHandlersProps _$TestStoreHandlers([Map? backingProps]) =>
-    _$$TestStoreHandlersProps(backingProps);
-
+_$$TestStoreHandlersProps _$TestStoreHandlers([Map? backingProps]) => _$$TestStoreHandlersProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
-    with _$TestStoreHandlersPropsAccessorsMixin
-    implements TestStoreHandlersProps {
-  _$$TestStoreHandlersProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps with _$TestStoreHandlersPropsAccessorsMixin implements TestStoreHandlersProps {
+  _$$TestStoreHandlersProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -669,23 +563,18 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStoreHandlersComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStoreHandlersComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStoreHandlersProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStoreHandlersProps(
-          accessMap, (map) => _$$TestStoreHandlersProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStoreHandlersProps(accessMap, (map) => _$$TestStoreHandlersProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStoreHandlersProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -699,24 +588,21 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStoreHandlersProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestStoreHandlersProps(backingMap);
+  _$$TestStoreHandlersProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStoreHandlersProps(backingMap);
 
   @override
-  _$$TestStoreHandlersProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStoreHandlersProps(backingMap);
+  _$$TestStoreHandlersProps typedPropsFactory(Map? backingMap) => _$$TestStoreHandlersProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -728,9 +614,7 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   /// The default consumed props, taken from _$TestStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStoreHandlersProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStoreHandlersProps];
 }
 
 // React component factory implementation.
@@ -744,8 +628,7 @@ final $TestStatefulBasicComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStatefulBasicPropsAccessorsMixin
-    implements _$TestStatefulBasicProps {
+mixin _$TestStatefulBasicPropsAccessorsMixin implements _$TestStatefulBasicProps {
   @override
   Map get props;
 
@@ -760,22 +643,15 @@ const PropsMeta _$metaForTestStatefulBasicProps = PropsMeta(
   keys: _$TestStatefulBasicPropsAccessorsMixin.$propKeys,
 );
 
-class TestStatefulBasicProps extends _$TestStatefulBasicProps
-    with _$TestStatefulBasicPropsAccessorsMixin {
+class TestStatefulBasicProps extends _$TestStatefulBasicProps with _$TestStatefulBasicPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStatefulBasicProps;
 }
-
-_$$TestStatefulBasicProps _$TestStatefulBasic([Map? backingProps]) =>
-    _$$TestStatefulBasicProps(backingProps);
-
+_$$TestStatefulBasicProps _$TestStatefulBasic([Map? backingProps]) => _$$TestStatefulBasicProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
-    with _$TestStatefulBasicPropsAccessorsMixin
-    implements TestStatefulBasicProps {
-  _$$TestStatefulBasicProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps with _$TestStatefulBasicPropsAccessorsMixin implements TestStatefulBasicProps {
+  _$$TestStatefulBasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -787,24 +663,19 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStatefulBasicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStatefulBasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulBasicProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStatefulBasicProps(
-          accessMap, (map) => _$$TestStatefulBasicProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStatefulBasicProps(accessMap, (map) => _$$TestStatefulBasicProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulBasicProps = getPropKey;
-mixin _$TestStatefulBasicStateAccessorsMixin
-    implements _$TestStatefulBasicState {
+mixin _$TestStatefulBasicStateAccessorsMixin implements _$TestStatefulBasicState {
   @override
   Map get state;
 
@@ -819,19 +690,14 @@ const StateMeta _$metaForTestStatefulBasicState = StateMeta(
   keys: _$TestStatefulBasicStateAccessorsMixin.$stateKeys,
 );
 
-class TestStatefulBasicState extends _$TestStatefulBasicState
-    with _$TestStatefulBasicStateAccessorsMixin {
+class TestStatefulBasicState extends _$TestStatefulBasicState with _$TestStatefulBasicStateAccessorsMixin {
   static const StateMeta meta = _$metaForTestStatefulBasicState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TestStatefulBasicState extends _$TestStatefulBasicState
-    with _$TestStatefulBasicStateAccessorsMixin
-    implements TestStatefulBasicState {
-  _$$TestStatefulBasicState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TestStatefulBasicState extends _$TestStatefulBasicState with _$TestStatefulBasicStateAccessorsMixin implements TestStatefulBasicState {
+  _$$TestStatefulBasicState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -841,7 +707,6 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -855,24 +720,21 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStatefulBasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestStatefulBasicProps(backingMap);
+  _$$TestStatefulBasicProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulBasicProps(backingMap);
 
   @override
-  _$$TestStatefulBasicProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStatefulBasicProps(backingMap);
+  _$$TestStatefulBasicProps typedPropsFactory(Map? backingMap) => _$$TestStatefulBasicProps(backingMap);
 
   late _$$TestStatefulBasicState _cachedTypedState;
   @override
@@ -880,21 +742,18 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TestStatefulBasicState typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestStatefulBasicState(backingMap);
+  @override 
+  _$$TestStatefulBasicState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulBasicState(backingMap);
 
   @override
-  _$$TestStatefulBasicState typedStateFactory(Map? backingMap) =>
-      _$$TestStatefulBasicState(backingMap);
+  _$$TestStatefulBasicState typedStateFactory(Map? backingMap) => _$$TestStatefulBasicState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -906,9 +765,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   /// The default consumed props, taken from _$TestStatefulBasicProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStatefulBasicProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStatefulBasicProps];
 }
 
 // React component factory implementation.
@@ -922,8 +779,7 @@ final $TestStatefulHandlerLifecycleComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStatefulHandlerLifecyclePropsAccessorsMixin
-    implements _$TestStatefulHandlerLifecycleProps {
+mixin _$TestStatefulHandlerLifecyclePropsAccessorsMixin implements _$TestStatefulHandlerLifecycleProps {
   @override
   Map get props;
 
@@ -938,25 +794,15 @@ const PropsMeta _$metaForTestStatefulHandlerLifecycleProps = PropsMeta(
   keys: _$TestStatefulHandlerLifecyclePropsAccessorsMixin.$propKeys,
 );
 
-class TestStatefulHandlerLifecycleProps
-    extends _$TestStatefulHandlerLifecycleProps
-    with _$TestStatefulHandlerLifecyclePropsAccessorsMixin {
+class TestStatefulHandlerLifecycleProps extends _$TestStatefulHandlerLifecycleProps with _$TestStatefulHandlerLifecyclePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStatefulHandlerLifecycleProps;
 }
-
-_$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle(
-        [Map? backingProps]) =>
-    _$$TestStatefulHandlerLifecycleProps(backingProps);
-
+_$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle([Map? backingProps]) => _$$TestStatefulHandlerLifecycleProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStatefulHandlerLifecycleProps
-    extends _$TestStatefulHandlerLifecycleProps
-    with _$TestStatefulHandlerLifecyclePropsAccessorsMixin
-    implements TestStatefulHandlerLifecycleProps {
-  _$$TestStatefulHandlerLifecycleProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStatefulHandlerLifecycleProps extends _$TestStatefulHandlerLifecycleProps with _$TestStatefulHandlerLifecyclePropsAccessorsMixin implements TestStatefulHandlerLifecycleProps {
+  _$$TestStatefulHandlerLifecycleProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -968,24 +814,19 @@ class _$$TestStatefulHandlerLifecycleProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStatefulHandlerLifecycleComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStatefulHandlerLifecycleComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerLifecycleProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStatefulHandlerLifecycleProps(
-          accessMap, (map) => _$$TestStatefulHandlerLifecycleProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStatefulHandlerLifecycleProps(accessMap, (map) => _$$TestStatefulHandlerLifecycleProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulHandlerLifecycleProps = getPropKey;
-mixin _$TestStatefulHandlerLifecycleStateAccessorsMixin
-    implements _$TestStatefulHandlerLifecycleState {
+mixin _$TestStatefulHandlerLifecycleStateAccessorsMixin implements _$TestStatefulHandlerLifecycleState {
   @override
   Map get state;
 
@@ -1000,21 +841,14 @@ const StateMeta _$metaForTestStatefulHandlerLifecycleState = StateMeta(
   keys: _$TestStatefulHandlerLifecycleStateAccessorsMixin.$stateKeys,
 );
 
-class TestStatefulHandlerLifecycleState
-    extends _$TestStatefulHandlerLifecycleState
-    with _$TestStatefulHandlerLifecycleStateAccessorsMixin {
+class TestStatefulHandlerLifecycleState extends _$TestStatefulHandlerLifecycleState with _$TestStatefulHandlerLifecycleStateAccessorsMixin {
   static const StateMeta meta = _$metaForTestStatefulHandlerLifecycleState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TestStatefulHandlerLifecycleState
-    extends _$TestStatefulHandlerLifecycleState
-    with _$TestStatefulHandlerLifecycleStateAccessorsMixin
-    implements TestStatefulHandlerLifecycleState {
-  _$$TestStatefulHandlerLifecycleState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TestStatefulHandlerLifecycleState extends _$TestStatefulHandlerLifecycleState with _$TestStatefulHandlerLifecycleStateAccessorsMixin implements TestStatefulHandlerLifecycleState {
+  _$$TestStatefulHandlerLifecycleState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -1024,13 +858,11 @@ class _$$TestStatefulHandlerLifecycleState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestStatefulHandlerLifecycleComponent
-    extends TestStatefulHandlerLifecycleComponent {
+class _$TestStatefulHandlerLifecycleComponent extends TestStatefulHandlerLifecycleComponent {
   late _$$TestStatefulHandlerLifecycleProps _cachedTypedProps;
 
   @override
@@ -1039,25 +871,21 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStatefulHandlerLifecycleProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerLifecycleProps(backingMap);
+  _$$TestStatefulHandlerLifecycleProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulHandlerLifecycleProps(backingMap);
 
   @override
-  _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStatefulHandlerLifecycleProps(backingMap);
+  _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map? backingMap) => _$$TestStatefulHandlerLifecycleProps(backingMap);
 
   late _$$TestStatefulHandlerLifecycleState _cachedTypedState;
   @override
@@ -1065,22 +893,18 @@ class _$TestStatefulHandlerLifecycleComponent
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TestStatefulHandlerLifecycleState typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerLifecycleState(backingMap);
+  @override 
+  _$$TestStatefulHandlerLifecycleState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulHandlerLifecycleState(backingMap);
 
   @override
-  _$$TestStatefulHandlerLifecycleState typedStateFactory(Map? backingMap) =>
-      _$$TestStatefulHandlerLifecycleState(backingMap);
+  _$$TestStatefulHandlerLifecycleState typedStateFactory(Map? backingMap) => _$$TestStatefulHandlerLifecycleState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1092,9 +916,7 @@ class _$TestStatefulHandlerLifecycleComponent
   /// The default consumed props, taken from _$TestStatefulHandlerLifecycleProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStatefulHandlerLifecycleProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStatefulHandlerLifecycleProps];
 }
 
 // React component factory implementation.
@@ -1108,8 +930,7 @@ final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStatefulHandlerPrecedencePropsAccessorsMixin
-    implements _$TestStatefulHandlerPrecedenceProps {
+mixin _$TestStatefulHandlerPrecedencePropsAccessorsMixin implements _$TestStatefulHandlerPrecedenceProps {
   @override
   Map get props;
 
@@ -1124,25 +945,15 @@ const PropsMeta _$metaForTestStatefulHandlerPrecedenceProps = PropsMeta(
   keys: _$TestStatefulHandlerPrecedencePropsAccessorsMixin.$propKeys,
 );
 
-class TestStatefulHandlerPrecedenceProps
-    extends _$TestStatefulHandlerPrecedenceProps
-    with _$TestStatefulHandlerPrecedencePropsAccessorsMixin {
+class TestStatefulHandlerPrecedenceProps extends _$TestStatefulHandlerPrecedenceProps with _$TestStatefulHandlerPrecedencePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStatefulHandlerPrecedenceProps;
 }
-
-_$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence(
-        [Map? backingProps]) =>
-    _$$TestStatefulHandlerPrecedenceProps(backingProps);
-
+_$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence([Map? backingProps]) => _$$TestStatefulHandlerPrecedenceProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStatefulHandlerPrecedenceProps
-    extends _$TestStatefulHandlerPrecedenceProps
-    with _$TestStatefulHandlerPrecedencePropsAccessorsMixin
-    implements TestStatefulHandlerPrecedenceProps {
-  _$$TestStatefulHandlerPrecedenceProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStatefulHandlerPrecedenceProps extends _$TestStatefulHandlerPrecedenceProps with _$TestStatefulHandlerPrecedencePropsAccessorsMixin implements TestStatefulHandlerPrecedenceProps {
+  _$$TestStatefulHandlerPrecedenceProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -1154,24 +965,19 @@ class _$$TestStatefulHandlerPrecedenceProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStatefulHandlerPrecedenceComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStatefulHandlerPrecedenceComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerPrecedenceProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStatefulHandlerPrecedenceProps(
-          accessMap, (map) => _$$TestStatefulHandlerPrecedenceProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStatefulHandlerPrecedenceProps(accessMap, (map) => _$$TestStatefulHandlerPrecedenceProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulHandlerPrecedenceProps = getPropKey;
-mixin _$TestStatefulHandlerPrecedenceStateAccessorsMixin
-    implements _$TestStatefulHandlerPrecedenceState {
+mixin _$TestStatefulHandlerPrecedenceStateAccessorsMixin implements _$TestStatefulHandlerPrecedenceState {
   @override
   Map get state;
 
@@ -1186,21 +992,14 @@ const StateMeta _$metaForTestStatefulHandlerPrecedenceState = StateMeta(
   keys: _$TestStatefulHandlerPrecedenceStateAccessorsMixin.$stateKeys,
 );
 
-class TestStatefulHandlerPrecedenceState
-    extends _$TestStatefulHandlerPrecedenceState
-    with _$TestStatefulHandlerPrecedenceStateAccessorsMixin {
+class TestStatefulHandlerPrecedenceState extends _$TestStatefulHandlerPrecedenceState with _$TestStatefulHandlerPrecedenceStateAccessorsMixin {
   static const StateMeta meta = _$metaForTestStatefulHandlerPrecedenceState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TestStatefulHandlerPrecedenceState
-    extends _$TestStatefulHandlerPrecedenceState
-    with _$TestStatefulHandlerPrecedenceStateAccessorsMixin
-    implements TestStatefulHandlerPrecedenceState {
-  _$$TestStatefulHandlerPrecedenceState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TestStatefulHandlerPrecedenceState extends _$TestStatefulHandlerPrecedenceState with _$TestStatefulHandlerPrecedenceStateAccessorsMixin implements TestStatefulHandlerPrecedenceState {
+  _$$TestStatefulHandlerPrecedenceState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -1210,13 +1009,11 @@ class _$$TestStatefulHandlerPrecedenceState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestStatefulHandlerPrecedenceComponent
-    extends TestStatefulHandlerPrecedenceComponent {
+class _$TestStatefulHandlerPrecedenceComponent extends TestStatefulHandlerPrecedenceComponent {
   late _$$TestStatefulHandlerPrecedenceProps _cachedTypedProps;
 
   @override
@@ -1225,25 +1022,21 @@ class _$TestStatefulHandlerPrecedenceComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStatefulHandlerPrecedenceProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerPrecedenceProps(backingMap);
+  _$$TestStatefulHandlerPrecedenceProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
   @override
-  _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStatefulHandlerPrecedenceProps(backingMap);
+  _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map? backingMap) => _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
   late _$$TestStatefulHandlerPrecedenceState _cachedTypedState;
   @override
@@ -1251,22 +1044,18 @@ class _$TestStatefulHandlerPrecedenceComponent
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TestStatefulHandlerPrecedenceState typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulHandlerPrecedenceState(backingMap);
+  @override 
+  _$$TestStatefulHandlerPrecedenceState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulHandlerPrecedenceState(backingMap);
 
   @override
-  _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map? backingMap) =>
-      _$$TestStatefulHandlerPrecedenceState(backingMap);
+  _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map? backingMap) => _$$TestStatefulHandlerPrecedenceState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1278,9 +1067,7 @@ class _$TestStatefulHandlerPrecedenceComponent
   /// The default consumed props, taken from _$TestStatefulHandlerPrecedenceProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStatefulHandlerPrecedenceProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStatefulHandlerPrecedenceProps];
 }
 
 // React component factory implementation.
@@ -1294,8 +1081,7 @@ final $TestStatefulPropValidationComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStatefulPropValidationPropsAccessorsMixin
-    implements _$TestStatefulPropValidationProps {
+mixin _$TestStatefulPropValidationPropsAccessorsMixin implements _$TestStatefulPropValidationProps {
   @override
   Map get props;
 
@@ -1303,30 +1089,18 @@ mixin _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @override
   @requiredProp
-  String? get required =>
-      (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
-          as String?;
-
+  String? get required => (props[_$key__required___$TestStatefulPropValidationProps] ?? null) as String?;
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
   @requiredProp
-  set required(String? value) =>
-      props[_$key__required___$TestStatefulPropValidationProps] = value;
+  set required(String? value) => props[_$key__required___$TestStatefulPropValidationProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__required___$TestStatefulPropValidationProps = PropDescriptor(
-          _$key__required___$TestStatefulPropValidationProps,
-          isRequired: true);
-  static const String _$key__required___$TestStatefulPropValidationProps =
-      'TestStatefulPropValidationProps.required';
+  static const PropDescriptor _$prop__required___$TestStatefulPropValidationProps = PropDescriptor(_$key__required___$TestStatefulPropValidationProps, isRequired: true);
+  static const String _$key__required___$TestStatefulPropValidationProps = 'TestStatefulPropValidationProps.required';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__required___$TestStatefulPropValidationProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__required___$TestStatefulPropValidationProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__required___$TestStatefulPropValidationProps];
+  static const List<String> $propKeys = [_$key__required___$TestStatefulPropValidationProps];
 }
 
 const PropsMeta _$metaForTestStatefulPropValidationProps = PropsMeta(
@@ -1334,24 +1108,15 @@ const PropsMeta _$metaForTestStatefulPropValidationProps = PropsMeta(
   keys: _$TestStatefulPropValidationPropsAccessorsMixin.$propKeys,
 );
 
-class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps
-    with _$TestStatefulPropValidationPropsAccessorsMixin {
+class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps with _$TestStatefulPropValidationPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStatefulPropValidationProps;
 }
-
-_$$TestStatefulPropValidationProps _$TestStatefulPropValidation(
-        [Map? backingProps]) =>
-    _$$TestStatefulPropValidationProps(backingProps);
-
+_$$TestStatefulPropValidationProps _$TestStatefulPropValidation([Map? backingProps]) => _$$TestStatefulPropValidationProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStatefulPropValidationProps
-    extends _$TestStatefulPropValidationProps
-    with _$TestStatefulPropValidationPropsAccessorsMixin
-    implements TestStatefulPropValidationProps {
-  _$$TestStatefulPropValidationProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps with _$TestStatefulPropValidationPropsAccessorsMixin implements TestStatefulPropValidationProps {
+  _$$TestStatefulPropValidationProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -1363,24 +1128,19 @@ class _$$TestStatefulPropValidationProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStatefulPropValidationComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStatefulPropValidationComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulPropValidationProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStatefulPropValidationProps(
-          accessMap, (map) => _$$TestStatefulPropValidationProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStatefulPropValidationProps(accessMap, (map) => _$$TestStatefulPropValidationProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulPropValidationProps = getPropKey;
-mixin _$TestStatefulPropValidationStateAccessorsMixin
-    implements _$TestStatefulPropValidationState {
+mixin _$TestStatefulPropValidationStateAccessorsMixin implements _$TestStatefulPropValidationState {
   @override
   Map get state;
 
@@ -1395,20 +1155,14 @@ const StateMeta _$metaForTestStatefulPropValidationState = StateMeta(
   keys: _$TestStatefulPropValidationStateAccessorsMixin.$stateKeys,
 );
 
-class TestStatefulPropValidationState extends _$TestStatefulPropValidationState
-    with _$TestStatefulPropValidationStateAccessorsMixin {
+class TestStatefulPropValidationState extends _$TestStatefulPropValidationState with _$TestStatefulPropValidationStateAccessorsMixin {
   static const StateMeta meta = _$metaForTestStatefulPropValidationState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TestStatefulPropValidationState
-    extends _$TestStatefulPropValidationState
-    with _$TestStatefulPropValidationStateAccessorsMixin
-    implements TestStatefulPropValidationState {
-  _$$TestStatefulPropValidationState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TestStatefulPropValidationState extends _$TestStatefulPropValidationState with _$TestStatefulPropValidationStateAccessorsMixin implements TestStatefulPropValidationState {
+  _$$TestStatefulPropValidationState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -1418,13 +1172,11 @@ class _$$TestStatefulPropValidationState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestStatefulPropValidationComponent
-    extends TestStatefulPropValidationComponent {
+class _$TestStatefulPropValidationComponent extends TestStatefulPropValidationComponent {
   late _$$TestStatefulPropValidationProps _cachedTypedProps;
 
   @override
@@ -1433,25 +1185,21 @@ class _$TestStatefulPropValidationComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStatefulPropValidationProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulPropValidationProps(backingMap);
+  _$$TestStatefulPropValidationProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulPropValidationProps(backingMap);
 
   @override
-  _$$TestStatefulPropValidationProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStatefulPropValidationProps(backingMap);
+  _$$TestStatefulPropValidationProps typedPropsFactory(Map? backingMap) => _$$TestStatefulPropValidationProps(backingMap);
 
   late _$$TestStatefulPropValidationState _cachedTypedState;
   @override
@@ -1459,22 +1207,18 @@ class _$TestStatefulPropValidationComponent
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TestStatefulPropValidationState typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulPropValidationState(backingMap);
+  @override 
+  _$$TestStatefulPropValidationState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulPropValidationState(backingMap);
 
   @override
-  _$$TestStatefulPropValidationState typedStateFactory(Map? backingMap) =>
-      _$$TestStatefulPropValidationState(backingMap);
+  _$$TestStatefulPropValidationState typedStateFactory(Map? backingMap) => _$$TestStatefulPropValidationState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1486,9 +1230,7 @@ class _$TestStatefulPropValidationComponent
   /// The default consumed props, taken from _$TestStatefulPropValidationProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStatefulPropValidationProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStatefulPropValidationProps];
 }
 
 // React component factory implementation.
@@ -1502,8 +1244,7 @@ final $TestStatefulRedrawOnComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStatefulRedrawOnPropsAccessorsMixin
-    implements _$TestStatefulRedrawOnProps {
+mixin _$TestStatefulRedrawOnPropsAccessorsMixin implements _$TestStatefulRedrawOnProps {
   @override
   Map get props;
 
@@ -1518,22 +1259,15 @@ const PropsMeta _$metaForTestStatefulRedrawOnProps = PropsMeta(
   keys: _$TestStatefulRedrawOnPropsAccessorsMixin.$propKeys,
 );
 
-class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
-    with _$TestStatefulRedrawOnPropsAccessorsMixin {
+class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps with _$TestStatefulRedrawOnPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStatefulRedrawOnProps;
 }
-
-_$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map? backingProps]) =>
-    _$$TestStatefulRedrawOnProps(backingProps);
-
+_$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map? backingProps]) => _$$TestStatefulRedrawOnProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
-    with _$TestStatefulRedrawOnPropsAccessorsMixin
-    implements TestStatefulRedrawOnProps {
-  _$$TestStatefulRedrawOnProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps with _$TestStatefulRedrawOnPropsAccessorsMixin implements TestStatefulRedrawOnProps {
+  _$$TestStatefulRedrawOnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -1545,24 +1279,19 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStatefulRedrawOnComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStatefulRedrawOnComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulRedrawOnProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStatefulRedrawOnProps(
-          accessMap, (map) => _$$TestStatefulRedrawOnProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStatefulRedrawOnProps(accessMap, (map) => _$$TestStatefulRedrawOnProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulRedrawOnProps = getPropKey;
-mixin _$TestStatefulRedrawOnStateAccessorsMixin
-    implements _$TestStatefulRedrawOnState {
+mixin _$TestStatefulRedrawOnStateAccessorsMixin implements _$TestStatefulRedrawOnState {
   @override
   Map get state;
 
@@ -1577,19 +1306,14 @@ const StateMeta _$metaForTestStatefulRedrawOnState = StateMeta(
   keys: _$TestStatefulRedrawOnStateAccessorsMixin.$stateKeys,
 );
 
-class TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
-    with _$TestStatefulRedrawOnStateAccessorsMixin {
+class TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState with _$TestStatefulRedrawOnStateAccessorsMixin {
   static const StateMeta meta = _$metaForTestStatefulRedrawOnState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
-    with _$TestStatefulRedrawOnStateAccessorsMixin
-    implements TestStatefulRedrawOnState {
-  _$$TestStatefulRedrawOnState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState with _$TestStatefulRedrawOnStateAccessorsMixin implements TestStatefulRedrawOnState {
+  _$$TestStatefulRedrawOnState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -1599,7 +1323,6 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -1613,24 +1336,21 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStatefulRedrawOnProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestStatefulRedrawOnProps(backingMap);
+  _$$TestStatefulRedrawOnProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulRedrawOnProps(backingMap);
 
   @override
-  _$$TestStatefulRedrawOnProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStatefulRedrawOnProps(backingMap);
+  _$$TestStatefulRedrawOnProps typedPropsFactory(Map? backingMap) => _$$TestStatefulRedrawOnProps(backingMap);
 
   late _$$TestStatefulRedrawOnState _cachedTypedState;
   @override
@@ -1638,21 +1358,18 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TestStatefulRedrawOnState typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestStatefulRedrawOnState(backingMap);
+  @override 
+  _$$TestStatefulRedrawOnState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulRedrawOnState(backingMap);
 
   @override
-  _$$TestStatefulRedrawOnState typedStateFactory(Map? backingMap) =>
-      _$$TestStatefulRedrawOnState(backingMap);
+  _$$TestStatefulRedrawOnState typedStateFactory(Map? backingMap) => _$$TestStatefulRedrawOnState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1664,9 +1381,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   /// The default consumed props, taken from _$TestStatefulRedrawOnProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStatefulRedrawOnProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStatefulRedrawOnProps];
 }
 
 // React component factory implementation.
@@ -1680,8 +1395,7 @@ final $TestStatefulStoreHandlersComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TestStatefulStoreHandlersPropsAccessorsMixin
-    implements _$TestStatefulStoreHandlersProps {
+mixin _$TestStatefulStoreHandlersPropsAccessorsMixin implements _$TestStatefulStoreHandlersProps {
   @override
   Map get props;
 
@@ -1696,23 +1410,15 @@ const PropsMeta _$metaForTestStatefulStoreHandlersProps = PropsMeta(
   keys: _$TestStatefulStoreHandlersPropsAccessorsMixin.$propKeys,
 );
 
-class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
-    with _$TestStatefulStoreHandlersPropsAccessorsMixin {
+class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps with _$TestStatefulStoreHandlersPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestStatefulStoreHandlersProps;
 }
-
-_$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
-        [Map? backingProps]) =>
-    _$$TestStatefulStoreHandlersProps(backingProps);
-
+_$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers([Map? backingProps]) => _$$TestStatefulStoreHandlersProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
-    with _$TestStatefulStoreHandlersPropsAccessorsMixin
-    implements TestStatefulStoreHandlersProps {
-  _$$TestStatefulStoreHandlersProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps with _$TestStatefulStoreHandlersPropsAccessorsMixin implements TestStatefulStoreHandlersProps {
+  _$$TestStatefulStoreHandlersProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -1724,24 +1430,19 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestStatefulStoreHandlersComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestStatefulStoreHandlersComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulStoreHandlersProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestStatefulStoreHandlersProps(
-          accessMap, (map) => _$$TestStatefulStoreHandlersProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestStatefulStoreHandlersProps(accessMap, (map) => _$$TestStatefulStoreHandlersProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestStatefulStoreHandlersProps = getPropKey;
-mixin _$TestStatefulStoreHandlersStateAccessorsMixin
-    implements _$TestStatefulStoreHandlersState {
+mixin _$TestStatefulStoreHandlersStateAccessorsMixin implements _$TestStatefulStoreHandlersState {
   @override
   Map get state;
 
@@ -1756,19 +1457,14 @@ const StateMeta _$metaForTestStatefulStoreHandlersState = StateMeta(
   keys: _$TestStatefulStoreHandlersStateAccessorsMixin.$stateKeys,
 );
 
-class TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
-    with _$TestStatefulStoreHandlersStateAccessorsMixin {
+class TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState with _$TestStatefulStoreHandlersStateAccessorsMixin {
   static const StateMeta meta = _$metaForTestStatefulStoreHandlersState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
-    with _$TestStatefulStoreHandlersStateAccessorsMixin
-    implements TestStatefulStoreHandlersState {
-  _$$TestStatefulStoreHandlersState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState with _$TestStatefulStoreHandlersStateAccessorsMixin implements TestStatefulStoreHandlersState {
+  _$$TestStatefulStoreHandlersState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -1778,13 +1474,11 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestStatefulStoreHandlersComponent
-    extends TestStatefulStoreHandlersComponent {
+class _$TestStatefulStoreHandlersComponent extends TestStatefulStoreHandlersComponent {
   late _$$TestStatefulStoreHandlersProps _cachedTypedProps;
 
   @override
@@ -1793,25 +1487,21 @@ class _$TestStatefulStoreHandlersComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestStatefulStoreHandlersProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulStoreHandlersProps(backingMap);
+  _$$TestStatefulStoreHandlersProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulStoreHandlersProps(backingMap);
 
   @override
-  _$$TestStatefulStoreHandlersProps typedPropsFactory(Map? backingMap) =>
-      _$$TestStatefulStoreHandlersProps(backingMap);
+  _$$TestStatefulStoreHandlersProps typedPropsFactory(Map? backingMap) => _$$TestStatefulStoreHandlersProps(backingMap);
 
   late _$$TestStatefulStoreHandlersState _cachedTypedState;
   @override
@@ -1819,22 +1509,18 @@ class _$TestStatefulStoreHandlersComponent
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TestStatefulStoreHandlersState typedStateFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$TestStatefulStoreHandlersState(backingMap);
+  @override 
+  _$$TestStatefulStoreHandlersState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TestStatefulStoreHandlersState(backingMap);
 
   @override
-  _$$TestStatefulStoreHandlersState typedStateFactory(Map? backingMap) =>
-      _$$TestStatefulStoreHandlersState(backingMap);
+  _$$TestStatefulStoreHandlersState typedStateFactory(Map? backingMap) => _$$TestStatefulStoreHandlersState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1846,7 +1532,5 @@ class _$TestStatefulStoreHandlersComponent
   /// The default consumed props, taken from _$TestStatefulStoreHandlersProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestStatefulStoreHandlersProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestStatefulStoreHandlersProps];
 }

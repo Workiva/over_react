@@ -33,22 +33,15 @@ const PropsMeta _$metaForOneLevelWrapper2Props = PropsMeta(
   keys: _$OneLevelWrapper2PropsAccessorsMixin.$propKeys,
 );
 
-class OneLevelWrapper2Props extends _$OneLevelWrapper2Props
-    with _$OneLevelWrapper2PropsAccessorsMixin {
+class OneLevelWrapper2Props extends _$OneLevelWrapper2Props with _$OneLevelWrapper2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForOneLevelWrapper2Props;
 }
-
-_$$OneLevelWrapper2Props _$OneLevelWrapper2([Map? backingProps]) =>
-    _$$OneLevelWrapper2Props(backingProps);
-
+_$$OneLevelWrapper2Props _$OneLevelWrapper2([Map? backingProps]) => _$$OneLevelWrapper2Props(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$OneLevelWrapper2Props extends _$OneLevelWrapper2Props
-    with _$OneLevelWrapper2PropsAccessorsMixin
-    implements OneLevelWrapper2Props {
-  _$$OneLevelWrapper2Props([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$OneLevelWrapper2Props extends _$OneLevelWrapper2Props with _$OneLevelWrapper2PropsAccessorsMixin implements OneLevelWrapper2Props {
+  _$$OneLevelWrapper2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,23 +53,18 @@ class _$$OneLevelWrapper2Props extends _$OneLevelWrapper2Props
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $OneLevelWrapper2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $OneLevelWrapper2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'OneLevelWrapper2Props.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$OneLevelWrapper2Props(
-          accessMap, (map) => _$$OneLevelWrapper2Props(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$OneLevelWrapper2Props(accessMap, (map) => _$$OneLevelWrapper2Props(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$OneLevelWrapper2Props = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -90,24 +78,21 @@ class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$OneLevelWrapper2Props typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$OneLevelWrapper2Props(backingMap);
+  _$$OneLevelWrapper2Props typedPropsFactoryJs(JsBackedMap? backingMap) => _$$OneLevelWrapper2Props(backingMap);
 
   @override
-  _$$OneLevelWrapper2Props typedPropsFactory(Map? backingMap) =>
-      _$$OneLevelWrapper2Props(backingMap);
+  _$$OneLevelWrapper2Props typedPropsFactory(Map? backingMap) => _$$OneLevelWrapper2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -119,7 +104,5 @@ class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
   /// The default consumed props, taken from _$OneLevelWrapper2Props.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForOneLevelWrapper2Props
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForOneLevelWrapper2Props];
 }

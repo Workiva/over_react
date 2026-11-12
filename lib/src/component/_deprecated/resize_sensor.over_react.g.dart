@@ -18,8 +18,7 @@ final $ResizeSensorComponentFactory = registerComponent2(
   parentType: null,
 );
 
-@Deprecated(
-    'Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+@Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
 mixin _$ResizeSensorPropsAccessorsMixin implements _$ResizeSensorProps {
   @override
   Map get props;
@@ -35,24 +34,16 @@ const PropsMeta _$metaForResizeSensorProps = PropsMeta(
   keys: _$ResizeSensorPropsAccessorsMixin.$propKeys,
 );
 
-@Deprecated(
-    'Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
-class ResizeSensorProps extends _$ResizeSensorProps
-    with _$ResizeSensorPropsAccessorsMixin {
+@Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+class ResizeSensorProps extends _$ResizeSensorProps with _$ResizeSensorPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForResizeSensorProps;
 }
-
-_$$ResizeSensorProps _$ResizeSensor([Map? backingProps]) =>
-    _$$ResizeSensorProps(backingProps);
-
+_$$ResizeSensorProps _$ResizeSensor([Map? backingProps]) => _$$ResizeSensorProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ResizeSensorProps extends _$ResizeSensorProps
-    with _$ResizeSensorPropsAccessorsMixin
-    implements ResizeSensorProps {
-  _$$ResizeSensorProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ResizeSensorProps extends _$ResizeSensorProps with _$ResizeSensorPropsAccessorsMixin implements ResizeSensorProps {
+  _$$ResizeSensorProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -64,23 +55,18 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ResizeSensorComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ResizeSensorComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ResizeSensorProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ResizeSensorProps(
-          accessMap, (map) => _$$ResizeSensorProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ResizeSensorProps(accessMap, (map) => _$$ResizeSensorProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ResizeSensorProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -94,24 +80,21 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ResizeSensorProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$ResizeSensorProps(backingMap);
+  _$$ResizeSensorProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ResizeSensorProps(backingMap);
 
   @override
-  _$$ResizeSensorProps typedPropsFactory(Map? backingMap) =>
-      _$$ResizeSensorProps(backingMap);
+  _$$ResizeSensorProps typedPropsFactory(Map? backingMap) => _$$ResizeSensorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -123,25 +106,15 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   /// The default consumed props, taken from _$ResizeSensorProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForResizeSensorProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForResizeSensorProps];
 }
-
-@Deprecated(
-    'Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+@Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
 mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   @override
   Map get props;
 
   static const PropsMeta meta = _$metaForResizeSensorPropsMixin;
-  static final ResizeSensorPropsMixinMapView defaultProps =
-      ResizeSensorPropsMixinMapView({})
-        ..isFlexChild = false
-        ..isFlexContainer = false
-        ..shrink = false
-        ..quickMount = false;
-
+static final ResizeSensorPropsMixinMapView defaultProps = ResizeSensorPropsMixinMapView({})..isFlexChild = false..isFlexContainer = false..shrink = false..quickMount = false;
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
   ///
   /// > Will never be called if [quickMount] is `true`.
@@ -150,10 +123,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onInitialize] -->
   @override
-  ResizeSensorHandler? get onInitialize =>
-      (props[_$key__onInitialize___$ResizeSensorPropsMixin] ?? null)
-          as ResizeSensorHandler?;
-
+  ResizeSensorHandler? get onInitialize => (props[_$key__onInitialize___$ResizeSensorPropsMixin] ?? null) as ResizeSensorHandler?;
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
   ///
   /// > Will never be called if [quickMount] is `true`.
@@ -162,9 +132,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onInitialize] -->
   @override
-  set onInitialize(ResizeSensorHandler? value) =>
-      props[_$key__onInitialize___$ResizeSensorPropsMixin] = value;
-
+  set onInitialize(ResizeSensorHandler? value) => props[_$key__onInitialize___$ResizeSensorPropsMixin] = value;
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
   /// resizes, either due to its parent or children resizing.
   ///
@@ -175,10 +143,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onResize] -->
   @override
-  ResizeSensorHandler? get onResize =>
-      (props[_$key__onResize___$ResizeSensorPropsMixin] ?? null)
-          as ResizeSensorHandler?;
-
+  ResizeSensorHandler? get onResize => (props[_$key__onResize___$ResizeSensorPropsMixin] ?? null) as ResizeSensorHandler?;
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
   /// resizes, either due to its parent or children resizing.
   ///
@@ -189,9 +154,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onResize] -->
   @override
-  set onResize(ResizeSensorHandler? value) =>
-      props[_$key__onResize___$ResizeSensorPropsMixin] = value;
-
+  set onResize(ResizeSensorHandler? value) => props[_$key__onResize___$ResizeSensorPropsMixin] = value;
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
@@ -200,9 +163,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexChild] -->
   @override
-  bool? get isFlexChild =>
-      (props[_$key__isFlexChild___$ResizeSensorPropsMixin] ?? null) as bool?;
-
+  bool? get isFlexChild => (props[_$key__isFlexChild___$ResizeSensorPropsMixin] ?? null) as bool?;
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
@@ -211,28 +172,21 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexChild] -->
   @override
-  set isFlexChild(bool? value) =>
-      props[_$key__isFlexChild___$ResizeSensorPropsMixin] = value;
-
+  set isFlexChild(bool? value) => props[_$key__isFlexChild___$ResizeSensorPropsMixin] = value;
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
   ///
   /// Default: false
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexContainer] -->
   @override
-  bool? get isFlexContainer =>
-      (props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ?? null)
-          as bool?;
-
+  bool? get isFlexContainer => (props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ?? null) as bool?;
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
   ///
   /// Default: false
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexContainer] -->
   @override
-  set isFlexContainer(bool? value) =>
-      props[_$key__isFlexContainer___$ResizeSensorPropsMixin] = value;
-
+  set isFlexContainer(bool? value) => props[_$key__isFlexContainer___$ResizeSensorPropsMixin] = value;
   /// Whether the [ResizeSensor] should shrink to the size of its child.
   ///
   /// __WARNING:__ If set to true there is a possibility that the [ResizeSensor] will not work due to it being too
@@ -242,9 +196,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.shrink] -->
   @override
-  bool? get shrink =>
-      (props[_$key__shrink___$ResizeSensorPropsMixin] ?? null) as bool?;
-
+  bool? get shrink => (props[_$key__shrink___$ResizeSensorPropsMixin] ?? null) as bool?;
   /// Whether the [ResizeSensor] should shrink to the size of its child.
   ///
   /// __WARNING:__ If set to true there is a possibility that the [ResizeSensor] will not work due to it being too
@@ -254,9 +206,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.shrink] -->
   @override
-  set shrink(bool? value) =>
-      props[_$key__shrink___$ResizeSensorPropsMixin] = value;
-
+  set shrink(bool? value) => props[_$key__shrink___$ResizeSensorPropsMixin] = value;
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
   /// during initialization, allowing the component to mount faster.
   ///
@@ -274,9 +224,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.quickMount] -->
   @override
-  bool? get quickMount =>
-      (props[_$key__quickMount___$ResizeSensorPropsMixin] ?? null) as bool?;
-
+  bool? get quickMount => (props[_$key__quickMount___$ResizeSensorPropsMixin] ?? null) as bool?;
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
   /// during initialization, allowing the component to mount faster.
   ///
@@ -294,9 +242,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.quickMount] -->
   @override
-  set quickMount(bool? value) =>
-      props[_$key__quickMount___$ResizeSensorPropsMixin] = value;
-
+  set quickMount(bool? value) => props[_$key__quickMount___$ResizeSensorPropsMixin] = value;
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
   /// when it first mounted.
   ///
@@ -324,10 +270,7 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDetachedMountCheck] -->
   @override
-  BoolCallback? get onDetachedMountCheck =>
-      (props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] ?? null)
-          as BoolCallback?;
-
+  BoolCallback? get onDetachedMountCheck => (props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] ?? null) as BoolCallback?;
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
   /// when it first mounted.
   ///
@@ -355,82 +298,41 @@ mixin ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDetachedMountCheck] -->
   @override
-  set onDetachedMountCheck(BoolCallback? value) =>
-      props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] = value;
-
+  set onDetachedMountCheck(BoolCallback? value) => props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] = value;
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
   /// is called.
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDidReset] -->
   @override
   @visibleForTesting
-  Callback? get onDidReset =>
-      (props[_$key__onDidReset___$ResizeSensorPropsMixin] ?? null) as Callback?;
-
+  Callback? get onDidReset => (props[_$key__onDidReset___$ResizeSensorPropsMixin] ?? null) as Callback?;
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
   /// is called.
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDidReset] -->
   @override
   @visibleForTesting
-  set onDidReset(Callback? value) =>
-      props[_$key__onDidReset___$ResizeSensorPropsMixin] = value;
+  set onDidReset(Callback? value) => props[_$key__onDidReset___$ResizeSensorPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onInitialize___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__onInitialize___$ResizeSensorPropsMixin);
-  static const PropDescriptor _$prop__onResize___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__onResize___$ResizeSensorPropsMixin);
-  static const PropDescriptor _$prop__isFlexChild___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__isFlexChild___$ResizeSensorPropsMixin);
-  static const PropDescriptor
-      _$prop__isFlexContainer___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__isFlexContainer___$ResizeSensorPropsMixin);
-  static const PropDescriptor _$prop__shrink___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__shrink___$ResizeSensorPropsMixin);
-  static const PropDescriptor _$prop__quickMount___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__quickMount___$ResizeSensorPropsMixin);
-  static const PropDescriptor
-      _$prop__onDetachedMountCheck___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__onDetachedMountCheck___$ResizeSensorPropsMixin);
-  static const PropDescriptor _$prop__onDidReset___$ResizeSensorPropsMixin =
-      PropDescriptor(_$key__onDidReset___$ResizeSensorPropsMixin);
-  static const String _$key__onInitialize___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.onInitialize';
-  static const String _$key__onResize___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.onResize';
-  static const String _$key__isFlexChild___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.isFlexChild';
-  static const String _$key__isFlexContainer___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.isFlexContainer';
-  static const String _$key__shrink___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.shrink';
-  static const String _$key__quickMount___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.quickMount';
-  static const String _$key__onDetachedMountCheck___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.onDetachedMountCheck';
-  static const String _$key__onDidReset___$ResizeSensorPropsMixin =
-      'ResizeSensorPropsMixin.onDidReset';
+  static const PropDescriptor _$prop__onInitialize___$ResizeSensorPropsMixin = PropDescriptor(_$key__onInitialize___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__onResize___$ResizeSensorPropsMixin = PropDescriptor(_$key__onResize___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__isFlexChild___$ResizeSensorPropsMixin = PropDescriptor(_$key__isFlexChild___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__isFlexContainer___$ResizeSensorPropsMixin = PropDescriptor(_$key__isFlexContainer___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__shrink___$ResizeSensorPropsMixin = PropDescriptor(_$key__shrink___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__quickMount___$ResizeSensorPropsMixin = PropDescriptor(_$key__quickMount___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__onDetachedMountCheck___$ResizeSensorPropsMixin = PropDescriptor(_$key__onDetachedMountCheck___$ResizeSensorPropsMixin);
+  static const PropDescriptor _$prop__onDidReset___$ResizeSensorPropsMixin = PropDescriptor(_$key__onDidReset___$ResizeSensorPropsMixin);
+  static const String _$key__onInitialize___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.onInitialize';
+  static const String _$key__onResize___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.onResize';
+  static const String _$key__isFlexChild___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.isFlexChild';
+  static const String _$key__isFlexContainer___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.isFlexContainer';
+  static const String _$key__shrink___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.shrink';
+  static const String _$key__quickMount___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.quickMount';
+  static const String _$key__onDetachedMountCheck___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.onDetachedMountCheck';
+  static const String _$key__onDidReset___$ResizeSensorPropsMixin = 'ResizeSensorPropsMixin.onDidReset';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__onInitialize___$ResizeSensorPropsMixin,
-    _$prop__onResize___$ResizeSensorPropsMixin,
-    _$prop__isFlexChild___$ResizeSensorPropsMixin,
-    _$prop__isFlexContainer___$ResizeSensorPropsMixin,
-    _$prop__shrink___$ResizeSensorPropsMixin,
-    _$prop__quickMount___$ResizeSensorPropsMixin,
-    _$prop__onDetachedMountCheck___$ResizeSensorPropsMixin,
-    _$prop__onDidReset___$ResizeSensorPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__onInitialize___$ResizeSensorPropsMixin,
-    _$key__onResize___$ResizeSensorPropsMixin,
-    _$key__isFlexChild___$ResizeSensorPropsMixin,
-    _$key__isFlexContainer___$ResizeSensorPropsMixin,
-    _$key__shrink___$ResizeSensorPropsMixin,
-    _$key__quickMount___$ResizeSensorPropsMixin,
-    _$key__onDetachedMountCheck___$ResizeSensorPropsMixin,
-    _$key__onDidReset___$ResizeSensorPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__onInitialize___$ResizeSensorPropsMixin, _$prop__onResize___$ResizeSensorPropsMixin, _$prop__isFlexChild___$ResizeSensorPropsMixin, _$prop__isFlexContainer___$ResizeSensorPropsMixin, _$prop__shrink___$ResizeSensorPropsMixin, _$prop__quickMount___$ResizeSensorPropsMixin, _$prop__onDetachedMountCheck___$ResizeSensorPropsMixin, _$prop__onDidReset___$ResizeSensorPropsMixin];
+  static const List<String> $propKeys = [_$key__onInitialize___$ResizeSensorPropsMixin, _$key__onResize___$ResizeSensorPropsMixin, _$key__isFlexChild___$ResizeSensorPropsMixin, _$key__isFlexContainer___$ResizeSensorPropsMixin, _$key__shrink___$ResizeSensorPropsMixin, _$key__quickMount___$ResizeSensorPropsMixin, _$key__onDetachedMountCheck___$ResizeSensorPropsMixin, _$key__onDidReset___$ResizeSensorPropsMixin];
 }
 
 const PropsMeta _$metaForResizeSensorPropsMixin = PropsMeta(

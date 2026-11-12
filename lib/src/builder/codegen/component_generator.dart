@@ -67,19 +67,20 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln()
         ..writeln('  @override')
         ..writeln('  set props(Map value) {')
-        ..writeln('    assert(getBackingMap(value) is JsBackedMap, ')
-        ..writeln('      \'Component2.props should never be set directly in \'')
-        ..writeln('      \'production. If this is required for testing, the \'')
-        ..writeln('      \'component should be rendered within the test. If \'')
-        ..writeln('      \'that does not have the necessary result, the last \'')
-        ..writeln('      \'resort is to use typedPropsFactoryJs.\');')
+        ..writeln('    assert(')
+        ..writeln('        getBackingMap(value) is JsBackedMap, ')
+        ..writeln('        \'Component2.props should never be set directly in \'')
+        ..writeln('        \'production. If this is required for testing, the \'')
+        ..writeln('        \'component should be rendered within the test. If \'')
+        ..writeln('        \'that does not have the necessary result, the last \'')
+        ..writeln('        \'resort is to use typedPropsFactoryJs.\');')
         ..writeln('    super.props = value;')
         // TODO is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
         ..writeln(
             '    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);')
         ..writeln('  }')
         ..writeln()
-        ..writeln('  @override ')
+        ..writeln('  @override')
         ..writeln(
             '  ${propsNames.implName} typedPropsFactoryJs(JsBackedMap${nullSafety ? '?' : ''} backingMap)'
             ' => ${propsNames.implName}(backingMap);')
@@ -131,7 +132,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       ..writeln('  @override')
       ..writeln('  String get displayName => \'${factoryNames.unprefixedConsumerName}\';')
       ..writeln()
-      ..writeln('  $defaultConsumedPropsImpl');
+      ..writeln(defaultConsumedPropsImpl);
 
     _generateAdditionalComponentBody();
 

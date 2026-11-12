@@ -18,6 +18,8 @@ library;
 
 import 'package:analyzer/dart/ast/ast.dart';
 
+import '../../../parsing/ast_util.dart' show namedArgumentParts;
+
 /// Returns a copy of a class [member] declaration with [body] as a new
 /// implementation.
 ///
@@ -81,7 +83,7 @@ class AnnotationArgs {
 /// converting supported literal values via [getValue], and passing unsupported
 /// argument values through [onUnsupportedArgument].
 AnnotationArgs parseAnnotationArgs(Annotation annotation,
-    {dynamic Function(Expression argument)? onUnsupportedArgument}) {
+    {dynamic Function(AstNode argument)? onUnsupportedArgument}) {
   Map<String, dynamic> namedParameters = {};
   List positionalParameters = [];
 
@@ -89,14 +91,18 @@ AnnotationArgs parseAnnotationArgs(Annotation annotation,
     var onUnsupportedExpression =
         onUnsupportedArgument == null ? null : (_) => onUnsupportedArgument(argument);
 
-    if (argument is NamedExpression) {
-      var name = argument.name.label.name;
-      var value = getValue(argument.expression, onUnsupportedExpression: onUnsupportedExpression);
-
-      namedParameters[name] = value;
+    final named = namedArgumentParts(argument);
+    if (named != null) {
+      var value = getValue(named.value, onUnsupportedExpression: onUnsupportedExpression);
+      namedParameters[named.name] = value;
     } else {
-      var value = getValue(argument, onUnsupportedExpression: onUnsupportedExpression);
-
+      // On analyzer <13, arguments is NodeList<Expression>, so argument is typed as Expression.
+      // On analyzer on >=13, arguments is NodeList<Argument>, so argument is typed as Argument,
+      // which doesn't exist in newer analyzer versions.
+      // Argument can be either NamedArgument or Expression, so we can safely assume it's an Expression
+      // if `named == null`, but we need a cast here.
+      // ignore: unnecessary_cast
+      var value = getValue(argument as Expression, onUnsupportedExpression: onUnsupportedExpression);
       positionalParameters.add(value);
     }
   });

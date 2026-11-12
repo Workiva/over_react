@@ -520,7 +520,6 @@ class OverReactSrc {
         {
           return '@StateMixin($annotationArg)';
         }
-      default: return '';
     }
   }
 

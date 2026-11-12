@@ -18,135 +18,70 @@ final $ConnectFluxCounterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$ConnectFluxCounterPropsAccessorsMixin
-    implements _$ConnectFluxCounterProps {
+mixin _$ConnectFluxCounterPropsAccessorsMixin implements _$ConnectFluxCounterProps {
   @override
   Map get props;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
-  int? get currentCount =>
-      (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int?;
-
+  int? get currentCount => (props[_$key__currentCount___$ConnectFluxCounterProps] ?? null) as int?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.currentCount] -->
   @override
-  set currentCount(int? value) =>
-      props[_$key__currentCount___$ConnectFluxCounterProps] = value;
-
+  set currentCount(int? value) => props[_$key__currentCount___$ConnectFluxCounterProps] = value;
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  Map<String, dynamic>? get wrapperStyles =>
-      (props[_$key__wrapperStyles___$ConnectFluxCounterProps] ?? null)
-          as Map<String, dynamic>?;
-
+  Map<String, dynamic>? get wrapperStyles => (props[_$key__wrapperStyles___$ConnectFluxCounterProps] ?? null) as Map<String, dynamic>?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.wrapperStyles] -->
   @override
-  set wrapperStyles(Map<String, dynamic>? value) =>
-      props[_$key__wrapperStyles___$ConnectFluxCounterProps] = value;
-
+  set wrapperStyles(Map<String, dynamic>? value) => props[_$key__wrapperStyles___$ConnectFluxCounterProps] = value;
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
-  List<String>? get mutatedList =>
-      (props[_$key__mutatedList___$ConnectFluxCounterProps] ?? null)
-          as List<String>?;
-
+  List<String>? get mutatedList => (props[_$key__mutatedList___$ConnectFluxCounterProps] ?? null) as List<String>?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
   @override
-  set mutatedList(List<String>? value) =>
-      props[_$key__mutatedList___$ConnectFluxCounterProps] = value;
-
+  set mutatedList(List<String>? value) => props[_$key__mutatedList___$ConnectFluxCounterProps] = value;
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  void Function()? get increment =>
-      (props[_$key__increment___$ConnectFluxCounterProps] ?? null) as void
-          Function()?;
-
+  void Function()? get increment => (props[_$key__increment___$ConnectFluxCounterProps] ?? null) as void Function()?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
-  set increment(void Function()? value) =>
-      props[_$key__increment___$ConnectFluxCounterProps] = value;
-
+  set increment(void Function()? value) => props[_$key__increment___$ConnectFluxCounterProps] = value;
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  void Function()? get decrement =>
-      (props[_$key__decrement___$ConnectFluxCounterProps] ?? null) as void
-          Function()?;
-
+  void Function()? get decrement => (props[_$key__decrement___$ConnectFluxCounterProps] ?? null) as void Function()?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.decrement] -->
   @override
-  set decrement(void Function()? value) =>
-      props[_$key__decrement___$ConnectFluxCounterProps] = value;
-
+  set decrement(void Function()? value) => props[_$key__decrement___$ConnectFluxCounterProps] = value;
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
-  void Function()? get mutateStoreDirectly =>
-      (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ?? null)
-          as void Function()?;
-
+  void Function()? get mutateStoreDirectly => (props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ?? null) as void Function()?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
   @override
-  set mutateStoreDirectly(void Function()? value) =>
-      props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
-
+  set mutateStoreDirectly(void Function()? value) => props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  FluxActions? get actions =>
-      (props[_$key__actions___$ConnectFluxCounterProps] ?? null)
-          as FluxActions?;
-
+  FluxActions? get actions => (props[_$key__actions___$ConnectFluxCounterProps] ?? null) as FluxActions?;
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
-  set actions(FluxActions? value) =>
-      props[_$key__actions___$ConnectFluxCounterProps] = value;
+  set actions(FluxActions? value) => props[_$key__actions___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__currentCount___$ConnectFluxCounterProps);
-  static const PropDescriptor _$prop__wrapperStyles___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__wrapperStyles___$ConnectFluxCounterProps);
-  static const PropDescriptor _$prop__mutatedList___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__mutatedList___$ConnectFluxCounterProps);
-  static const PropDescriptor _$prop__increment___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__increment___$ConnectFluxCounterProps);
-  static const PropDescriptor _$prop__decrement___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__decrement___$ConnectFluxCounterProps);
-  static const PropDescriptor
-      _$prop__mutateStoreDirectly___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__mutateStoreDirectly___$ConnectFluxCounterProps);
-  static const PropDescriptor _$prop__actions___$ConnectFluxCounterProps =
-      PropDescriptor(_$key__actions___$ConnectFluxCounterProps);
-  static const String _$key__currentCount___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.currentCount';
-  static const String _$key__wrapperStyles___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.wrapperStyles';
-  static const String _$key__mutatedList___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.mutatedList';
-  static const String _$key__increment___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.increment';
-  static const String _$key__decrement___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.decrement';
-  static const String _$key__mutateStoreDirectly___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.mutateStoreDirectly';
-  static const String _$key__actions___$ConnectFluxCounterProps =
-      'ConnectFluxCounterProps.actions';
+  static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps = PropDescriptor(_$key__currentCount___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__wrapperStyles___$ConnectFluxCounterProps = PropDescriptor(_$key__wrapperStyles___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__mutatedList___$ConnectFluxCounterProps = PropDescriptor(_$key__mutatedList___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__increment___$ConnectFluxCounterProps = PropDescriptor(_$key__increment___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__decrement___$ConnectFluxCounterProps = PropDescriptor(_$key__decrement___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__mutateStoreDirectly___$ConnectFluxCounterProps = PropDescriptor(_$key__mutateStoreDirectly___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__actions___$ConnectFluxCounterProps = PropDescriptor(_$key__actions___$ConnectFluxCounterProps);
+  static const String _$key__currentCount___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.currentCount';
+  static const String _$key__wrapperStyles___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.wrapperStyles';
+  static const String _$key__mutatedList___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.mutatedList';
+  static const String _$key__increment___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.increment';
+  static const String _$key__decrement___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.decrement';
+  static const String _$key__mutateStoreDirectly___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.mutateStoreDirectly';
+  static const String _$key__actions___$ConnectFluxCounterProps = 'ConnectFluxCounterProps.actions';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__currentCount___$ConnectFluxCounterProps,
-    _$prop__wrapperStyles___$ConnectFluxCounterProps,
-    _$prop__mutatedList___$ConnectFluxCounterProps,
-    _$prop__increment___$ConnectFluxCounterProps,
-    _$prop__decrement___$ConnectFluxCounterProps,
-    _$prop__mutateStoreDirectly___$ConnectFluxCounterProps,
-    _$prop__actions___$ConnectFluxCounterProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__currentCount___$ConnectFluxCounterProps,
-    _$key__wrapperStyles___$ConnectFluxCounterProps,
-    _$key__mutatedList___$ConnectFluxCounterProps,
-    _$key__increment___$ConnectFluxCounterProps,
-    _$key__decrement___$ConnectFluxCounterProps,
-    _$key__mutateStoreDirectly___$ConnectFluxCounterProps,
-    _$key__actions___$ConnectFluxCounterProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__currentCount___$ConnectFluxCounterProps, _$prop__wrapperStyles___$ConnectFluxCounterProps, _$prop__mutatedList___$ConnectFluxCounterProps, _$prop__increment___$ConnectFluxCounterProps, _$prop__decrement___$ConnectFluxCounterProps, _$prop__mutateStoreDirectly___$ConnectFluxCounterProps, _$prop__actions___$ConnectFluxCounterProps];
+  static const List<String> $propKeys = [_$key__currentCount___$ConnectFluxCounterProps, _$key__wrapperStyles___$ConnectFluxCounterProps, _$key__mutatedList___$ConnectFluxCounterProps, _$key__increment___$ConnectFluxCounterProps, _$key__decrement___$ConnectFluxCounterProps, _$key__mutateStoreDirectly___$ConnectFluxCounterProps, _$key__actions___$ConnectFluxCounterProps];
 }
 
 const PropsMeta _$metaForConnectFluxCounterProps = PropsMeta(
@@ -154,22 +89,15 @@ const PropsMeta _$metaForConnectFluxCounterProps = PropsMeta(
   keys: _$ConnectFluxCounterPropsAccessorsMixin.$propKeys,
 );
 
-class ConnectFluxCounterProps extends _$ConnectFluxCounterProps
-    with _$ConnectFluxCounterPropsAccessorsMixin {
+class ConnectFluxCounterProps extends _$ConnectFluxCounterProps with _$ConnectFluxCounterPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForConnectFluxCounterProps;
 }
-
-_$$ConnectFluxCounterProps _$ConnectFluxCounter([Map? backingProps]) =>
-    _$$ConnectFluxCounterProps(backingProps);
-
+_$$ConnectFluxCounterProps _$ConnectFluxCounter([Map? backingProps]) => _$$ConnectFluxCounterProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps
-    with _$ConnectFluxCounterPropsAccessorsMixin
-    implements ConnectFluxCounterProps {
-  _$$ConnectFluxCounterProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps with _$ConnectFluxCounterPropsAccessorsMixin implements ConnectFluxCounterProps {
+  _$$ConnectFluxCounterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -181,23 +109,18 @@ class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ConnectFluxCounterComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ConnectFluxCounterComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ConnectFluxCounterProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ConnectFluxCounterProps(
-          accessMap, (map) => _$$ConnectFluxCounterProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ConnectFluxCounterProps(accessMap, (map) => _$$ConnectFluxCounterProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ConnectFluxCounterProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -211,24 +134,21 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ConnectFluxCounterProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$ConnectFluxCounterProps(backingMap);
+  _$$ConnectFluxCounterProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ConnectFluxCounterProps(backingMap);
 
   @override
-  _$$ConnectFluxCounterProps typedPropsFactory(Map? backingMap) =>
-      _$$ConnectFluxCounterProps(backingMap);
+  _$$ConnectFluxCounterProps typedPropsFactory(Map? backingMap) => _$$ConnectFluxCounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -240,7 +160,5 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
   /// The default consumed props, taken from _$ConnectFluxCounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForConnectFluxCounterProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForConnectFluxCounterProps];
 }

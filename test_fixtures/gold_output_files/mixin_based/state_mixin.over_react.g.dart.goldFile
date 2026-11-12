@@ -17,23 +17,15 @@ part of 'state_mixin.dart';
 mixin $ExampleStateMixin on ExampleStateMixin {
   static const StateMeta meta = _$metaForExampleStateMixin;
   @override
-  String get stateMixin1 =>
-      (state[_$key__stateMixin1__ExampleStateMixin] ?? null) as String;
+  String get stateMixin1 => (state[_$key__stateMixin1__ExampleStateMixin] ?? null) as String;
   @override
-  set stateMixin1(String value) =>
-      state[_$key__stateMixin1__ExampleStateMixin] = value;
+  set stateMixin1(String value) => state[_$key__stateMixin1__ExampleStateMixin] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__stateMixin1__ExampleStateMixin =
-      StateDescriptor(_$key__stateMixin1__ExampleStateMixin);
-  static const String _$key__stateMixin1__ExampleStateMixin =
-      'ExampleStateMixin.stateMixin1';
+  static const StateDescriptor _$prop__stateMixin1__ExampleStateMixin = StateDescriptor(_$key__stateMixin1__ExampleStateMixin);
+  static const String _$key__stateMixin1__ExampleStateMixin = 'ExampleStateMixin.stateMixin1';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__stateMixin1__ExampleStateMixin
-  ];
-  static const List<String> $stateKeys = [
-    _$key__stateMixin1__ExampleStateMixin
-  ];
+  static const List<StateDescriptor> $state = [_$prop__stateMixin1__ExampleStateMixin];
+  static const List<String> $stateKeys = [_$key__stateMixin1__ExampleStateMixin];
 }
 
 @Deprecated('This API is for use only within generated code.'

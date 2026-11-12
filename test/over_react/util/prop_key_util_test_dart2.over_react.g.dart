@@ -25,34 +25,23 @@ mixin _$TestPropsAccessorsMixin implements _$TestProps {
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
   String? get foo => (props[_$key__foo___$TestProps] ?? null) as String?;
-
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
   set foo(String? value) => props[_$key__foo___$TestProps] = value;
-
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
   String? get bar => (props[_$key__bar___$TestProps] ?? null) as String?;
-
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
   set bar(String? value) => props[_$key__bar___$TestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__foo___$TestProps =
-      PropDescriptor(_$key__foo___$TestProps);
-  static const PropDescriptor _$prop__bar___$TestProps =
-      PropDescriptor(_$key__bar___$TestProps);
+  static const PropDescriptor _$prop__foo___$TestProps = PropDescriptor(_$key__foo___$TestProps);
+  static const PropDescriptor _$prop__bar___$TestProps = PropDescriptor(_$key__bar___$TestProps);
   static const String _$key__foo___$TestProps = 'TestProps.foo';
   static const String _$key__bar___$TestProps = 'TestProps.bar';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__foo___$TestProps,
-    _$prop__bar___$TestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__foo___$TestProps,
-    _$key__bar___$TestProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__foo___$TestProps, _$prop__bar___$TestProps];
+  static const List<String> $propKeys = [_$key__foo___$TestProps, _$key__bar___$TestProps];
 }
 
 const PropsMeta _$metaForTestProps = PropsMeta(
@@ -63,15 +52,11 @@ const PropsMeta _$metaForTestProps = PropsMeta(
 class TestProps extends _$TestProps with _$TestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestProps;
 }
-
 _$$TestProps _$Test([Map? backingProps]) => _$$TestProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestProps extends _$TestProps
-    with _$TestPropsAccessorsMixin
-    implements TestProps {
+class _$$TestProps extends _$TestProps with _$TestPropsAccessorsMixin implements TestProps {
   _$$TestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -84,22 +69,18 @@ class _$$TestProps extends _$TestProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -113,20 +94,18 @@ class _$TestComponent extends TestComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TestProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TestProps(backingMap);
+  _$$TestProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TestProps(backingMap);
 
   @override
   _$$TestProps typedPropsFactory(Map? backingMap) => _$$TestProps(backingMap);

@@ -20,21 +20,17 @@ final $CustomTestComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$CustomTestProps _$CustomTest([Map? backingProps]) =>
-    _$$CustomTestProps(backingProps);
-
+_$$CustomTestProps _$CustomTest([Map? backingProps]) => _$$CustomTestProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomTestProps extends UiProps
-    with
-        CustomTestProps,
-        // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
-        $CustomTestProps {
-  _$$CustomTestProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$CustomTestProps extends UiProps with
+ CustomTestProps,
+ // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
+ $CustomTestProps {
+  _$$CustomTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -46,8 +42,7 @@ class _$$CustomTestProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $CustomTestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $CustomTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -55,20 +50,16 @@ class _$$CustomTestProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
-        CustomTestProps: $CustomTestProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
+    CustomTestProps: $CustomTestProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$CustomTestProps(
-          accessMap, (map) => _$$CustomTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$CustomTestProps(accessMap, (map) => _$$CustomTestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$CustomTestProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -84,24 +75,21 @@ class _$CustomTestComponent extends CustomTestComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$CustomTestProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$CustomTestProps(backingMap);
+  _$$CustomTestProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$CustomTestProps(backingMap);
 
   @override
-  _$$CustomTestProps typedPropsFactory(Map? backingMap) =>
-      _$$CustomTestProps(backingMap);
+  _$$CustomTestProps typedPropsFactory(Map? backingMap) => _$$CustomTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -117,11 +105,10 @@ class _$CustomTestComponent extends CustomTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
-        CustomTestProps: $CustomTestProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
+    CustomTestProps: $CustomTestProps.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -137,6 +124,7 @@ mixin $CustomTestProps on CustomTestProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -162,6 +150,7 @@ mixin $CustomFnTestProps on CustomFnTestProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -172,32 +161,29 @@ const PropsMeta _$metaForCustomFnTestProps = PropsMeta(
   keys: $CustomFnTestProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$CustomFnTestProps> _$CustomFnTestConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$CustomFnTestProps(map),
-          jsMap: (map) => _$$CustomFnTestProps(map),
-        ),
-        displayName: 'CustomFnTest');
+final UiFactoryConfig<_$$CustomFnTestProps> _$CustomFnTestConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$CustomFnTestProps(map),
+    jsMap: (map) => _$$CustomFnTestProps(map),
+  ),
+  displayName: 'CustomFnTest',
+);
 
 @Deprecated(r'Use the private variable, _$CustomFnTestConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$CustomFnTestProps> $CustomFnTestConfig =
-    _$CustomFnTestConfig;
+final UiFactoryConfig<_$$CustomFnTestProps> $CustomFnTestConfig = _$CustomFnTestConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomFnTestProps extends UiProps
-    with
-        CustomFnTestProps,
-        // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
-        $CustomFnTestProps {
-  _$$CustomFnTestProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$CustomFnTestProps extends UiProps with
+ CustomFnTestProps,
+ // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
+ $CustomFnTestProps {
+  _$$CustomFnTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -206,23 +192,19 @@ class _$$CustomFnTestProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
-        CustomFnTestProps: $CustomFnTestProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
+    CustomFnTestProps: $CustomFnTestProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$CustomFnTestProps(
-          accessMap, (map) => _$$CustomFnTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$CustomFnTestProps(accessMap, (map) => _$$CustomFnTestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$CustomFnTestProps = getPropKey;

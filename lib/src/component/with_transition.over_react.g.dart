@@ -20,26 +20,18 @@ final $WithTransitionComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$WithTransitionProps _$WithTransition([Map? backingProps]) =>
-    _$$WithTransitionProps(backingProps);
-
+_$$WithTransitionProps _$WithTransition([Map? backingProps]) => _$$WithTransitionProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionProps extends UiProps
-    with
-        v2.TransitionPropsMixin,
-        // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
-        v2.$TransitionPropsMixin,
-        WithTransitionPropsMixin,
-        // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
-        $WithTransitionPropsMixin
-    implements
-        WithTransitionProps {
-  _$$WithTransitionProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$WithTransitionProps extends UiProps with v2.TransitionPropsMixin,
+ // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
+v2.$TransitionPropsMixin,WithTransitionPropsMixin,
+ // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
+$WithTransitionPropsMixin implements WithTransitionProps {
+  _$$WithTransitionProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -51,8 +43,7 @@ class _$$WithTransitionProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $WithTransitionComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $WithTransitionComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -60,38 +51,31 @@ class _$$WithTransitionProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
-        v2.TransitionPropsMixin: v2.$TransitionPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
-        WithTransitionPropsMixin: $WithTransitionPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
+    v2.TransitionPropsMixin: v2.$TransitionPropsMixin.meta,
+    // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
+    WithTransitionPropsMixin: $WithTransitionPropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$WithTransitionProps(
-          accessMap, (map) => _$$WithTransitionProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$WithTransitionProps(accessMap, (map) => _$$WithTransitionProps(map));
 
   @override
-  Set<String> get requiredPropNamesToSkipValidation =>
-      const {'isShown', 'transitionTimeout', 'childPropsByPhase'};
+  Set<String> get requiredPropNamesToSkipValidation => const {'isShown', 'transitionTimeout', 'childPropsByPhase'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$WithTransitionProps = getPropKey;
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionState extends UiState
-    with
-        WithTransitionState,
-        // If this generated mixin is undefined, it's likely because WithTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionState, and check that $WithTransitionState is exported/imported properly.
-        $WithTransitionState {
-  _$$WithTransitionState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$WithTransitionState extends UiState with
+ WithTransitionState,
+ // If this generated mixin is undefined, it's likely because WithTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionState, and check that $WithTransitionState is exported/imported properly.
+ $WithTransitionState {
+  _$$WithTransitionState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -101,7 +85,6 @@ class _$$WithTransitionState extends UiState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -117,24 +100,21 @@ class _$WithTransitionComponent extends WithTransitionComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$WithTransitionProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$WithTransitionProps(backingMap);
+  _$$WithTransitionProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$WithTransitionProps(backingMap);
 
   @override
-  _$$WithTransitionProps typedPropsFactory(Map? backingMap) =>
-      _$$WithTransitionProps(backingMap);
+  _$$WithTransitionProps typedPropsFactory(Map? backingMap) => _$$WithTransitionProps(backingMap);
 
   late _$$WithTransitionState _cachedTypedState;
   @override
@@ -142,21 +122,18 @@ class _$WithTransitionComponent extends WithTransitionComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$WithTransitionState typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$WithTransitionState(backingMap);
+  @override 
+  _$$WithTransitionState typedStateFactoryJs(JsBackedMap? backingMap) => _$$WithTransitionState(backingMap);
 
   @override
-  _$$WithTransitionState typedStateFactory(Map? backingMap) =>
-      _$$WithTransitionState(backingMap);
+  _$$WithTransitionState typedStateFactory(Map? backingMap) => _$$WithTransitionState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -172,13 +149,12 @@ class _$WithTransitionComponent extends WithTransitionComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
-        v2.TransitionPropsMixin: v2.$TransitionPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
-        WithTransitionPropsMixin: $WithTransitionPropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
+    v2.TransitionPropsMixin: v2.$TransitionPropsMixin.meta,
+    // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
+    WithTransitionPropsMixin: $WithTransitionPropsMixin.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -186,56 +162,33 @@ class _$WithTransitionComponent extends WithTransitionComponent {
 mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
   static const PropsMeta meta = _$metaForWithTransitionPropsMixin;
   @override
-  bool? get isShown =>
-      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool?;
+  bool? get isShown => (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool?;
   @override
-  set isShown(bool? value) =>
-      props[_$key__isShown__WithTransitionPropsMixin] = value;
+  set isShown(bool? value) => props[_$key__isShown__WithTransitionPropsMixin] = value;
   @override
-  Map<TransitionPhase, Map?>? get childPropsByPhase =>
-      (props[_$key__childPropsByPhase__WithTransitionPropsMixin] ?? null)
-          as Map<TransitionPhase, Map?>?;
+  Map<TransitionPhase, Map?>? get childPropsByPhase => (props[_$key__childPropsByPhase__WithTransitionPropsMixin] ?? null) as Map<TransitionPhase, Map?>?;
   @override
-  set childPropsByPhase(Map<TransitionPhase, Map?>? value) =>
-      props[_$key__childPropsByPhase__WithTransitionPropsMixin] = value;
+  set childPropsByPhase(Map<TransitionPhase, Map?>? value) => props[_$key__childPropsByPhase__WithTransitionPropsMixin] = value;
   @override
-  Duration? get transitionTimeout =>
-      (props[_$key__transitionTimeout__WithTransitionPropsMixin] ?? null)
-          as Duration?;
+  Duration? get transitionTimeout => (props[_$key__transitionTimeout__WithTransitionPropsMixin] ?? null) as Duration?;
   @override
-  set transitionTimeout(Duration? value) =>
-      props[_$key__transitionTimeout__WithTransitionPropsMixin] = value;
+  set transitionTimeout(Duration? value) => props[_$key__transitionTimeout__WithTransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__isShown__WithTransitionPropsMixin =
-      PropDescriptor(_$key__isShown__WithTransitionPropsMixin);
-  static const PropDescriptor
-      _$prop__childPropsByPhase__WithTransitionPropsMixin =
-      PropDescriptor(_$key__childPropsByPhase__WithTransitionPropsMixin);
-  static const PropDescriptor
-      _$prop__transitionTimeout__WithTransitionPropsMixin =
-      PropDescriptor(_$key__transitionTimeout__WithTransitionPropsMixin);
-  static const String _$key__isShown__WithTransitionPropsMixin =
-      'WithTransitionPropsMixin.isShown';
-  static const String _$key__childPropsByPhase__WithTransitionPropsMixin =
-      'WithTransitionPropsMixin.childPropsByPhase';
-  static const String _$key__transitionTimeout__WithTransitionPropsMixin =
-      'WithTransitionPropsMixin.transitionTimeout';
+  static const PropDescriptor _$prop__isShown__WithTransitionPropsMixin = PropDescriptor(_$key__isShown__WithTransitionPropsMixin);
+  static const PropDescriptor _$prop__childPropsByPhase__WithTransitionPropsMixin = PropDescriptor(_$key__childPropsByPhase__WithTransitionPropsMixin);
+  static const PropDescriptor _$prop__transitionTimeout__WithTransitionPropsMixin = PropDescriptor(_$key__transitionTimeout__WithTransitionPropsMixin);
+  static const String _$key__isShown__WithTransitionPropsMixin = 'WithTransitionPropsMixin.isShown';
+  static const String _$key__childPropsByPhase__WithTransitionPropsMixin = 'WithTransitionPropsMixin.childPropsByPhase';
+  static const String _$key__transitionTimeout__WithTransitionPropsMixin = 'WithTransitionPropsMixin.transitionTimeout';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__isShown__WithTransitionPropsMixin,
-    _$prop__childPropsByPhase__WithTransitionPropsMixin,
-    _$prop__transitionTimeout__WithTransitionPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__isShown__WithTransitionPropsMixin,
-    _$key__childPropsByPhase__WithTransitionPropsMixin,
-    _$key__transitionTimeout__WithTransitionPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__isShown__WithTransitionPropsMixin, _$prop__childPropsByPhase__WithTransitionPropsMixin, _$prop__transitionTimeout__WithTransitionPropsMixin];
+  static const List<String> $propKeys = [_$key__isShown__WithTransitionPropsMixin, _$key__childPropsByPhase__WithTransitionPropsMixin, _$key__transitionTimeout__WithTransitionPropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -254,26 +207,16 @@ mixin $WithTransitionState on WithTransitionState {
   static const StateMeta meta = _$metaForWithTransitionState;
   @override
   @protected
-  TransitionPhase get $transitionPhase =>
-      (state[_$key__$transitionPhase__WithTransitionState] ?? null)
-          as TransitionPhase;
+  TransitionPhase get $transitionPhase => (state[_$key__$transitionPhase__WithTransitionState] ?? null) as TransitionPhase;
   @override
   @protected
-  set $transitionPhase(TransitionPhase value) =>
-      state[_$key__$transitionPhase__WithTransitionState] = value;
+  set $transitionPhase(TransitionPhase value) => state[_$key__$transitionPhase__WithTransitionState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__$transitionPhase__WithTransitionState =
-      StateDescriptor(_$key__$transitionPhase__WithTransitionState,
-          isRequired: true, isNullable: true, isLate: true);
-  static const String _$key__$transitionPhase__WithTransitionState =
-      'WithTransitionState.\$transitionPhase';
+  static const StateDescriptor _$prop__$transitionPhase__WithTransitionState = StateDescriptor(_$key__$transitionPhase__WithTransitionState, isRequired: true, isNullable: true, isLate: true);
+  static const String _$key__$transitionPhase__WithTransitionState = 'WithTransitionState.\$transitionPhase';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__$transitionPhase__WithTransitionState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__$transitionPhase__WithTransitionState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__$transitionPhase__WithTransitionState];
+  static const List<String> $stateKeys = [_$key__$transitionPhase__WithTransitionState];
 }
 
 @Deprecated('This API is for use only within generated code.'

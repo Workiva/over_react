@@ -26,67 +26,49 @@ mixin _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @Deprecated('This is deprecated')
   @requiredProp
-  String? get basicProp =>
-      (props[_$key__basicProp___$BasicProps] ?? null) as String?;
-
+  String? get basicProp => (props[_$key__basicProp___$BasicProps] ?? null) as String?;
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @Deprecated('This is deprecated')
   @requiredProp
   set basicProp(String? value) => props[_$key__basicProp___$BasicProps] = value;
-
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   String? get basic1 => (props[_$key__basic1___$BasicProps] ?? null) as String?;
-
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   set basic1(String? value) => props[_$key__basic1___$BasicProps] = value;
-
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   String? get basic2 => (props[_$key__basic2___$BasicProps] ?? null) as String?;
-
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   set basic2(String? value) => props[_$key__basic2___$BasicProps] = value;
-
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   String? get basic3 => (props[_$key__basic3___$BasicProps] ?? null) as String?;
-
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   set basic3(String? value) => props[_$key__basic3___$BasicProps] = value;
-
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   String? get basic4 => (props[_$key__basic4___$BasicProps] ?? null) as String?;
-
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   set basic4(String? value) => props[_$key__basic4___$BasicProps] = value;
-
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   String? get basic5 => (props[_$key__basic5___$BasicProps] ?? null) as String?;
-
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   set basic5(String? value) => props[_$key__basic5___$BasicProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp___$BasicProps =
-      PropDescriptor(_$key__basicProp___$BasicProps, isRequired: true);
-  static const PropDescriptor _$prop__basic1___$BasicProps =
-      PropDescriptor(_$key__basic1___$BasicProps);
-  static const PropDescriptor _$prop__basic2___$BasicProps =
-      PropDescriptor(_$key__basic2___$BasicProps);
-  static const PropDescriptor _$prop__basic3___$BasicProps =
-      PropDescriptor(_$key__basic3___$BasicProps);
-  static const PropDescriptor _$prop__basic4___$BasicProps =
-      PropDescriptor(_$key__basic4___$BasicProps);
-  static const PropDescriptor _$prop__basic5___$BasicProps =
-      PropDescriptor(_$key__basic5___$BasicProps);
+  static const PropDescriptor _$prop__basicProp___$BasicProps = PropDescriptor(_$key__basicProp___$BasicProps, isRequired: true);
+  static const PropDescriptor _$prop__basic1___$BasicProps = PropDescriptor(_$key__basic1___$BasicProps);
+  static const PropDescriptor _$prop__basic2___$BasicProps = PropDescriptor(_$key__basic2___$BasicProps);
+  static const PropDescriptor _$prop__basic3___$BasicProps = PropDescriptor(_$key__basic3___$BasicProps);
+  static const PropDescriptor _$prop__basic4___$BasicProps = PropDescriptor(_$key__basic4___$BasicProps);
+  static const PropDescriptor _$prop__basic5___$BasicProps = PropDescriptor(_$key__basic5___$BasicProps);
   static const String _$key__basicProp___$BasicProps = 'BasicProps.basicProp';
   static const String _$key__basic1___$BasicProps = 'BasicProps.basic1';
   static const String _$key__basic2___$BasicProps = 'BasicProps.basic2';
@@ -94,22 +76,8 @@ mixin _$BasicPropsAccessorsMixin implements _$BasicProps {
   static const String _$key__basic4___$BasicProps = 'BasicProps.basic4';
   static const String _$key__basic5___$BasicProps = 'BasicProps.basic5';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__basicProp___$BasicProps,
-    _$prop__basic1___$BasicProps,
-    _$prop__basic2___$BasicProps,
-    _$prop__basic3___$BasicProps,
-    _$prop__basic4___$BasicProps,
-    _$prop__basic5___$BasicProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__basicProp___$BasicProps,
-    _$key__basic1___$BasicProps,
-    _$key__basic2___$BasicProps,
-    _$key__basic3___$BasicProps,
-    _$key__basic4___$BasicProps,
-    _$key__basic5___$BasicProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__basicProp___$BasicProps, _$prop__basic1___$BasicProps, _$prop__basic2___$BasicProps, _$prop__basic3___$BasicProps, _$prop__basic4___$BasicProps, _$prop__basic5___$BasicProps];
+  static const List<String> $propKeys = [_$key__basicProp___$BasicProps, _$key__basic1___$BasicProps, _$key__basic2___$BasicProps, _$key__basic3___$BasicProps, _$key__basic4___$BasicProps, _$key__basic5___$BasicProps];
 }
 
 const PropsMeta _$metaForBasicProps = PropsMeta(
@@ -120,15 +88,11 @@ const PropsMeta _$metaForBasicProps = PropsMeta(
 class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForBasicProps;
 }
-
 _$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$BasicProps extends _$BasicProps
-    with _$BasicPropsAccessorsMixin
-    implements BasicProps {
+class _$$BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin implements BasicProps {
   _$$BasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -141,26 +105,21 @@ class _$$BasicProps extends _$BasicProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $Basic2ComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $Basic2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicProps(accessMap, (map) => _$$BasicProps(map));
 
   @override
-  Set<String> get requiredPropNamesToSkipValidation =>
-      const {'id', 'basicProp'};
+  Set<String> get requiredPropNamesToSkipValidation => const {'id', 'basicProp'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -174,20 +133,18 @@ class _$Basic2Component extends Basic2Component {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$BasicProps(backingMap);
 
   @override
   _$$BasicProps typedPropsFactory(Map? backingMap) => _$$BasicProps(backingMap);

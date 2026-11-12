@@ -30,9 +30,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
-  ButtonSkin? get skin =>
-      (props[_$key__skin___$ButtonProps] ?? null) as ButtonSkin?;
-
+  ButtonSkin? get skin => (props[_$key__skin___$ButtonProps] ?? null) as ButtonSkin?;
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
@@ -42,7 +40,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
   set skin(ButtonSkin? value) => props[_$key__skin___$ButtonProps] = value;
-
   /// The size of the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
@@ -51,9 +48,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.size] -->
   @override
-  ButtonSize? get size =>
-      (props[_$key__size___$ButtonProps] ?? null) as ButtonSize?;
-
+  ButtonSize? get size => (props[_$key__size___$ButtonProps] ?? null) as ButtonSize?;
   /// The size of the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
@@ -63,7 +58,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.size] -->
   @override
   set size(ButtonSize? value) => props[_$key__size___$ButtonProps] = value;
-
   /// Whether the [Button] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
@@ -72,9 +66,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  bool? get isActive =>
-      (props[_$key__isActive___$ButtonProps] ?? null) as bool?;
-
+  bool? get isActive => (props[_$key__isActive___$ButtonProps] ?? null) as bool?;
   /// Whether the [Button] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
@@ -84,7 +76,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
   set isActive(bool? value) => props[_$key__isActive___$ButtonProps] = value;
-
   /// Whether the [Button] is disabled.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
@@ -94,9 +85,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool? get isDisabled =>
-      (props[_$key__isDisabled___$ButtonProps] ?? null) as bool?;
-
+  bool? get isDisabled => (props[_$key__isDisabled___$ButtonProps] ?? null) as bool?;
   /// Whether the [Button] is disabled.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
@@ -106,9 +95,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool? value) =>
-      props[_$key__isDisabled___$ButtonProps] = value;
-
+  set isDisabled(bool? value) => props[_$key__isDisabled___$ButtonProps] = value;
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
   ///
@@ -117,7 +104,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
   bool? get isBlock => (props[_$key__isBlock___$ButtonProps] ?? null) as bool?;
-
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
   ///
@@ -126,7 +112,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
   set isBlock(bool? value) => props[_$key__isBlock___$ButtonProps] = value;
-
   /// The HTML `href` attribute value for the [Button].
   ///
   /// If set, the item will render via [Dom.a].
@@ -137,7 +122,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   @override
   @Accessor(keyNamespace: '')
   String? get href => (props[_$key__href___$ButtonProps] ?? null) as String?;
-
   /// The HTML `href` attribute value for the [Button].
   ///
   /// If set, the item will render via [Dom.a].
@@ -148,7 +132,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   @override
   @Accessor(keyNamespace: '')
   set href(String? value) => props[_$key__href___$ButtonProps] = value;
-
   /// The HTML `target` attribute value for the [Button].
   ///
   /// If set, the item will render via [Dom.a].
@@ -158,9 +141,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String? get target =>
-      (props[_$key__target___$ButtonProps] ?? null) as String?;
-
+  String? get target => (props[_$key__target___$ButtonProps] ?? null) as String?;
   /// The HTML `target` attribute value for the [Button].
   ///
   /// If set, the item will render via [Dom.a].
@@ -171,7 +152,6 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   @override
   @Accessor(keyNamespace: '')
   set target(String? value) => props[_$key__target___$ButtonProps] = value;
-
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].
   ///
@@ -183,9 +163,7 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.type] -->
   @override
-  ButtonType? get type =>
-      (props[_$key__type___$ButtonProps] ?? null) as ButtonType?;
-
+  ButtonType? get type => (props[_$key__type___$ButtonProps] ?? null) as ButtonType?;
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].
   ///
@@ -199,22 +177,14 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   @override
   set type(ButtonType? value) => props[_$key__type___$ButtonProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__skin___$ButtonProps =
-      PropDescriptor(_$key__skin___$ButtonProps);
-  static const PropDescriptor _$prop__size___$ButtonProps =
-      PropDescriptor(_$key__size___$ButtonProps);
-  static const PropDescriptor _$prop__isActive___$ButtonProps =
-      PropDescriptor(_$key__isActive___$ButtonProps);
-  static const PropDescriptor _$prop__isDisabled___$ButtonProps =
-      PropDescriptor(_$key__isDisabled___$ButtonProps);
-  static const PropDescriptor _$prop__isBlock___$ButtonProps =
-      PropDescriptor(_$key__isBlock___$ButtonProps);
-  static const PropDescriptor _$prop__href___$ButtonProps =
-      PropDescriptor(_$key__href___$ButtonProps);
-  static const PropDescriptor _$prop__target___$ButtonProps =
-      PropDescriptor(_$key__target___$ButtonProps);
-  static const PropDescriptor _$prop__type___$ButtonProps =
-      PropDescriptor(_$key__type___$ButtonProps);
+  static const PropDescriptor _$prop__skin___$ButtonProps = PropDescriptor(_$key__skin___$ButtonProps);
+  static const PropDescriptor _$prop__size___$ButtonProps = PropDescriptor(_$key__size___$ButtonProps);
+  static const PropDescriptor _$prop__isActive___$ButtonProps = PropDescriptor(_$key__isActive___$ButtonProps);
+  static const PropDescriptor _$prop__isDisabled___$ButtonProps = PropDescriptor(_$key__isDisabled___$ButtonProps);
+  static const PropDescriptor _$prop__isBlock___$ButtonProps = PropDescriptor(_$key__isBlock___$ButtonProps);
+  static const PropDescriptor _$prop__href___$ButtonProps = PropDescriptor(_$key__href___$ButtonProps);
+  static const PropDescriptor _$prop__target___$ButtonProps = PropDescriptor(_$key__target___$ButtonProps);
+  static const PropDescriptor _$prop__type___$ButtonProps = PropDescriptor(_$key__type___$ButtonProps);
   static const String _$key__skin___$ButtonProps = 'ButtonProps.skin';
   static const String _$key__size___$ButtonProps = 'ButtonProps.size';
   static const String _$key__isActive___$ButtonProps = 'ButtonProps.isActive';
@@ -224,26 +194,8 @@ mixin _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   static const String _$key__target___$ButtonProps = 'target';
   static const String _$key__type___$ButtonProps = 'ButtonProps.type';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__skin___$ButtonProps,
-    _$prop__size___$ButtonProps,
-    _$prop__isActive___$ButtonProps,
-    _$prop__isDisabled___$ButtonProps,
-    _$prop__isBlock___$ButtonProps,
-    _$prop__href___$ButtonProps,
-    _$prop__target___$ButtonProps,
-    _$prop__type___$ButtonProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__skin___$ButtonProps,
-    _$key__size___$ButtonProps,
-    _$key__isActive___$ButtonProps,
-    _$key__isDisabled___$ButtonProps,
-    _$key__isBlock___$ButtonProps,
-    _$key__href___$ButtonProps,
-    _$key__target___$ButtonProps,
-    _$key__type___$ButtonProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__skin___$ButtonProps, _$prop__size___$ButtonProps, _$prop__isActive___$ButtonProps, _$prop__isDisabled___$ButtonProps, _$prop__isBlock___$ButtonProps, _$prop__href___$ButtonProps, _$prop__target___$ButtonProps, _$prop__type___$ButtonProps];
+  static const List<String> $propKeys = [_$key__skin___$ButtonProps, _$key__size___$ButtonProps, _$key__isActive___$ButtonProps, _$key__isDisabled___$ButtonProps, _$key__isBlock___$ButtonProps, _$key__href___$ButtonProps, _$key__target___$ButtonProps, _$key__type___$ButtonProps];
 }
 
 const PropsMeta _$metaForButtonProps = PropsMeta(
@@ -254,15 +206,11 @@ const PropsMeta _$metaForButtonProps = PropsMeta(
 class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForButtonProps;
 }
-
 _$$ButtonProps _$Button([Map? backingProps]) => _$$ButtonProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ButtonProps extends _$ButtonProps
-    with _$ButtonPropsAccessorsMixin
-    implements ButtonProps {
+class _$$ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin implements ButtonProps {
   _$$ButtonProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -275,22 +223,18 @@ class _$$ButtonProps extends _$ButtonProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ButtonComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ButtonComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ButtonProps(accessMap, (map) => _$$ButtonProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ButtonProps(accessMap, (map) => _$$ButtonProps(map));
 
   @override
-  Set<String> get requiredPropNamesToSkipValidation =>
-      const {'skin', 'size', 'isActive', 'isDisabled', 'isBlock', 'type'};
+  Set<String> get requiredPropNamesToSkipValidation => const {'skin', 'size', 'isActive', 'isDisabled', 'isBlock', 'type'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ButtonProps = getPropKey;
@@ -312,13 +256,10 @@ const StateMeta _$metaForButtonState = StateMeta(
 class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
   static const StateMeta meta = _$metaForButtonState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$ButtonState extends _$ButtonState
-    with _$ButtonStateAccessorsMixin
-    implements ButtonState {
+class _$$ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin implements ButtonState {
   _$$ButtonState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
@@ -329,19 +270,16 @@ class _$$ButtonState extends _$ButtonState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ButtonComponent extends ButtonComponent {
   @override
-  _$$ButtonProps typedPropsFactory(Map? backingMap) =>
-      _$$ButtonProps(backingMap);
+  _$$ButtonProps typedPropsFactory(Map? backingMap) => _$$ButtonProps(backingMap);
 
   @override
-  _$$ButtonState typedStateFactory(Map? backingMap) =>
-      _$$ButtonState(backingMap);
+  _$$ButtonState typedStateFactory(Map? backingMap) => _$$ButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -353,7 +291,5 @@ class _$ButtonComponent extends ButtonComponent {
   /// The default consumed props, taken from _$ButtonProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForButtonProps];
 }

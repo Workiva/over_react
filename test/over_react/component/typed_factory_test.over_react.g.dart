@@ -18,32 +18,22 @@ final $TypedFactoryTesterComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$TypedFactoryTesterPropsAccessorsMixin
-    implements _$TypedFactoryTesterProps {
+mixin _$TypedFactoryTesterPropsAccessorsMixin implements _$TypedFactoryTesterProps {
   @override
   Map get props;
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  bool? get testProp =>
-      (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool?;
-
+  bool? get testProp => (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool?;
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  set testProp(bool? value) =>
-      props[_$key__testProp___$TypedFactoryTesterProps] = value;
+  set testProp(bool? value) => props[_$key__testProp___$TypedFactoryTesterProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__testProp___$TypedFactoryTesterProps =
-      PropDescriptor(_$key__testProp___$TypedFactoryTesterProps);
-  static const String _$key__testProp___$TypedFactoryTesterProps =
-      'TypedFactoryTesterProps.testProp';
+  static const PropDescriptor _$prop__testProp___$TypedFactoryTesterProps = PropDescriptor(_$key__testProp___$TypedFactoryTesterProps);
+  static const String _$key__testProp___$TypedFactoryTesterProps = 'TypedFactoryTesterProps.testProp';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__testProp___$TypedFactoryTesterProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__testProp___$TypedFactoryTesterProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__testProp___$TypedFactoryTesterProps];
+  static const List<String> $propKeys = [_$key__testProp___$TypedFactoryTesterProps];
 }
 
 const PropsMeta _$metaForTypedFactoryTesterProps = PropsMeta(
@@ -51,22 +41,15 @@ const PropsMeta _$metaForTypedFactoryTesterProps = PropsMeta(
   keys: _$TypedFactoryTesterPropsAccessorsMixin.$propKeys,
 );
 
-class TypedFactoryTesterProps extends _$TypedFactoryTesterProps
-    with _$TypedFactoryTesterPropsAccessorsMixin {
+class TypedFactoryTesterProps extends _$TypedFactoryTesterProps with _$TypedFactoryTesterPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTypedFactoryTesterProps;
 }
-
-_$$TypedFactoryTesterProps _$TypedFactoryTester([Map? backingProps]) =>
-    _$$TypedFactoryTesterProps(backingProps);
-
+_$$TypedFactoryTesterProps _$TypedFactoryTester([Map? backingProps]) => _$$TypedFactoryTesterProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
-    with _$TypedFactoryTesterPropsAccessorsMixin
-    implements TypedFactoryTesterProps {
-  _$$TypedFactoryTesterProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps with _$TypedFactoryTesterPropsAccessorsMixin implements TypedFactoryTesterProps {
+  _$$TypedFactoryTesterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -78,48 +61,34 @@ class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TypedFactoryTesterComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TypedFactoryTesterComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TypedFactoryTesterProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TypedFactoryTesterProps(
-          accessMap, (map) => _$$TypedFactoryTesterProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TypedFactoryTesterProps(accessMap, (map) => _$$TypedFactoryTesterProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TypedFactoryTesterProps = getPropKey;
-mixin _$TypedFactoryTesterStateAccessorsMixin
-    implements _$TypedFactoryTesterState {
+mixin _$TypedFactoryTesterStateAccessorsMixin implements _$TypedFactoryTesterState {
   @override
   Map get state;
 
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
-  bool? get testState =>
-      (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool?;
-
+  bool? get testState => (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool?;
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
-  set testState(bool? value) =>
-      state[_$key__testState___$TypedFactoryTesterState] = value;
+  set testState(bool? value) => state[_$key__testState___$TypedFactoryTesterState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__testState___$TypedFactoryTesterState =
-      StateDescriptor(_$key__testState___$TypedFactoryTesterState);
-  static const String _$key__testState___$TypedFactoryTesterState =
-      'TypedFactoryTesterState.testState';
+  static const StateDescriptor _$prop__testState___$TypedFactoryTesterState = StateDescriptor(_$key__testState___$TypedFactoryTesterState);
+  static const String _$key__testState___$TypedFactoryTesterState = 'TypedFactoryTesterState.testState';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__testState___$TypedFactoryTesterState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__testState___$TypedFactoryTesterState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__testState___$TypedFactoryTesterState];
+  static const List<String> $stateKeys = [_$key__testState___$TypedFactoryTesterState];
 }
 
 const StateMeta _$metaForTypedFactoryTesterState = StateMeta(
@@ -127,19 +96,14 @@ const StateMeta _$metaForTypedFactoryTesterState = StateMeta(
   keys: _$TypedFactoryTesterStateAccessorsMixin.$stateKeys,
 );
 
-class TypedFactoryTesterState extends _$TypedFactoryTesterState
-    with _$TypedFactoryTesterStateAccessorsMixin {
+class TypedFactoryTesterState extends _$TypedFactoryTesterState with _$TypedFactoryTesterStateAccessorsMixin {
   static const StateMeta meta = _$metaForTypedFactoryTesterState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState
-    with _$TypedFactoryTesterStateAccessorsMixin
-    implements TypedFactoryTesterState {
-  _$$TypedFactoryTesterState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState with _$TypedFactoryTesterStateAccessorsMixin implements TypedFactoryTesterState {
+  _$$TypedFactoryTesterState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -149,7 +113,6 @@ class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -163,24 +126,21 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$TypedFactoryTesterProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$TypedFactoryTesterProps(backingMap);
+  _$$TypedFactoryTesterProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$TypedFactoryTesterProps(backingMap);
 
   @override
-  _$$TypedFactoryTesterProps typedPropsFactory(Map? backingMap) =>
-      _$$TypedFactoryTesterProps(backingMap);
+  _$$TypedFactoryTesterProps typedPropsFactory(Map? backingMap) => _$$TypedFactoryTesterProps(backingMap);
 
   late _$$TypedFactoryTesterState _cachedTypedState;
   @override
@@ -188,21 +148,18 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$TypedFactoryTesterState typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$TypedFactoryTesterState(backingMap);
+  @override 
+  _$$TypedFactoryTesterState typedStateFactoryJs(JsBackedMap? backingMap) => _$$TypedFactoryTesterState(backingMap);
 
   @override
-  _$$TypedFactoryTesterState typedStateFactory(Map? backingMap) =>
-      _$$TypedFactoryTesterState(backingMap);
+  _$$TypedFactoryTesterState typedStateFactory(Map? backingMap) => _$$TypedFactoryTesterState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -214,7 +171,5 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   /// The default consumed props, taken from _$TypedFactoryTesterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTypedFactoryTesterProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTypedFactoryTesterProps];
 }

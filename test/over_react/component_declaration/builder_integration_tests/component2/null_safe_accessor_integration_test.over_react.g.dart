@@ -24,184 +24,82 @@ mixin _$NullSafeTestPropsAccessorsMixin implements _$NullSafeTestProps {
 
   /// <!-- Generated from [_$NullSafeTestProps.requiredNonNullable] -->
   @override
-  String get requiredNonNullable =>
-      (props[_$key__requiredNonNullable___$NullSafeTestProps] ?? null)
-          as String;
-
+  String get requiredNonNullable => (props[_$key__requiredNonNullable___$NullSafeTestProps] ?? null) as String;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNonNullable] -->
   @override
-  set requiredNonNullable(String value) =>
-      props[_$key__requiredNonNullable___$NullSafeTestProps] = value;
-
+  set requiredNonNullable(String value) => props[_$key__requiredNonNullable___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNonNullableTypedef] -->
   @override
-  NonNullableTypedef get requiredNonNullableTypedef =>
-      (props[_$key__requiredNonNullableTypedef___$NullSafeTestProps] ?? null)
-          as NonNullableTypedef;
-
+  NonNullableTypedef get requiredNonNullableTypedef => (props[_$key__requiredNonNullableTypedef___$NullSafeTestProps] ?? null) as NonNullableTypedef;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNonNullableTypedef] -->
   @override
-  set requiredNonNullableTypedef(NonNullableTypedef value) =>
-      props[_$key__requiredNonNullableTypedef___$NullSafeTestProps] = value;
-
+  set requiredNonNullableTypedef(NonNullableTypedef value) => props[_$key__requiredNonNullableTypedef___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullable] -->
   @override
-  String? get requiredNullable =>
-      (props[_$key__requiredNullable___$NullSafeTestProps] ?? null) as String?;
-
+  String? get requiredNullable => (props[_$key__requiredNullable___$NullSafeTestProps] ?? null) as String?;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullable] -->
   @override
-  set requiredNullable(String? value) =>
-      props[_$key__requiredNullable___$NullSafeTestProps] = value;
-
+  set requiredNullable(String? value) => props[_$key__requiredNullable___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get requiredNullableTypedefWithoutQuestion => (props[
-          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] ??
-      null) as NullableTypedef;
-
+  NullableTypedef get requiredNullableTypedefWithoutQuestion => (props[_$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] ?? null) as NullableTypedef;
   /// <!-- Generated from [_$NullSafeTestProps.requiredNullableTypedefWithoutQuestion] -->
   @override
-  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => props[
-          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] =
-      value;
-
+  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => props[_$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.requiredDynamic] -->
   @override
-  dynamic get requiredDynamic =>
-      (props[_$key__requiredDynamic___$NullSafeTestProps] ?? null) as dynamic;
-
+  dynamic get requiredDynamic => (props[_$key__requiredDynamic___$NullSafeTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$NullSafeTestProps.requiredDynamic] -->
   @override
-  set requiredDynamic(dynamic value) =>
-      props[_$key__requiredDynamic___$NullSafeTestProps] = value;
-
+  set requiredDynamic(dynamic value) => props[_$key__requiredDynamic___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.requiredWithAccessorAndCustomKey] -->
   @override
   @Accessor(key: 'customKey')
-  String get requiredWithAccessorAndCustomKey =>
-      (props[_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps] ??
-          null) as String;
-
+  String get requiredWithAccessorAndCustomKey => (props[_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps] ?? null) as String;
   /// <!-- Generated from [_$NullSafeTestProps.requiredWithAccessorAndCustomKey] -->
   @override
   @Accessor(key: 'customKey')
-  set requiredWithAccessorAndCustomKey(String value) =>
-      props[_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps] =
-          value;
-
+  set requiredWithAccessorAndCustomKey(String value) => props[_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.nullable] -->
   @override
-  String? get nullable =>
-      (props[_$key__nullable___$NullSafeTestProps] ?? null) as String?;
-
+  String? get nullable => (props[_$key__nullable___$NullSafeTestProps] ?? null) as String?;
   /// <!-- Generated from [_$NullSafeTestProps.nullable] -->
   @override
-  set nullable(String? value) =>
-      props[_$key__nullable___$NullSafeTestProps] = value;
-
+  set nullable(String? value) => props[_$key__nullable___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.nullableDynamic] -->
   @override
-  dynamic get nullableDynamic =>
-      (props[_$key__nullableDynamic___$NullSafeTestProps] ?? null) as dynamic;
-
+  dynamic get nullableDynamic => (props[_$key__nullableDynamic___$NullSafeTestProps] ?? null) as dynamic;
   /// <!-- Generated from [_$NullSafeTestProps.nullableDynamic] -->
   @override
-  set nullableDynamic(dynamic value) =>
-      props[_$key__nullableDynamic___$NullSafeTestProps] = value;
-
+  set nullableDynamic(dynamic value) => props[_$key__nullableDynamic___$NullSafeTestProps] = value;
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get nullableTypedefWithoutQuestion =>
-      (props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] ??
-          null) as NullableTypedef;
-
+  NullableTypedef get nullableTypedefWithoutQuestion => (props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] ?? null) as NullableTypedef;
   /// <!-- Generated from [_$NullSafeTestProps.nullableTypedefWithoutQuestion] -->
   @override
-  set nullableTypedefWithoutQuestion(NullableTypedef value) =>
-      props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] = value;
+  set nullableTypedefWithoutQuestion(NullableTypedef value) => props[_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__requiredNonNullable___$NullSafeTestProps =
-      PropDescriptor(_$key__requiredNonNullable___$NullSafeTestProps,
-          isRequired: true, isNullable: true, isLate: true);
-  static const PropDescriptor
-      _$prop__requiredNonNullableTypedef___$NullSafeTestProps = PropDescriptor(
-          _$key__requiredNonNullableTypedef___$NullSafeTestProps,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const PropDescriptor _$prop__requiredNullable___$NullSafeTestProps =
-      PropDescriptor(_$key__requiredNullable___$NullSafeTestProps,
-          isRequired: true, isNullable: true, isLate: true);
-  static const PropDescriptor
-      _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps =
-      PropDescriptor(
-          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const PropDescriptor _$prop__requiredDynamic___$NullSafeTestProps =
-      PropDescriptor(_$key__requiredDynamic___$NullSafeTestProps,
-          isRequired: true, isNullable: true, isLate: true);
-  static const PropDescriptor
-      _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps =
-      PropDescriptor(
-          _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const PropDescriptor _$prop__nullable___$NullSafeTestProps =
-      PropDescriptor(_$key__nullable___$NullSafeTestProps);
-  static const PropDescriptor _$prop__nullableDynamic___$NullSafeTestProps =
-      PropDescriptor(_$key__nullableDynamic___$NullSafeTestProps);
-  static const PropDescriptor
-      _$prop__nullableTypedefWithoutQuestion___$NullSafeTestProps =
-      PropDescriptor(
-          _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps);
-  static const String _$key__requiredNonNullable___$NullSafeTestProps =
-      'NullSafeTestProps.requiredNonNullable';
-  static const String _$key__requiredNonNullableTypedef___$NullSafeTestProps =
-      'NullSafeTestProps.requiredNonNullableTypedef';
-  static const String _$key__requiredNullable___$NullSafeTestProps =
-      'NullSafeTestProps.requiredNullable';
-  static const String
-      _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps =
-      'NullSafeTestProps.requiredNullableTypedefWithoutQuestion';
-  static const String _$key__requiredDynamic___$NullSafeTestProps =
-      'NullSafeTestProps.requiredDynamic';
-  static const String
-      _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps =
-      'NullSafeTestProps.customKey';
-  static const String _$key__nullable___$NullSafeTestProps =
-      'NullSafeTestProps.nullable';
-  static const String _$key__nullableDynamic___$NullSafeTestProps =
-      'NullSafeTestProps.nullableDynamic';
-  static const String
-      _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps =
-      'NullSafeTestProps.nullableTypedefWithoutQuestion';
+  static const PropDescriptor _$prop__requiredNonNullable___$NullSafeTestProps = PropDescriptor(_$key__requiredNonNullable___$NullSafeTestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__requiredNonNullableTypedef___$NullSafeTestProps = PropDescriptor(_$key__requiredNonNullableTypedef___$NullSafeTestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__requiredNullable___$NullSafeTestProps = PropDescriptor(_$key__requiredNullable___$NullSafeTestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps = PropDescriptor(_$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__requiredDynamic___$NullSafeTestProps = PropDescriptor(_$key__requiredDynamic___$NullSafeTestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps = PropDescriptor(_$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps, isRequired: true, isNullable: true, isLate: true);
+  static const PropDescriptor _$prop__nullable___$NullSafeTestProps = PropDescriptor(_$key__nullable___$NullSafeTestProps);
+  static const PropDescriptor _$prop__nullableDynamic___$NullSafeTestProps = PropDescriptor(_$key__nullableDynamic___$NullSafeTestProps);
+  static const PropDescriptor _$prop__nullableTypedefWithoutQuestion___$NullSafeTestProps = PropDescriptor(_$key__nullableTypedefWithoutQuestion___$NullSafeTestProps);
+  static const String _$key__requiredNonNullable___$NullSafeTestProps = 'NullSafeTestProps.requiredNonNullable';
+  static const String _$key__requiredNonNullableTypedef___$NullSafeTestProps = 'NullSafeTestProps.requiredNonNullableTypedef';
+  static const String _$key__requiredNullable___$NullSafeTestProps = 'NullSafeTestProps.requiredNullable';
+  static const String _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps = 'NullSafeTestProps.requiredNullableTypedefWithoutQuestion';
+  static const String _$key__requiredDynamic___$NullSafeTestProps = 'NullSafeTestProps.requiredDynamic';
+  static const String _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps = 'NullSafeTestProps.customKey';
+  static const String _$key__nullable___$NullSafeTestProps = 'NullSafeTestProps.nullable';
+  static const String _$key__nullableDynamic___$NullSafeTestProps = 'NullSafeTestProps.nullableDynamic';
+  static const String _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps = 'NullSafeTestProps.nullableTypedefWithoutQuestion';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__requiredNonNullable___$NullSafeTestProps,
-    _$prop__requiredNonNullableTypedef___$NullSafeTestProps,
-    _$prop__requiredNullable___$NullSafeTestProps,
-    _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps,
-    _$prop__requiredDynamic___$NullSafeTestProps,
-    _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
-    _$prop__nullable___$NullSafeTestProps,
-    _$prop__nullableDynamic___$NullSafeTestProps,
-    _$prop__nullableTypedefWithoutQuestion___$NullSafeTestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__requiredNonNullable___$NullSafeTestProps,
-    _$key__requiredNonNullableTypedef___$NullSafeTestProps,
-    _$key__requiredNullable___$NullSafeTestProps,
-    _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps,
-    _$key__requiredDynamic___$NullSafeTestProps,
-    _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps,
-    _$key__nullable___$NullSafeTestProps,
-    _$key__nullableDynamic___$NullSafeTestProps,
-    _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__requiredNonNullable___$NullSafeTestProps, _$prop__requiredNonNullableTypedef___$NullSafeTestProps, _$prop__requiredNullable___$NullSafeTestProps, _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps, _$prop__requiredDynamic___$NullSafeTestProps, _$prop__requiredWithAccessorAndCustomKey___$NullSafeTestProps, _$prop__nullable___$NullSafeTestProps, _$prop__nullableDynamic___$NullSafeTestProps, _$prop__nullableTypedefWithoutQuestion___$NullSafeTestProps];
+  static const List<String> $propKeys = [_$key__requiredNonNullable___$NullSafeTestProps, _$key__requiredNonNullableTypedef___$NullSafeTestProps, _$key__requiredNullable___$NullSafeTestProps, _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestProps, _$key__requiredDynamic___$NullSafeTestProps, _$key__requiredWithAccessorAndCustomKey___$NullSafeTestProps, _$key__nullable___$NullSafeTestProps, _$key__nullableDynamic___$NullSafeTestProps, _$key__nullableTypedefWithoutQuestion___$NullSafeTestProps];
 }
 
 const PropsMeta _$metaForNullSafeTestProps = PropsMeta(
@@ -209,22 +107,15 @@ const PropsMeta _$metaForNullSafeTestProps = PropsMeta(
   keys: _$NullSafeTestPropsAccessorsMixin.$propKeys,
 );
 
-class NullSafeTestProps extends _$NullSafeTestProps
-    with _$NullSafeTestPropsAccessorsMixin {
+class NullSafeTestProps extends _$NullSafeTestProps with _$NullSafeTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForNullSafeTestProps;
 }
-
-_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) =>
-    _$$NullSafeTestProps(backingProps);
-
+_$$NullSafeTestProps _$NullSafeTest([Map? backingProps]) => _$$NullSafeTestProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$NullSafeTestProps extends _$NullSafeTestProps
-    with _$NullSafeTestPropsAccessorsMixin
-    implements NullSafeTestProps {
-  _$$NullSafeTestProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$NullSafeTestProps extends _$NullSafeTestProps with _$NullSafeTestPropsAccessorsMixin implements NullSafeTestProps {
+  _$$NullSafeTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -236,19 +127,15 @@ class _$$NullSafeTestProps extends _$NullSafeTestProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $NullSafeTestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $NullSafeTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'NullSafeTestProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$NullSafeTestProps(
-          accessMap, (map) => _$$NullSafeTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$NullSafeTestProps(accessMap, (map) => _$$NullSafeTestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$NullSafeTestProps = getPropKey;
@@ -258,161 +145,72 @@ mixin _$NullSafeTestStateAccessorsMixin implements _$NullSafeTestState {
 
   /// <!-- Generated from [_$NullSafeTestState.requiredNonNullable] -->
   @override
-  String get requiredNonNullable =>
-      (state[_$key__requiredNonNullable___$NullSafeTestState] ?? null)
-          as String;
-
+  String get requiredNonNullable => (state[_$key__requiredNonNullable___$NullSafeTestState] ?? null) as String;
   /// <!-- Generated from [_$NullSafeTestState.requiredNonNullable] -->
   @override
-  set requiredNonNullable(String value) =>
-      state[_$key__requiredNonNullable___$NullSafeTestState] = value;
-
+  set requiredNonNullable(String value) => state[_$key__requiredNonNullable___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.requiredNonNullableTypedef] -->
   @override
-  NonNullableTypedef get requiredNonNullableTypedef =>
-      (state[_$key__requiredNonNullableTypedef___$NullSafeTestState] ?? null)
-          as NonNullableTypedef;
-
+  NonNullableTypedef get requiredNonNullableTypedef => (state[_$key__requiredNonNullableTypedef___$NullSafeTestState] ?? null) as NonNullableTypedef;
   /// <!-- Generated from [_$NullSafeTestState.requiredNonNullableTypedef] -->
   @override
-  set requiredNonNullableTypedef(NonNullableTypedef value) =>
-      state[_$key__requiredNonNullableTypedef___$NullSafeTestState] = value;
-
+  set requiredNonNullableTypedef(NonNullableTypedef value) => state[_$key__requiredNonNullableTypedef___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
   @override
-  String? get requiredNullable =>
-      (state[_$key__requiredNullable___$NullSafeTestState] ?? null) as String?;
-
+  String? get requiredNullable => (state[_$key__requiredNullable___$NullSafeTestState] ?? null) as String?;
   /// <!-- Generated from [_$NullSafeTestState.requiredNullable] -->
   @override
-  set requiredNullable(String? value) =>
-      state[_$key__requiredNullable___$NullSafeTestState] = value;
-
+  set requiredNullable(String? value) => state[_$key__requiredNullable___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get requiredNullableTypedefWithoutQuestion => (state[
-          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] ??
-      null) as NullableTypedef;
-
+  NullableTypedef get requiredNullableTypedefWithoutQuestion => (state[_$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] ?? null) as NullableTypedef;
   /// <!-- Generated from [_$NullSafeTestState.requiredNullableTypedefWithoutQuestion] -->
   @override
-  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => state[
-          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] =
-      value;
-
+  set requiredNullableTypedefWithoutQuestion(NullableTypedef value) => state[_$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.requiredDynamic] -->
   @override
-  dynamic get requiredDynamic =>
-      (state[_$key__requiredDynamic___$NullSafeTestState] ?? null) as dynamic;
-
+  dynamic get requiredDynamic => (state[_$key__requiredDynamic___$NullSafeTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$NullSafeTestState.requiredDynamic] -->
   @override
-  set requiredDynamic(dynamic value) =>
-      state[_$key__requiredDynamic___$NullSafeTestState] = value;
-
+  set requiredDynamic(dynamic value) => state[_$key__requiredDynamic___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.nullable] -->
   @override
-  String? get nullable =>
-      (state[_$key__nullable___$NullSafeTestState] ?? null) as String?;
-
+  String? get nullable => (state[_$key__nullable___$NullSafeTestState] ?? null) as String?;
   /// <!-- Generated from [_$NullSafeTestState.nullable] -->
   @override
-  set nullable(String? value) =>
-      state[_$key__nullable___$NullSafeTestState] = value;
-
+  set nullable(String? value) => state[_$key__nullable___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.nullableDynamic] -->
   @override
-  dynamic get nullableDynamic =>
-      (state[_$key__nullableDynamic___$NullSafeTestState] ?? null) as dynamic;
-
+  dynamic get nullableDynamic => (state[_$key__nullableDynamic___$NullSafeTestState] ?? null) as dynamic;
   /// <!-- Generated from [_$NullSafeTestState.nullableDynamic] -->
   @override
-  set nullableDynamic(dynamic value) =>
-      state[_$key__nullableDynamic___$NullSafeTestState] = value;
-
+  set nullableDynamic(dynamic value) => state[_$key__nullableDynamic___$NullSafeTestState] = value;
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
-  NullableTypedef get nullableTypedefWithoutQuestion =>
-      (state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] ??
-          null) as NullableTypedef;
-
+  NullableTypedef get nullableTypedefWithoutQuestion => (state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] ?? null) as NullableTypedef;
   /// <!-- Generated from [_$NullSafeTestState.nullableTypedefWithoutQuestion] -->
   @override
-  set nullableTypedefWithoutQuestion(NullableTypedef value) =>
-      state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] = value;
+  set nullableTypedefWithoutQuestion(NullableTypedef value) => state[_$key__nullableTypedefWithoutQuestion___$NullSafeTestState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__requiredNonNullable___$NullSafeTestState = StateDescriptor(
-          _$key__requiredNonNullable___$NullSafeTestState,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const StateDescriptor
-      _$prop__requiredNonNullableTypedef___$NullSafeTestState = StateDescriptor(
-          _$key__requiredNonNullableTypedef___$NullSafeTestState,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const StateDescriptor _$prop__requiredNullable___$NullSafeTestState =
-      StateDescriptor(_$key__requiredNullable___$NullSafeTestState,
-          isRequired: true, isNullable: true, isLate: true);
-  static const StateDescriptor
-      _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState =
-      StateDescriptor(
-          _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const StateDescriptor _$prop__requiredDynamic___$NullSafeTestState =
-      StateDescriptor(_$key__requiredDynamic___$NullSafeTestState,
-          isRequired: true, isNullable: true, isLate: true);
-  static const StateDescriptor _$prop__nullable___$NullSafeTestState =
-      StateDescriptor(_$key__nullable___$NullSafeTestState);
-  static const StateDescriptor _$prop__nullableDynamic___$NullSafeTestState =
-      StateDescriptor(_$key__nullableDynamic___$NullSafeTestState);
-  static const StateDescriptor
-      _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState =
-      StateDescriptor(
-          _$key__nullableTypedefWithoutQuestion___$NullSafeTestState);
-  static const String _$key__requiredNonNullable___$NullSafeTestState =
-      'NullSafeTestState.requiredNonNullable';
-  static const String _$key__requiredNonNullableTypedef___$NullSafeTestState =
-      'NullSafeTestState.requiredNonNullableTypedef';
-  static const String _$key__requiredNullable___$NullSafeTestState =
-      'NullSafeTestState.requiredNullable';
-  static const String
-      _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState =
-      'NullSafeTestState.requiredNullableTypedefWithoutQuestion';
-  static const String _$key__requiredDynamic___$NullSafeTestState =
-      'NullSafeTestState.requiredDynamic';
-  static const String _$key__nullable___$NullSafeTestState =
-      'NullSafeTestState.nullable';
-  static const String _$key__nullableDynamic___$NullSafeTestState =
-      'NullSafeTestState.nullableDynamic';
-  static const String
-      _$key__nullableTypedefWithoutQuestion___$NullSafeTestState =
-      'NullSafeTestState.nullableTypedefWithoutQuestion';
+  static const StateDescriptor _$prop__requiredNonNullable___$NullSafeTestState = StateDescriptor(_$key__requiredNonNullable___$NullSafeTestState, isRequired: true, isNullable: true, isLate: true);
+  static const StateDescriptor _$prop__requiredNonNullableTypedef___$NullSafeTestState = StateDescriptor(_$key__requiredNonNullableTypedef___$NullSafeTestState, isRequired: true, isNullable: true, isLate: true);
+  static const StateDescriptor _$prop__requiredNullable___$NullSafeTestState = StateDescriptor(_$key__requiredNullable___$NullSafeTestState, isRequired: true, isNullable: true, isLate: true);
+  static const StateDescriptor _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState = StateDescriptor(_$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState, isRequired: true, isNullable: true, isLate: true);
+  static const StateDescriptor _$prop__requiredDynamic___$NullSafeTestState = StateDescriptor(_$key__requiredDynamic___$NullSafeTestState, isRequired: true, isNullable: true, isLate: true);
+  static const StateDescriptor _$prop__nullable___$NullSafeTestState = StateDescriptor(_$key__nullable___$NullSafeTestState);
+  static const StateDescriptor _$prop__nullableDynamic___$NullSafeTestState = StateDescriptor(_$key__nullableDynamic___$NullSafeTestState);
+  static const StateDescriptor _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState = StateDescriptor(_$key__nullableTypedefWithoutQuestion___$NullSafeTestState);
+  static const String _$key__requiredNonNullable___$NullSafeTestState = 'NullSafeTestState.requiredNonNullable';
+  static const String _$key__requiredNonNullableTypedef___$NullSafeTestState = 'NullSafeTestState.requiredNonNullableTypedef';
+  static const String _$key__requiredNullable___$NullSafeTestState = 'NullSafeTestState.requiredNullable';
+  static const String _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState = 'NullSafeTestState.requiredNullableTypedefWithoutQuestion';
+  static const String _$key__requiredDynamic___$NullSafeTestState = 'NullSafeTestState.requiredDynamic';
+  static const String _$key__nullable___$NullSafeTestState = 'NullSafeTestState.nullable';
+  static const String _$key__nullableDynamic___$NullSafeTestState = 'NullSafeTestState.nullableDynamic';
+  static const String _$key__nullableTypedefWithoutQuestion___$NullSafeTestState = 'NullSafeTestState.nullableTypedefWithoutQuestion';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__requiredNonNullable___$NullSafeTestState,
-    _$prop__requiredNonNullableTypedef___$NullSafeTestState,
-    _$prop__requiredNullable___$NullSafeTestState,
-    _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
-    _$prop__requiredDynamic___$NullSafeTestState,
-    _$prop__nullable___$NullSafeTestState,
-    _$prop__nullableDynamic___$NullSafeTestState,
-    _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__requiredNonNullable___$NullSafeTestState,
-    _$key__requiredNonNullableTypedef___$NullSafeTestState,
-    _$key__requiredNullable___$NullSafeTestState,
-    _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState,
-    _$key__requiredDynamic___$NullSafeTestState,
-    _$key__nullable___$NullSafeTestState,
-    _$key__nullableDynamic___$NullSafeTestState,
-    _$key__nullableTypedefWithoutQuestion___$NullSafeTestState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__requiredNonNullable___$NullSafeTestState, _$prop__requiredNonNullableTypedef___$NullSafeTestState, _$prop__requiredNullable___$NullSafeTestState, _$prop__requiredNullableTypedefWithoutQuestion___$NullSafeTestState, _$prop__requiredDynamic___$NullSafeTestState, _$prop__nullable___$NullSafeTestState, _$prop__nullableDynamic___$NullSafeTestState, _$prop__nullableTypedefWithoutQuestion___$NullSafeTestState];
+  static const List<String> $stateKeys = [_$key__requiredNonNullable___$NullSafeTestState, _$key__requiredNonNullableTypedef___$NullSafeTestState, _$key__requiredNullable___$NullSafeTestState, _$key__requiredNullableTypedefWithoutQuestion___$NullSafeTestState, _$key__requiredDynamic___$NullSafeTestState, _$key__nullable___$NullSafeTestState, _$key__nullableDynamic___$NullSafeTestState, _$key__nullableTypedefWithoutQuestion___$NullSafeTestState];
 }
 
 const StateMeta _$metaForNullSafeTestState = StateMeta(
@@ -420,19 +218,14 @@ const StateMeta _$metaForNullSafeTestState = StateMeta(
   keys: _$NullSafeTestStateAccessorsMixin.$stateKeys,
 );
 
-class NullSafeTestState extends _$NullSafeTestState
-    with _$NullSafeTestStateAccessorsMixin {
+class NullSafeTestState extends _$NullSafeTestState with _$NullSafeTestStateAccessorsMixin {
   static const StateMeta meta = _$metaForNullSafeTestState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$NullSafeTestState extends _$NullSafeTestState
-    with _$NullSafeTestStateAccessorsMixin
-    implements NullSafeTestState {
-  _$$NullSafeTestState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$NullSafeTestState extends _$NullSafeTestState with _$NullSafeTestStateAccessorsMixin implements NullSafeTestState {
+  _$$NullSafeTestState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -442,7 +235,6 @@ class _$$NullSafeTestState extends _$NullSafeTestState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -456,24 +248,21 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$NullSafeTestProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$NullSafeTestProps(backingMap);
+  _$$NullSafeTestProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$NullSafeTestProps(backingMap);
 
   @override
-  _$$NullSafeTestProps typedPropsFactory(Map? backingMap) =>
-      _$$NullSafeTestProps(backingMap);
+  _$$NullSafeTestProps typedPropsFactory(Map? backingMap) => _$$NullSafeTestProps(backingMap);
 
   late _$$NullSafeTestState _cachedTypedState;
   @override
@@ -481,21 +270,18 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$NullSafeTestState typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$NullSafeTestState(backingMap);
+  @override 
+  _$$NullSafeTestState typedStateFactoryJs(JsBackedMap? backingMap) => _$$NullSafeTestState(backingMap);
 
   @override
-  _$$NullSafeTestState typedStateFactory(Map? backingMap) =>
-      _$$NullSafeTestState(backingMap);
+  _$$NullSafeTestState typedStateFactory(Map? backingMap) => _$$NullSafeTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -507,7 +293,5 @@ class _$NullSafeTestComponent extends NullSafeTestComponent {
   /// The default consumed props, taken from _$NullSafeTestProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForNullSafeTestProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForNullSafeTestProps];
 }

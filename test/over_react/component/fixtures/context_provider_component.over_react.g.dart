@@ -18,8 +18,7 @@ final $ContextProviderWrapperComponentFactory = registerComponent2(
   parentType: null,
 );
 
-mixin _$ContextProviderWrapperPropsAccessorsMixin
-    implements _$ContextProviderWrapperProps {
+mixin _$ContextProviderWrapperPropsAccessorsMixin implements _$ContextProviderWrapperProps {
   @override
   Map get props;
 
@@ -34,22 +33,15 @@ const PropsMeta _$metaForContextProviderWrapperProps = PropsMeta(
   keys: _$ContextProviderWrapperPropsAccessorsMixin.$propKeys,
 );
 
-class ContextProviderWrapperProps extends _$ContextProviderWrapperProps
-    with _$ContextProviderWrapperPropsAccessorsMixin {
+class ContextProviderWrapperProps extends _$ContextProviderWrapperProps with _$ContextProviderWrapperPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForContextProviderWrapperProps;
 }
-
-_$$ContextProviderWrapperProps _$ContextProviderWrapper([Map? backingProps]) =>
-    _$$ContextProviderWrapperProps(backingProps);
-
+_$$ContextProviderWrapperProps _$ContextProviderWrapper([Map? backingProps]) => _$$ContextProviderWrapperProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ContextProviderWrapperProps extends _$ContextProviderWrapperProps
-    with _$ContextProviderWrapperPropsAccessorsMixin
-    implements ContextProviderWrapperProps {
-  _$$ContextProviderWrapperProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ContextProviderWrapperProps extends _$ContextProviderWrapperProps with _$ContextProviderWrapperPropsAccessorsMixin implements ContextProviderWrapperProps {
+  _$$ContextProviderWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -61,52 +53,34 @@ class _$$ContextProviderWrapperProps extends _$ContextProviderWrapperProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ContextProviderWrapperComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ContextProviderWrapperComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ContextProviderWrapperProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ContextProviderWrapperProps(
-          accessMap, (map) => _$$ContextProviderWrapperProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ContextProviderWrapperProps(accessMap, (map) => _$$ContextProviderWrapperProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ContextProviderWrapperProps = getPropKey;
-mixin _$ContextProviderWrapperStateAccessorsMixin
-    implements _$ContextProviderWrapperState {
+mixin _$ContextProviderWrapperStateAccessorsMixin implements _$ContextProviderWrapperState {
   @override
   Map get state;
 
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
-  int get latestValue =>
-      (state[_$key__latestValue___$ContextProviderWrapperState] ?? null) as int;
-
+  int get latestValue => (state[_$key__latestValue___$ContextProviderWrapperState] ?? null) as int;
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
-  set latestValue(int value) =>
-      state[_$key__latestValue___$ContextProviderWrapperState] = value;
+  set latestValue(int value) => state[_$key__latestValue___$ContextProviderWrapperState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__latestValue___$ContextProviderWrapperState = StateDescriptor(
-          _$key__latestValue___$ContextProviderWrapperState,
-          isRequired: true,
-          isNullable: true,
-          isLate: true);
-  static const String _$key__latestValue___$ContextProviderWrapperState =
-      'ContextProviderWrapperState.latestValue';
+  static const StateDescriptor _$prop__latestValue___$ContextProviderWrapperState = StateDescriptor(_$key__latestValue___$ContextProviderWrapperState, isRequired: true, isNullable: true, isLate: true);
+  static const String _$key__latestValue___$ContextProviderWrapperState = 'ContextProviderWrapperState.latestValue';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__latestValue___$ContextProviderWrapperState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__latestValue___$ContextProviderWrapperState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__latestValue___$ContextProviderWrapperState];
+  static const List<String> $stateKeys = [_$key__latestValue___$ContextProviderWrapperState];
 }
 
 const StateMeta _$metaForContextProviderWrapperState = StateMeta(
@@ -114,19 +88,14 @@ const StateMeta _$metaForContextProviderWrapperState = StateMeta(
   keys: _$ContextProviderWrapperStateAccessorsMixin.$stateKeys,
 );
 
-class ContextProviderWrapperState extends _$ContextProviderWrapperState
-    with _$ContextProviderWrapperStateAccessorsMixin {
+class ContextProviderWrapperState extends _$ContextProviderWrapperState with _$ContextProviderWrapperStateAccessorsMixin {
   static const StateMeta meta = _$metaForContextProviderWrapperState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$ContextProviderWrapperState extends _$ContextProviderWrapperState
-    with _$ContextProviderWrapperStateAccessorsMixin
-    implements ContextProviderWrapperState {
-  _$$ContextProviderWrapperState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$ContextProviderWrapperState extends _$ContextProviderWrapperState with _$ContextProviderWrapperStateAccessorsMixin implements ContextProviderWrapperState {
+  _$$ContextProviderWrapperState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -136,13 +105,11 @@ class _$$ContextProviderWrapperState extends _$ContextProviderWrapperState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$ContextProviderWrapperComponent
-    extends ContextProviderWrapperComponent {
+class _$ContextProviderWrapperComponent extends ContextProviderWrapperComponent {
   late _$$ContextProviderWrapperProps _cachedTypedProps;
 
   @override
@@ -151,24 +118,21 @@ class _$ContextProviderWrapperComponent
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$ContextProviderWrapperProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$ContextProviderWrapperProps(backingMap);
+  _$$ContextProviderWrapperProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$ContextProviderWrapperProps(backingMap);
 
   @override
-  _$$ContextProviderWrapperProps typedPropsFactory(Map? backingMap) =>
-      _$$ContextProviderWrapperProps(backingMap);
+  _$$ContextProviderWrapperProps typedPropsFactory(Map? backingMap) => _$$ContextProviderWrapperProps(backingMap);
 
   late _$$ContextProviderWrapperState _cachedTypedState;
   @override
@@ -176,21 +140,18 @@ class _$ContextProviderWrapperComponent
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initialState or setState.');
+    assert(value is JsBackedMap, 
+      'Component2.state should only be set via '
+      'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
-  @override
-  _$$ContextProviderWrapperState typedStateFactoryJs(JsBackedMap? backingMap) =>
-      _$$ContextProviderWrapperState(backingMap);
+  @override 
+  _$$ContextProviderWrapperState typedStateFactoryJs(JsBackedMap? backingMap) => _$$ContextProviderWrapperState(backingMap);
 
   @override
-  _$$ContextProviderWrapperState typedStateFactory(Map? backingMap) =>
-      _$$ContextProviderWrapperState(backingMap);
+  _$$ContextProviderWrapperState typedStateFactory(Map? backingMap) => _$$ContextProviderWrapperState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -202,7 +163,5 @@ class _$ContextProviderWrapperComponent
   /// The default consumed props, taken from _$ContextProviderWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForContextProviderWrapperProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForContextProviderWrapperProps];
 }

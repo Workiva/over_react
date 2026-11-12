@@ -33,22 +33,15 @@ const PropsMeta _$metaForTestParentProps = PropsMeta(
   keys: _$TestParentPropsAccessorsMixin.$propKeys,
 );
 
-class TestParentProps extends _$TestParentProps
-    with _$TestParentPropsAccessorsMixin {
+class TestParentProps extends _$TestParentProps with _$TestParentPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestParentProps;
 }
-
-_$$TestParentProps _$TestParent([Map? backingProps]) =>
-    _$$TestParentProps(backingProps);
-
+_$$TestParentProps _$TestParent([Map? backingProps]) => _$$TestParentProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestParentProps extends _$TestParentProps
-    with _$TestParentPropsAccessorsMixin
-    implements TestParentProps {
-  _$$TestParentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestParentProps extends _$TestParentProps with _$TestParentPropsAccessorsMixin implements TestParentProps {
+  _$$TestParentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,31 +53,25 @@ class _$$TestParentProps extends _$TestParentProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestParentComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestParentComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestParentProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestParentProps(
-          accessMap, (map) => _$$TestParentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestParentProps(accessMap, (map) => _$$TestParentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestParentProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestParentComponent extends TestParentComponent {
   @override
-  _$$TestParentProps typedPropsFactory(Map? backingMap) =>
-      _$$TestParentProps(backingMap);
+  _$$TestParentProps typedPropsFactory(Map? backingMap) => _$$TestParentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -96,7 +83,5 @@ class _$TestParentComponent extends TestParentComponent {
   /// The default consumed props, taken from _$TestParentProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestParentProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestParentProps];
 }

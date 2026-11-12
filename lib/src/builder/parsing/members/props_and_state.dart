@@ -27,7 +27,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
 
   /// The [ClassDeclaration] backing the member
   @override
-  final NamedCompilationUnitMember node;
+  final CompilationUnitMember node;
 
   /// A metadata class that lifts helpful fields out of [node] to a top level,
   /// in addition to providing additional getters relevant member parsing.
@@ -74,13 +74,16 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           if (nodeHelper.superclass?.nameWithoutPrefix != propsOrStateBaseClassString) {
             errorCollector.addError(
                 '$propsOrStateClassString implementations must extend directly from $propsOrStateBaseClassString',
-                errorCollector.spanFor(nodeHelper.superclass ?? node.name));
+                errorCollector.spanFor(nodeHelper.superclass ?? nodeHelper.name));
           }
 
-          if (node is ClassDeclaration && !node.members.every(isStaticMember)) {
+          if (node is ClassDeclaration && !node.body.members.every(isStaticMember)) {
+            final body = node.body;
             errorCollector.addError(
                 '$propsOrStateClassString implementations must not declare any $propsOrStateFieldsName or other non-static members.',
-                errorCollector.span(node.leftBracket.offset, node.rightBracket.end));
+                errorCollector.span(
+                    body is BlockClassBody ? body.leftBracket.offset : body.offset,
+                    body is BlockClassBody ? body.rightBracket.end : body.end));
           }
 
           if (nodeHelper.hasAbstractKeyword) {
@@ -100,9 +103,9 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           final companion = this.companion;
           if (companion == null) {
             // Don't emit this and the prefix error.
-            if (node.name.name.startsWith(privateSourcePrefix)) {
+            if (nodeHelper.name.lexeme.startsWith(privateSourcePrefix)) {
               errorCollector.addError(
-                  'Should have companion class', errorCollector.spanFor(node.name));
+                  'Should have companion class', errorCollector.spanFor(nodeHelper.name));
             }
           } else {
             validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
@@ -124,11 +127,11 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
     }
 
     // Check that class name starts with [privateSourcePrefix]
-    if (!node.name.name.startsWith(privateSourcePrefix)) {
+    if (!nodeHelper.name.lexeme.startsWith(privateSourcePrefix)) {
       errorCollector.addError(
-          'The class `${node.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
+          'The class `${nodeHelper.name.lexeme}` does not start with `$privateSourcePrefix`. All Props, State, '
           'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
-          errorCollector.spanFor(node.name));
+          errorCollector.spanFor(nodeHelper.name));
     }
   }
 }

@@ -12,32 +12,25 @@ part of 'components.dart';
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-final $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory =
-    registerComponent2(
+final $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory = registerComponent2(
   () => _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn(),
   builderFactory: _$DoNotReferenceThisFactoryExceptForInASingleTest,
   componentClass: DoNotReferenceThisFactoryExceptForInASingleTestComponentn,
   isWrapper: false,
-  parentType:
-      $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
+  parentType: $TestAbstract2ComponentFactory, /* from `subtypeOf: TestAbstract2Component` */
 );
 
-_$$DoNotReferenceThisFactoryExceptForInASingleTestProps
-    _$DoNotReferenceThisFactoryExceptForInASingleTest([Map? backingProps]) =>
-        _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingProps);
-
+_$$DoNotReferenceThisFactoryExceptForInASingleTestProps _$DoNotReferenceThisFactoryExceptForInASingleTest([Map? backingProps]) => _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps extends UiProps
-    with
-        DoNotReferenceThisFactoryExceptForInASingleTestProps,
-        // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
-        $DoNotReferenceThisFactoryExceptForInASingleTestProps {
-  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps extends UiProps with
+ DoNotReferenceThisFactoryExceptForInASingleTestProps,
+ // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+ $DoNotReferenceThisFactoryExceptForInASingleTestProps {
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -49,9 +42,7 @@ class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ??
-      $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -59,62 +50,46 @@ class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
-        DoNotReferenceThisFactoryExceptForInASingleTestProps:
-            $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+    DoNotReferenceThisFactoryExceptForInASingleTestProps: $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps(
-          accessMap,
-          (map) =>
-              _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps(accessMap, (map) => _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
-const _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps =
-    getPropKey;
-
+const _$getPropKey$_$$DoNotReferenceThisFactoryExceptForInASingleTestProps = getPropKey;
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
-    extends DoNotReferenceThisFactoryExceptForInASingleTestComponentn {
-  late _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
-      _cachedTypedProps;
+class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn extends DoNotReferenceThisFactoryExceptForInASingleTestComponentn {
+  late _$$DoNotReferenceThisFactoryExceptForInASingleTestProps _cachedTypedProps;
 
   @override
-  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps get props =>
-      _cachedTypedProps;
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps typedPropsFactoryJs(
-          JsBackedMap? backingMap) =>
-      _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingMap);
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingMap);
 
   @override
-  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps typedPropsFactory(
-          Map? backingMap) =>
-      _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingMap);
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps typedPropsFactory(Map? backingMap) => _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -130,12 +105,10 @@ class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
-        DoNotReferenceThisFactoryExceptForInASingleTestProps:
-            $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+    DoNotReferenceThisFactoryExceptForInASingleTestProps: $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -151,6 +124,7 @@ mixin $TestAProps on TestAProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -176,6 +150,7 @@ mixin $TestBProps on TestBProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -201,6 +176,7 @@ mixin $TestParentProps on TestParentProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -226,6 +202,7 @@ mixin $TestSubtypeProps on TestSubtypeProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -251,6 +228,7 @@ mixin $TestSubsubtypeProps on TestSubsubtypeProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -276,6 +254,7 @@ mixin $TestExtendtypeProps on TestExtendtypeProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -301,6 +280,7 @@ mixin $OneLevelWrapperProps on OneLevelWrapperProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -326,6 +306,7 @@ mixin $TwoLevelWrapperProps on TwoLevelWrapperProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -340,10 +321,8 @@ const PropsMeta _$metaForTwoLevelWrapperProps = PropsMeta(
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $DoNotReferenceThisFactoryExceptForInASingleTestProps
-    on DoNotReferenceThisFactoryExceptForInASingleTestProps {
-  static const PropsMeta meta =
-      _$metaForDoNotReferenceThisFactoryExceptForInASingleTestProps;
+mixin $DoNotReferenceThisFactoryExceptForInASingleTestProps on DoNotReferenceThisFactoryExceptForInASingleTestProps {
+  static const PropsMeta meta = _$metaForDoNotReferenceThisFactoryExceptForInASingleTestProps;
   /* GENERATED CONSTANTS */
 
   static const List<PropDescriptor> $props = [];
@@ -353,13 +332,13 @@ mixin $DoNotReferenceThisFactoryExceptForInASingleTestProps
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForDoNotReferenceThisFactoryExceptForInASingleTestProps =
-    PropsMeta(
+const PropsMeta _$metaForDoNotReferenceThisFactoryExceptForInASingleTestProps = PropsMeta(
   fields: $DoNotReferenceThisFactoryExceptForInASingleTestProps.$props,
   keys: $DoNotReferenceThisFactoryExceptForInASingleTestProps.$propKeys,
 );
@@ -379,6 +358,7 @@ mixin $TestUninitializedParentProps on TestUninitializedParentProps {
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -390,11 +370,12 @@ const PropsMeta _$metaForTestUninitializedParentProps = PropsMeta(
 );
 
 final UiFactoryConfig<_$$TestAProps> _$TestAConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$TestAProps(map),
-      jsMap: (map) => _$$TestAProps(map),
-    ),
-    displayName: 'TestA');
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestAProps(map),
+    jsMap: (map) => _$$TestAProps(map),
+  ),
+  displayName: 'TestA',
+);
 
 @Deprecated(r'Use the private variable, _$TestAConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -406,11 +387,10 @@ final UiFactoryConfig<_$$TestAProps> $TestAConfig = _$TestAConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestAProps extends UiProps
-    with
-        TestAProps,
-        // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
-        $TestAProps {
+class _$$TestAProps extends UiProps with
+ TestAProps,
+ // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
+ $TestAProps {
   _$$TestAProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -420,31 +400,29 @@ class _$$TestAProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
-        TestAProps: $TestAProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
+    TestAProps: $TestAProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestAProps(accessMap, (map) => _$$TestAProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestAProps = getPropKey;
 final UiFactoryConfig<_$$TestBProps> _$TestBConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$TestBProps(map),
-      jsMap: (map) => _$$TestBProps(map),
-    ),
-    displayName: 'TestB');
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestBProps(map),
+    jsMap: (map) => _$$TestBProps(map),
+  ),
+  displayName: 'TestB',
+);
 
 @Deprecated(r'Use the private variable, _$TestBConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -456,11 +434,10 @@ final UiFactoryConfig<_$$TestBProps> $TestBConfig = _$TestBConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestBProps extends UiProps
-    with
-        TestBProps,
-        // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
-        $TestBProps {
+class _$$TestBProps extends UiProps with
+ TestBProps,
+ // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
+ $TestBProps {
   _$$TestBProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -470,50 +447,45 @@ class _$$TestBProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
-        TestBProps: $TestBProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
+    TestBProps: $TestBProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestBProps(accessMap, (map) => _$$TestBProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestBProps(accessMap, (map) => _$$TestBProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestBProps = getPropKey;
 final UiFactoryConfig<_$$TestParentProps> _$TestParentConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$TestParentProps(map),
-      jsMap: (map) => _$$TestParentProps(map),
-    ),
-    displayName: 'TestParent');
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestParentProps(map),
+    jsMap: (map) => _$$TestParentProps(map),
+  ),
+  displayName: 'TestParent',
+);
 
 @Deprecated(r'Use the private variable, _$TestParentConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestParentProps> $TestParentConfig =
-    _$TestParentConfig;
+final UiFactoryConfig<_$$TestParentProps> $TestParentConfig = _$TestParentConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestParentProps extends UiProps
-    with
-        TestParentProps,
-        // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
-        $TestParentProps {
-  _$$TestParentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestParentProps extends UiProps with
+ TestParentProps,
+ // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
+ $TestParentProps {
+  _$$TestParentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -522,52 +494,45 @@ class _$$TestParentProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
-        TestParentProps: $TestParentProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
+    TestParentProps: $TestParentProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestParentProps(
-          accessMap, (map) => _$$TestParentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestParentProps(accessMap, (map) => _$$TestParentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestParentProps = getPropKey;
-final UiFactoryConfig<_$$TestSubtypeProps> _$TestSubtypeConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestSubtypeProps(map),
-          jsMap: (map) => _$$TestSubtypeProps(map),
-        ),
-        displayName: 'TestSubtype');
+final UiFactoryConfig<_$$TestSubtypeProps> _$TestSubtypeConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestSubtypeProps(map),
+    jsMap: (map) => _$$TestSubtypeProps(map),
+  ),
+  displayName: 'TestSubtype',
+);
 
 @Deprecated(r'Use the private variable, _$TestSubtypeConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestSubtypeProps> $TestSubtypeConfig =
-    _$TestSubtypeConfig;
+final UiFactoryConfig<_$$TestSubtypeProps> $TestSubtypeConfig = _$TestSubtypeConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSubtypeProps extends UiProps
-    with
-        TestSubtypeProps,
-        // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
-        $TestSubtypeProps {
-  _$$TestSubtypeProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestSubtypeProps extends UiProps with
+ TestSubtypeProps,
+ // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
+ $TestSubtypeProps {
+  _$$TestSubtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -576,52 +541,45 @@ class _$$TestSubtypeProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
-        TestSubtypeProps: $TestSubtypeProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
+    TestSubtypeProps: $TestSubtypeProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSubtypeProps(
-          accessMap, (map) => _$$TestSubtypeProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestSubtypeProps(accessMap, (map) => _$$TestSubtypeProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestSubtypeProps = getPropKey;
-final UiFactoryConfig<_$$TestSubsubtypeProps> _$TestSubsubtypeConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestSubsubtypeProps(map),
-          jsMap: (map) => _$$TestSubsubtypeProps(map),
-        ),
-        displayName: 'TestSubsubtype');
+final UiFactoryConfig<_$$TestSubsubtypeProps> _$TestSubsubtypeConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestSubsubtypeProps(map),
+    jsMap: (map) => _$$TestSubsubtypeProps(map),
+  ),
+  displayName: 'TestSubsubtype',
+);
 
 @Deprecated(r'Use the private variable, _$TestSubsubtypeConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestSubsubtypeProps> $TestSubsubtypeConfig =
-    _$TestSubsubtypeConfig;
+final UiFactoryConfig<_$$TestSubsubtypeProps> $TestSubsubtypeConfig = _$TestSubsubtypeConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSubsubtypeProps extends UiProps
-    with
-        TestSubsubtypeProps,
-        // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
-        $TestSubsubtypeProps {
-  _$$TestSubsubtypeProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestSubsubtypeProps extends UiProps with
+ TestSubsubtypeProps,
+ // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
+ $TestSubsubtypeProps {
+  _$$TestSubsubtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -630,52 +588,45 @@ class _$$TestSubsubtypeProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
-        TestSubsubtypeProps: $TestSubsubtypeProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
+    TestSubsubtypeProps: $TestSubsubtypeProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestSubsubtypeProps(
-          accessMap, (map) => _$$TestSubsubtypeProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestSubsubtypeProps(accessMap, (map) => _$$TestSubsubtypeProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestSubsubtypeProps = getPropKey;
-final UiFactoryConfig<_$$TestExtendtypeProps> _$TestExtendtypeConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestExtendtypeProps(map),
-          jsMap: (map) => _$$TestExtendtypeProps(map),
-        ),
-        displayName: 'TestExtendtype');
+final UiFactoryConfig<_$$TestExtendtypeProps> _$TestExtendtypeConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestExtendtypeProps(map),
+    jsMap: (map) => _$$TestExtendtypeProps(map),
+  ),
+  displayName: 'TestExtendtype',
+);
 
 @Deprecated(r'Use the private variable, _$TestExtendtypeConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestExtendtypeProps> $TestExtendtypeConfig =
-    _$TestExtendtypeConfig;
+final UiFactoryConfig<_$$TestExtendtypeProps> $TestExtendtypeConfig = _$TestExtendtypeConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestExtendtypeProps extends UiProps
-    with
-        TestExtendtypeProps,
-        // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
-        $TestExtendtypeProps {
-  _$$TestExtendtypeProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestExtendtypeProps extends UiProps with
+ TestExtendtypeProps,
+ // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
+ $TestExtendtypeProps {
+  _$$TestExtendtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -684,52 +635,45 @@ class _$$TestExtendtypeProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
-        TestExtendtypeProps: $TestExtendtypeProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
+    TestExtendtypeProps: $TestExtendtypeProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestExtendtypeProps(
-          accessMap, (map) => _$$TestExtendtypeProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestExtendtypeProps(accessMap, (map) => _$$TestExtendtypeProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestExtendtypeProps = getPropKey;
-final UiFactoryConfig<_$$OneLevelWrapperProps> _$OneLevelWrapperConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$OneLevelWrapperProps(map),
-          jsMap: (map) => _$$OneLevelWrapperProps(map),
-        ),
-        displayName: 'OneLevelWrapper');
+final UiFactoryConfig<_$$OneLevelWrapperProps> _$OneLevelWrapperConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$OneLevelWrapperProps(map),
+    jsMap: (map) => _$$OneLevelWrapperProps(map),
+  ),
+  displayName: 'OneLevelWrapper',
+);
 
 @Deprecated(r'Use the private variable, _$OneLevelWrapperConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig =
-    _$OneLevelWrapperConfig;
+final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig = _$OneLevelWrapperConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$OneLevelWrapperProps extends UiProps
-    with
-        OneLevelWrapperProps,
-        // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
-        $OneLevelWrapperProps {
-  _$$OneLevelWrapperProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$OneLevelWrapperProps extends UiProps with
+ OneLevelWrapperProps,
+ // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
+ $OneLevelWrapperProps {
+  _$$OneLevelWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -738,52 +682,45 @@ class _$$OneLevelWrapperProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
-        OneLevelWrapperProps: $OneLevelWrapperProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
+    OneLevelWrapperProps: $OneLevelWrapperProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$OneLevelWrapperProps(
-          accessMap, (map) => _$$OneLevelWrapperProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$OneLevelWrapperProps(accessMap, (map) => _$$OneLevelWrapperProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$OneLevelWrapperProps = getPropKey;
-final UiFactoryConfig<_$$TwoLevelWrapperProps> _$TwoLevelWrapperConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TwoLevelWrapperProps(map),
-          jsMap: (map) => _$$TwoLevelWrapperProps(map),
-        ),
-        displayName: 'TwoLevelWrapper');
+final UiFactoryConfig<_$$TwoLevelWrapperProps> _$TwoLevelWrapperConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TwoLevelWrapperProps(map),
+    jsMap: (map) => _$$TwoLevelWrapperProps(map),
+  ),
+  displayName: 'TwoLevelWrapper',
+);
 
 @Deprecated(r'Use the private variable, _$TwoLevelWrapperConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig =
-    _$TwoLevelWrapperConfig;
+final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig = _$TwoLevelWrapperConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TwoLevelWrapperProps extends UiProps
-    with
-        TwoLevelWrapperProps,
-        // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
-        $TwoLevelWrapperProps {
-  _$$TwoLevelWrapperProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TwoLevelWrapperProps extends UiProps with
+ TwoLevelWrapperProps,
+ // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
+ $TwoLevelWrapperProps {
+  _$$TwoLevelWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -792,53 +729,45 @@ class _$$TwoLevelWrapperProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
-        TwoLevelWrapperProps: $TwoLevelWrapperProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
+    TwoLevelWrapperProps: $TwoLevelWrapperProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TwoLevelWrapperProps(
-          accessMap, (map) => _$$TwoLevelWrapperProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TwoLevelWrapperProps(accessMap, (map) => _$$TwoLevelWrapperProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TwoLevelWrapperProps = getPropKey;
-final UiFactoryConfig<_$$TestUninitializedParentProps>
-    _$TestUninitializedParentConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestUninitializedParentProps(map),
-          jsMap: (map) => _$$TestUninitializedParentProps(map),
-        ),
-        displayName: 'TestUninitializedParent');
+final UiFactoryConfig<_$$TestUninitializedParentProps> _$TestUninitializedParentConfig = UiFactoryConfig(
+  propsFactory: PropsFactory(
+    map: (map) => _$$TestUninitializedParentProps(map),
+    jsMap: (map) => _$$TestUninitializedParentProps(map),
+  ),
+  displayName: 'TestUninitializedParent',
+);
 
-@Deprecated(
-    r'Use the private variable, _$TestUninitializedParentConfig, instead '
+@Deprecated(r'Use the private variable, _$TestUninitializedParentConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$TestUninitializedParentProps>
-    $TestUninitializedParentConfig = _$TestUninitializedParentConfig;
+final UiFactoryConfig<_$$TestUninitializedParentProps> $TestUninitializedParentConfig = _$TestUninitializedParentConfig;
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestUninitializedParentProps extends UiProps
-    with
-        TestUninitializedParentProps,
-        // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
-        $TestUninitializedParentProps {
-  _$$TestUninitializedParentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TestUninitializedParentProps extends UiProps with
+ TestUninitializedParentProps,
+ // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
+ $TestUninitializedParentProps {
+  _$$TestUninitializedParentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -847,23 +776,19 @@ class _$$TestUninitializedParentProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
-        TestUninitializedParentProps: $TestUninitializedParentProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
+    TestUninitializedParentProps: $TestUninitializedParentProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestUninitializedParentProps(
-          accessMap, (map) => _$$TestUninitializedParentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestUninitializedParentProps(accessMap, (map) => _$$TestUninitializedParentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestUninitializedParentProps = getPropKey;

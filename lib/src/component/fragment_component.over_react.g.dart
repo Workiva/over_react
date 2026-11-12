@@ -8,11 +8,12 @@ part of 'fragment_component.dart';
 // **************************************************************************
 
 final UiFactoryConfig<_$$FragmentProps> _$FragmentConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$FragmentProps(map),
-      jsMap: (map) => _$$FragmentProps(map),
-    ),
-    displayName: 'Fragment');
+  propsFactory: PropsFactory(
+    map: (map) => _$$FragmentProps(map),
+    jsMap: (map) => _$$FragmentProps(map),
+  ),
+  displayName: 'Fragment',
+);
 
 @Deprecated(r'Use the private variable, _$FragmentConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -25,8 +26,7 @@ final UiFactoryConfig<_$$FragmentProps> $FragmentConfig = _$FragmentConfig;
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$$FragmentProps extends UiProps implements FragmentProps {
-  _$$FragmentProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+  _$$FragmentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -35,19 +35,17 @@ class _$$FragmentProps extends UiProps implements FragmentProps {
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get staticMeta => const PropsMetaCollection({});
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$FragmentProps(accessMap, (map) => _$$FragmentProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$FragmentProps(accessMap, (map) => _$$FragmentProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$FragmentProps = getPropKey;

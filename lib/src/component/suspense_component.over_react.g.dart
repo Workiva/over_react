@@ -14,25 +14,21 @@ part of 'suspense_component.dart';
 mixin $SuspensePropsMixin on SuspensePropsMixin {
   static const PropsMeta meta = _$metaForSuspensePropsMixin;
   @override
-  ReactNode get fallback =>
-      (props[_$key__fallback__SuspensePropsMixin] ?? null) as ReactNode;
+  ReactNode get fallback => (props[_$key__fallback__SuspensePropsMixin] ?? null) as ReactNode;
   @override
-  set fallback(ReactNode value) =>
-      props[_$key__fallback__SuspensePropsMixin] = value;
+  set fallback(ReactNode value) => props[_$key__fallback__SuspensePropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__fallback__SuspensePropsMixin =
-      PropDescriptor(_$key__fallback__SuspensePropsMixin);
+  static const PropDescriptor _$prop__fallback__SuspensePropsMixin = PropDescriptor(_$key__fallback__SuspensePropsMixin);
   static const String _$key__fallback__SuspensePropsMixin = 'fallback';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__fallback__SuspensePropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__fallback__SuspensePropsMixin];
   static const List<String> $propKeys = [_$key__fallback__SuspensePropsMixin];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 
@@ -44,11 +40,12 @@ const PropsMeta _$metaForSuspensePropsMixin = PropsMeta(
 );
 
 final UiFactoryConfig<_$$SuspenseProps> _$SuspenseConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$SuspenseProps(map),
-      jsMap: (map) => _$$SuspenseProps(map),
-    ),
-    displayName: 'Suspense');
+  propsFactory: PropsFactory(
+    map: (map) => _$$SuspenseProps(map),
+    jsMap: (map) => _$$SuspenseProps(map),
+  ),
+  displayName: 'Suspense',
+);
 
 @Deprecated(r'Use the private variable, _$SuspenseConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -60,15 +57,10 @@ final UiFactoryConfig<_$$SuspenseProps> $SuspenseConfig = _$SuspenseConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SuspenseProps extends UiProps
-    with
-        SuspensePropsMixin,
-        // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
-        $SuspensePropsMixin
-    implements
-        SuspenseProps {
-  _$$SuspenseProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$SuspenseProps extends UiProps with SuspensePropsMixin,
+ // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
+$SuspensePropsMixin implements SuspenseProps {
+  _$$SuspenseProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -77,22 +69,19 @@ class _$$SuspenseProps extends UiProps
   /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
-
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
-        SuspensePropsMixin: $SuspensePropsMixin.meta,
-      });
+    // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
+    SuspensePropsMixin: $SuspensePropsMixin.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$SuspenseProps(accessMap, (map) => _$$SuspenseProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$SuspenseProps(accessMap, (map) => _$$SuspenseProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$SuspenseProps = getPropKey;

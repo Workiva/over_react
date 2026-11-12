@@ -23,21 +23,17 @@ final $BasicPartOfLibComponentFactory = registerComponent2(
   parentType: null,
 );
 
-_$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
-    _$$BasicPartOfLibProps(backingProps);
-
+_$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) => _$$BasicPartOfLibProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibProps extends UiProps
-    with
-        BasicPartOfLibProps,
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibProps, and check that $BasicPartOfLibProps is exported/imported properly.
-        $BasicPartOfLibProps {
-  _$$BasicPartOfLibProps([Map backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$BasicPartOfLibProps extends UiProps with
+ BasicPartOfLibProps,
+ // If this generated mixin is undefined, it's likely because BasicPartOfLibProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibProps, and check that $BasicPartOfLibProps is exported/imported properly.
+ $BasicPartOfLibProps {
+  _$$BasicPartOfLibProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -49,8 +45,7 @@ class _$$BasicPartOfLibProps extends UiProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicPartOfLibComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicPartOfLibComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -58,14 +53,12 @@ class _$$BasicPartOfLibProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibProps, and check that $BasicPartOfLibProps is exported/imported properly.
-        BasicPartOfLibProps: $BasicPartOfLibProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicPartOfLibProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibProps, and check that $BasicPartOfLibProps is exported/imported properly.
+    BasicPartOfLibProps: $BasicPartOfLibProps.meta,
+  });
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$BasicPartOfLibProps(
-          accessMap, (map) => _$$BasicPartOfLibProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$BasicPartOfLibProps(accessMap, (map) => _$$BasicPartOfLibProps(map));
 
   @override
   // ignore: must_call_super
@@ -73,11 +66,9 @@ class _$$BasicPartOfLibProps extends UiProps
     // Disable required prop validation, until this component is null safe, by not calling super.
   }
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$BasicPartOfLibProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -93,24 +84,21 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$BasicPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$BasicPartOfLibProps(backingMap);
+  _$$BasicPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) => _$$BasicPartOfLibProps(backingMap);
 
   @override
-  _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
-      _$$BasicPartOfLibProps(backingMap);
+  _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) => _$$BasicPartOfLibProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -126,11 +114,10 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibProps, and check that $BasicPartOfLibProps is exported/imported properly.
-        BasicPartOfLibProps: $BasicPartOfLibProps.meta,
-      });
+    // If this generated mixin is undefined, it's likely because BasicPartOfLibProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibProps, and check that $BasicPartOfLibProps is exported/imported properly.
+    BasicPartOfLibProps: $BasicPartOfLibProps.meta,
+  });
 }
-
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -138,26 +125,21 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 mixin $BasicPartOfLibProps on BasicPartOfLibProps {
   static const PropsMeta meta = _$metaForBasicPartOfLibProps;
   @override
-  String get basicProp =>
-      (props[_$key__basicProp__BasicPartOfLibProps] ?? null) as String;
+  String get basicProp => (props[_$key__basicProp__BasicPartOfLibProps] ?? null) as String;
   @override
-  set basicProp(String value) =>
-      props[_$key__basicProp__BasicPartOfLibProps] = value;
+  set basicProp(String value) => props[_$key__basicProp__BasicPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp__BasicPartOfLibProps =
-      PropDescriptor(_$key__basicProp__BasicPartOfLibProps);
-  static const String _$key__basicProp__BasicPartOfLibProps =
-      'BasicPartOfLibProps.basicProp';
+  static const PropDescriptor _$prop__basicProp__BasicPartOfLibProps = PropDescriptor(_$key__basicProp__BasicPartOfLibProps);
+  static const String _$key__basicProp__BasicPartOfLibProps = 'BasicPartOfLibProps.basicProp';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__basicProp__BasicPartOfLibProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__basicProp__BasicPartOfLibProps];
   static const List<String> $propKeys = [_$key__basicProp__BasicPartOfLibProps];
 
   @override
   @UiProps.$mustCallSuper
   void validateRequiredProps() {
     super.validateRequiredProps();
+    
   }
 }
 

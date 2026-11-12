@@ -31,9 +31,7 @@ mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  bool? get autoFocus =>
-      (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool?;
-
+  bool? get autoFocus => (props[_$key__autoFocus___$ToggleButtonProps] ?? null) as bool?;
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomPropsMixin.autoFocus]._
@@ -43,9 +41,7 @@ mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  set autoFocus(bool? value) =>
-      props[_$key__autoFocus___$ToggleButtonProps] = value;
-
+  set autoFocus(bool? value) => props[_$key__autoFocus___$ToggleButtonProps] = value;
   /// Whether the [ToggleButton] is checked by default.
   ///
   /// Setting this without the setting the [checked] prop to will make the
@@ -62,9 +58,7 @@ mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool? get defaultChecked =>
-      (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool?;
-
+  bool? get defaultChecked => (props[_$key__defaultChecked___$ToggleButtonProps] ?? null) as bool?;
   /// Whether the [ToggleButton] is checked by default.
   ///
   /// Setting this without the setting the [checked] prop to will make the
@@ -81,9 +75,7 @@ mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  set defaultChecked(bool? value) =>
-      props[_$key__defaultChecked___$ToggleButtonProps] = value;
-
+  set defaultChecked(bool? value) => props[_$key__defaultChecked___$ToggleButtonProps] = value;
   /// Whether the [ToggleButton] is checked.
   ///
   /// Setting this will make the [ToggleButton] _controlled_; it will not update
@@ -99,9 +91,7 @@ mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool? get checked =>
-      (props[_$key__checked___$ToggleButtonProps] ?? null) as bool?;
-
+  bool? get checked => (props[_$key__checked___$ToggleButtonProps] ?? null) as bool?;
   /// Whether the [ToggleButton] is checked.
   ///
   /// Setting this will make the [ToggleButton] _controlled_; it will not update
@@ -117,30 +107,17 @@ mixin _$ToggleButtonPropsAccessorsMixin implements _$ToggleButtonProps {
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  set checked(bool? value) =>
-      props[_$key__checked___$ToggleButtonProps] = value;
+  set checked(bool? value) => props[_$key__checked___$ToggleButtonProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
-      PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
-  static const PropDescriptor _$prop__defaultChecked___$ToggleButtonProps =
-      PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
-  static const PropDescriptor _$prop__checked___$ToggleButtonProps =
-      PropDescriptor(_$key__checked___$ToggleButtonProps);
+  static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps = PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
+  static const PropDescriptor _$prop__defaultChecked___$ToggleButtonProps = PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
+  static const PropDescriptor _$prop__checked___$ToggleButtonProps = PropDescriptor(_$key__checked___$ToggleButtonProps);
   static const String _$key__autoFocus___$ToggleButtonProps = 'autoFocus';
-  static const String _$key__defaultChecked___$ToggleButtonProps =
-      'defaultChecked';
+  static const String _$key__defaultChecked___$ToggleButtonProps = 'defaultChecked';
   static const String _$key__checked___$ToggleButtonProps = 'checked';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__autoFocus___$ToggleButtonProps,
-    _$prop__defaultChecked___$ToggleButtonProps,
-    _$prop__checked___$ToggleButtonProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__autoFocus___$ToggleButtonProps,
-    _$key__defaultChecked___$ToggleButtonProps,
-    _$key__checked___$ToggleButtonProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__autoFocus___$ToggleButtonProps, _$prop__defaultChecked___$ToggleButtonProps, _$prop__checked___$ToggleButtonProps];
+  static const List<String> $propKeys = [_$key__autoFocus___$ToggleButtonProps, _$key__defaultChecked___$ToggleButtonProps, _$key__checked___$ToggleButtonProps];
 }
 
 const PropsMeta _$metaForToggleButtonProps = PropsMeta(
@@ -148,22 +125,15 @@ const PropsMeta _$metaForToggleButtonProps = PropsMeta(
   keys: _$ToggleButtonPropsAccessorsMixin.$propKeys,
 );
 
-class ToggleButtonProps extends _$ToggleButtonProps
-    with _$ToggleButtonPropsAccessorsMixin {
+class ToggleButtonProps extends _$ToggleButtonProps with _$ToggleButtonPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForToggleButtonProps;
 }
-
-_$$ToggleButtonProps _$ToggleButton([Map? backingProps]) =>
-    _$$ToggleButtonProps(backingProps);
-
+_$$ToggleButtonProps _$ToggleButton([Map? backingProps]) => _$$ToggleButtonProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ToggleButtonProps extends _$ToggleButtonProps
-    with _$ToggleButtonPropsAccessorsMixin
-    implements ToggleButtonProps {
-  _$$ToggleButtonProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ToggleButtonProps extends _$ToggleButtonProps with _$ToggleButtonPropsAccessorsMixin implements ToggleButtonProps {
+  _$$ToggleButtonProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -175,22 +145,18 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ToggleButtonComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ToggleButtonComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ToggleButtonProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ToggleButtonProps(
-          accessMap, (map) => _$$ToggleButtonProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ToggleButtonProps(accessMap, (map) => _$$ToggleButtonProps(map));
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'toggleType'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ToggleButtonProps = getPropKey;
@@ -205,9 +171,7 @@ mixin _$ToggleButtonStateAccessorsMixin implements _$ToggleButtonState {
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  bool? get isFocused =>
-      (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool?;
-
+  bool? get isFocused => (state[_$key__isFocused___$ToggleButtonState] ?? null) as bool?;
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
@@ -215,44 +179,29 @@ mixin _$ToggleButtonStateAccessorsMixin implements _$ToggleButtonState {
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  set isFocused(bool? value) =>
-      state[_$key__isFocused___$ToggleButtonState] = value;
-
+  set isFocused(bool? value) => state[_$key__isFocused___$ToggleButtonState] = value;
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
   /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  bool? get isChecked =>
-      (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool?;
-
+  bool? get isChecked => (state[_$key__isChecked___$ToggleButtonState] ?? null) as bool?;
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
   /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  set isChecked(bool? value) =>
-      state[_$key__isChecked___$ToggleButtonState] = value;
+  set isChecked(bool? value) => state[_$key__isChecked___$ToggleButtonState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
-      StateDescriptor(_$key__isFocused___$ToggleButtonState);
-  static const StateDescriptor _$prop__isChecked___$ToggleButtonState =
-      StateDescriptor(_$key__isChecked___$ToggleButtonState);
-  static const String _$key__isFocused___$ToggleButtonState =
-      'ToggleButtonState.isFocused';
-  static const String _$key__isChecked___$ToggleButtonState =
-      'ToggleButtonState.isChecked';
+  static const StateDescriptor _$prop__isFocused___$ToggleButtonState = StateDescriptor(_$key__isFocused___$ToggleButtonState);
+  static const StateDescriptor _$prop__isChecked___$ToggleButtonState = StateDescriptor(_$key__isChecked___$ToggleButtonState);
+  static const String _$key__isFocused___$ToggleButtonState = 'ToggleButtonState.isFocused';
+  static const String _$key__isChecked___$ToggleButtonState = 'ToggleButtonState.isChecked';
 
-  static const List<StateDescriptor> $state = [
-    _$prop__isFocused___$ToggleButtonState,
-    _$prop__isChecked___$ToggleButtonState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__isFocused___$ToggleButtonState,
-    _$key__isChecked___$ToggleButtonState
-  ];
+  static const List<StateDescriptor> $state = [_$prop__isFocused___$ToggleButtonState, _$prop__isChecked___$ToggleButtonState];
+  static const List<String> $stateKeys = [_$key__isFocused___$ToggleButtonState, _$key__isChecked___$ToggleButtonState];
 }
 
 const StateMeta _$metaForToggleButtonState = StateMeta(
@@ -260,19 +209,14 @@ const StateMeta _$metaForToggleButtonState = StateMeta(
   keys: _$ToggleButtonStateAccessorsMixin.$stateKeys,
 );
 
-class ToggleButtonState extends _$ToggleButtonState
-    with _$ToggleButtonStateAccessorsMixin {
+class ToggleButtonState extends _$ToggleButtonState with _$ToggleButtonStateAccessorsMixin {
   static const StateMeta meta = _$metaForToggleButtonState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$ToggleButtonState extends _$ToggleButtonState
-    with _$ToggleButtonStateAccessorsMixin
-    implements ToggleButtonState {
-  _$$ToggleButtonState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$ToggleButtonState extends _$ToggleButtonState with _$ToggleButtonStateAccessorsMixin implements ToggleButtonState {
+  _$$ToggleButtonState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -282,19 +226,16 @@ class _$$ToggleButtonState extends _$ToggleButtonState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ToggleButtonComponent extends ToggleButtonComponent {
   @override
-  _$$ToggleButtonProps typedPropsFactory(Map? backingMap) =>
-      _$$ToggleButtonProps(backingMap);
+  _$$ToggleButtonProps typedPropsFactory(Map? backingMap) => _$$ToggleButtonProps(backingMap);
 
   @override
-  _$$ToggleButtonState typedStateFactory(Map? backingMap) =>
-      _$$ToggleButtonState(backingMap);
+  _$$ToggleButtonState typedStateFactory(Map? backingMap) => _$$ToggleButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -306,7 +247,5 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   /// The default consumed props, taken from _$ToggleButtonProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForToggleButtonProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForToggleButtonProps];
 }

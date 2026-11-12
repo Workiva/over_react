@@ -22,7 +22,6 @@ const PropsMeta _$metaForTestAbstract2Props = PropsMeta(
   keys: _$TestAbstract2PropsAccessorsMixin.$propKeys,
 );
 
-abstract class TestAbstract2Props extends _$TestAbstract2Props
-    with _$TestAbstract2PropsAccessorsMixin {
+abstract class TestAbstract2Props extends _$TestAbstract2Props with _$TestAbstract2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestAbstract2Props;
 }

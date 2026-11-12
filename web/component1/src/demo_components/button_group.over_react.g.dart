@@ -30,9 +30,7 @@ mixin _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  ButtonGroupSize? get size =>
-      (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize?;
-
+  ButtonGroupSize? get size => (props[_$key__size___$ButtonGroupProps] ?? null) as ButtonGroupSize?;
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -41,22 +39,17 @@ mixin _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  set size(ButtonGroupSize? value) =>
-      props[_$key__size___$ButtonGroupProps] = value;
-
+  set size(ButtonGroupSize? value) => props[_$key__size___$ButtonGroupProps] = value;
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  ButtonSkin? get skin =>
-      (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin?;
-
+  ButtonSkin? get skin => (props[_$key__skin___$ButtonGroupProps] ?? null) as ButtonSkin?;
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
   set skin(ButtonSkin? value) => props[_$key__skin___$ButtonGroupProps] = value;
-
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
@@ -65,9 +58,7 @@ mixin _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  bool? get isVertical =>
-      (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool?;
-
+  bool? get isVertical => (props[_$key__isVertical___$ButtonGroupProps] ?? null) as bool?;
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
@@ -76,30 +67,17 @@ mixin _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  set isVertical(bool? value) =>
-      props[_$key__isVertical___$ButtonGroupProps] = value;
+  set isVertical(bool? value) => props[_$key__isVertical___$ButtonGroupProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__size___$ButtonGroupProps =
-      PropDescriptor(_$key__size___$ButtonGroupProps);
-  static const PropDescriptor _$prop__skin___$ButtonGroupProps =
-      PropDescriptor(_$key__skin___$ButtonGroupProps);
-  static const PropDescriptor _$prop__isVertical___$ButtonGroupProps =
-      PropDescriptor(_$key__isVertical___$ButtonGroupProps);
+  static const PropDescriptor _$prop__size___$ButtonGroupProps = PropDescriptor(_$key__size___$ButtonGroupProps);
+  static const PropDescriptor _$prop__skin___$ButtonGroupProps = PropDescriptor(_$key__skin___$ButtonGroupProps);
+  static const PropDescriptor _$prop__isVertical___$ButtonGroupProps = PropDescriptor(_$key__isVertical___$ButtonGroupProps);
   static const String _$key__size___$ButtonGroupProps = 'ButtonGroupProps.size';
   static const String _$key__skin___$ButtonGroupProps = 'ButtonGroupProps.skin';
-  static const String _$key__isVertical___$ButtonGroupProps =
-      'ButtonGroupProps.isVertical';
+  static const String _$key__isVertical___$ButtonGroupProps = 'ButtonGroupProps.isVertical';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__size___$ButtonGroupProps,
-    _$prop__skin___$ButtonGroupProps,
-    _$prop__isVertical___$ButtonGroupProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__size___$ButtonGroupProps,
-    _$key__skin___$ButtonGroupProps,
-    _$key__isVertical___$ButtonGroupProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__size___$ButtonGroupProps, _$prop__skin___$ButtonGroupProps, _$prop__isVertical___$ButtonGroupProps];
+  static const List<String> $propKeys = [_$key__size___$ButtonGroupProps, _$key__skin___$ButtonGroupProps, _$key__isVertical___$ButtonGroupProps];
 }
 
 const PropsMeta _$metaForButtonGroupProps = PropsMeta(
@@ -107,22 +85,15 @@ const PropsMeta _$metaForButtonGroupProps = PropsMeta(
   keys: _$ButtonGroupPropsAccessorsMixin.$propKeys,
 );
 
-class ButtonGroupProps extends _$ButtonGroupProps
-    with _$ButtonGroupPropsAccessorsMixin {
+class ButtonGroupProps extends _$ButtonGroupProps with _$ButtonGroupPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForButtonGroupProps;
 }
-
-_$$ButtonGroupProps _$ButtonGroup([Map? backingProps]) =>
-    _$$ButtonGroupProps(backingProps);
-
+_$$ButtonGroupProps _$ButtonGroup([Map? backingProps]) => _$$ButtonGroupProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ButtonGroupProps extends _$ButtonGroupProps
-    with _$ButtonGroupPropsAccessorsMixin
-    implements ButtonGroupProps {
-  _$$ButtonGroupProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ButtonGroupProps extends _$ButtonGroupProps with _$ButtonGroupPropsAccessorsMixin implements ButtonGroupProps {
+  _$$ButtonGroupProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -134,23 +105,18 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ButtonGroupComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ButtonGroupComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonGroupProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ButtonGroupProps(
-          accessMap, (map) => _$$ButtonGroupProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ButtonGroupProps(accessMap, (map) => _$$ButtonGroupProps(map));
 
   @override
-  Set<String> get requiredPropNamesToSkipValidation =>
-      const {'size', 'isVertical'};
+  Set<String> get requiredPropNamesToSkipValidation => const {'size', 'isVertical'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ButtonGroupProps = getPropKey;
@@ -169,19 +135,14 @@ const StateMeta _$metaForButtonGroupState = StateMeta(
   keys: _$ButtonGroupStateAccessorsMixin.$stateKeys,
 );
 
-class ButtonGroupState extends _$ButtonGroupState
-    with _$ButtonGroupStateAccessorsMixin {
+class ButtonGroupState extends _$ButtonGroupState with _$ButtonGroupStateAccessorsMixin {
   static const StateMeta meta = _$metaForButtonGroupState;
 }
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$ButtonGroupState extends _$ButtonGroupState
-    with _$ButtonGroupStateAccessorsMixin
-    implements ButtonGroupState {
-  _$$ButtonGroupState([Map? backingMap])
-      : this.state = backingMap ?? JsBackedMap();
+class _$$ButtonGroupState extends _$ButtonGroupState with _$ButtonGroupStateAccessorsMixin implements ButtonGroupState {
+  _$$ButtonGroupState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
 
   /// The backing state map proxied by this class.
   @override
@@ -191,19 +152,16 @@ class _$$ButtonGroupState extends _$ButtonGroupState
   @override
   bool get $isClassGenerated => true;
 }
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
-  _$$ButtonGroupProps typedPropsFactory(Map? backingMap) =>
-      _$$ButtonGroupProps(backingMap);
+  _$$ButtonGroupProps typedPropsFactory(Map? backingMap) => _$$ButtonGroupProps(backingMap);
 
   @override
-  _$$ButtonGroupState typedStateFactory(Map? backingMap) =>
-      _$$ButtonGroupState(backingMap);
+  _$$ButtonGroupState typedStateFactory(Map? backingMap) => _$$ButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -215,7 +173,5 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   /// The default consumed props, taken from _$ButtonGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonGroupProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForButtonGroupProps];
 }

@@ -29,10 +29,7 @@ mixin _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   ///
   /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
-  ListGroupElementType? get elementType =>
-      (props[_$key__elementType___$ListGroupProps] ?? null)
-          as ListGroupElementType?;
-
+  ListGroupElementType? get elementType => (props[_$key__elementType___$ListGroupProps] ?? null) as ListGroupElementType?;
   /// The HTML element type for the [ListGroup], specifying its
   /// DOM representation when rendered.
   ///
@@ -40,17 +37,12 @@ mixin _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   ///
   /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
-  set elementType(ListGroupElementType? value) =>
-      props[_$key__elementType___$ListGroupProps] = value;
+  set elementType(ListGroupElementType? value) => props[_$key__elementType___$ListGroupProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__elementType___$ListGroupProps =
-      PropDescriptor(_$key__elementType___$ListGroupProps);
-  static const String _$key__elementType___$ListGroupProps =
-      'ListGroupProps.elementType';
+  static const PropDescriptor _$prop__elementType___$ListGroupProps = PropDescriptor(_$key__elementType___$ListGroupProps);
+  static const String _$key__elementType___$ListGroupProps = 'ListGroupProps.elementType';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__elementType___$ListGroupProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__elementType___$ListGroupProps];
   static const List<String> $propKeys = [_$key__elementType___$ListGroupProps];
 }
 
@@ -59,22 +51,15 @@ const PropsMeta _$metaForListGroupProps = PropsMeta(
   keys: _$ListGroupPropsAccessorsMixin.$propKeys,
 );
 
-class ListGroupProps extends _$ListGroupProps
-    with _$ListGroupPropsAccessorsMixin {
+class ListGroupProps extends _$ListGroupProps with _$ListGroupPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForListGroupProps;
 }
-
-_$$ListGroupProps _$ListGroup([Map? backingProps]) =>
-    _$$ListGroupProps(backingProps);
-
+_$$ListGroupProps _$ListGroup([Map? backingProps]) => _$$ListGroupProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ListGroupProps extends _$ListGroupProps
-    with _$ListGroupPropsAccessorsMixin
-    implements ListGroupProps {
-  _$$ListGroupProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$ListGroupProps extends _$ListGroupProps with _$ListGroupPropsAccessorsMixin implements ListGroupProps {
+  _$$ListGroupProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -86,34 +71,28 @@ class _$$ListGroupProps extends _$ListGroupProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ListGroupComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ListGroupComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ListGroupProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$ListGroupProps(
-          accessMap, (map) => _$$ListGroupProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$ListGroupProps(accessMap, (map) => _$$ListGroupProps(map));
 
   @override
   Set<String> get requiredPropNamesToSkipValidation => const {'elementType'};
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$ListGroupProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ListGroupComponent extends ListGroupComponent {
   @override
-  _$$ListGroupProps typedPropsFactory(Map? backingMap) =>
-      _$$ListGroupProps(backingMap);
+  _$$ListGroupProps typedPropsFactory(Map? backingMap) => _$$ListGroupProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -125,7 +104,5 @@ class _$ListGroupComponent extends ListGroupComponent {
   /// The default consumed props, taken from _$ListGroupProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForListGroupProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForListGroupProps];
 }

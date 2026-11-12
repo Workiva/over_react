@@ -1,5 +1,25 @@
 # OverReact Changelog
 
+## 5.8.0
+- Update analyzer dependency to `>=10.0.0 <15.0.0` (allow 11, 12, 13, and 14)
+- Drop Dart 2 support; minimum SDK is now 3.0.0
+- Fix Dart language level 3.0 errors and downstream compile errors by switching internal classes to `mixin` declarations
+  - `GeneratedClass` - switched to `mixin`
+  - `PropsMapViewMixin`, `StateMapViewMixin`, `MapViewMixin` - switched to `mixin`, also moved `implements` to `on`
+  - Hand-authored mixin "generated" classes: 
+    - Core: `$AriaPropsMixin`, `$ConnectFluxPropsMixin`, `$CssClassPropsMixin`, `$DomPropsMixin`, `$ReactPropsMixin`, `$SvgPropsMixin`, `$UbiquitousDomPropsMixin`
+    - Components: `$ErrorBoundaryPropsMixin`, `$ErrorBoundaryStateMixin`, `$ResizeSensorPropsMixin`, `$TransitionPropsMixin`
+  - While some of these are technically a breaking changes, there's very little chance of them impacting consumers, so we're releasing it as a minor.
+  
+    These classes have no known usages outside of over_react or its generated code, and are for internal use only. 
+  
+    Additionally, the `*MapViewMixin` ones never should have been exported in the first place, and have been deprecated accordingly.
+  
+## 5.7.0
+- Remove `dart:mirrors` usage in builder to fix AOT compilation used in newer build_runner versions
+- Remove `dart_style` and `pub_semver` dependencies, remove generated code formatter step
+    - Generated code was already pretty well-formatted before it was passed to `dart_style`, and since consumers don't interact with generated code much, this should have very little impact.
+
 ## 5.6.2
 - Analyzer plugin
   - Fix startup error (AOT compilation) in Dart 3

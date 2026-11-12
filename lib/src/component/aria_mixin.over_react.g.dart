@@ -12,7 +12,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForAriaPropsMixin;
-
   /// Identifies the currently active descendant of a compositewidget.
   ///
   /// This is used when a composite widget is responsible for managing its current active child
@@ -33,9 +32,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.activedescendant] -->
   @override
   @Accessor(key: 'aria-activedescendant')
-  String? get activedescendant =>
-      (props[_$key__activedescendant___$AriaPropsMixin] ?? null) as String?;
-
+  String? get activedescendant => (props[_$key__activedescendant___$AriaPropsMixin] ?? null) as String?;
   /// Identifies the currently active descendant of a compositewidget.
   ///
   /// This is used when a composite widget is responsible for managing its current active child
@@ -56,9 +53,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.activedescendant] -->
   @override
   @Accessor(key: 'aria-activedescendant')
-  set activedescendant(String? value) =>
-      props[_$key__activedescendant___$AriaPropsMixin] = value;
-
+  set activedescendant(String? value) => props[_$key__activedescendant___$AriaPropsMixin] = value;
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
   ///
@@ -84,7 +79,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-atomic')
   bool? get atomic => (props[_$key__atomic___$AriaPropsMixin] ?? null) as bool?;
-
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
   ///
@@ -110,7 +104,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-atomic')
   set atomic(bool? value) => props[_$key__atomic___$AriaPropsMixin] = value;
-
   /// Indicates whether user input completion suggestions are provided.
   ///
   /// For a textbox with the aria-autocomplete attribute set to either inline or both, authors SHOULD
@@ -121,9 +114,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.autocomplete] -->
   @override
   @Accessor(key: 'aria-autocomplete')
-  dynamic get autocomplete =>
-      (props[_$key__autocomplete___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get autocomplete => (props[_$key__autocomplete___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates whether user input completion suggestions are provided.
   ///
   /// For a textbox with the aria-autocomplete attribute set to either inline or both, authors SHOULD
@@ -134,9 +125,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.autocomplete] -->
   @override
   @Accessor(key: 'aria-autocomplete')
-  set autocomplete(dynamic value) =>
-      props[_$key__autocomplete___$AriaPropsMixin] = value;
-
+  set autocomplete(dynamic value) => props[_$key__autocomplete___$AriaPropsMixin] = value;
   /// Defines a string value that labels the current element, which is intended to be converted into Braille.
   ///
   /// The purpose of the aria-braillelabel property is to override how assistive technologies localize and
@@ -150,9 +139,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.braillelabel] -->
   @override
   @Accessor(key: 'aria-braillelabel')
-  String? get braillelabel =>
-      (props[_$key__braillelabel___$AriaPropsMixin] ?? null) as String?;
-
+  String? get braillelabel => (props[_$key__braillelabel___$AriaPropsMixin] ?? null) as String?;
   /// Defines a string value that labels the current element, which is intended to be converted into Braille.
   ///
   /// The purpose of the aria-braillelabel property is to override how assistive technologies localize and
@@ -166,9 +153,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.braillelabel] -->
   @override
   @Accessor(key: 'aria-braillelabel')
-  set braillelabel(String? value) =>
-      props[_$key__braillelabel___$AriaPropsMixin] = value;
-
+  set braillelabel(String? value) => props[_$key__braillelabel___$AriaPropsMixin] = value;
   /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
   /// be converted into Braille
   ///
@@ -177,10 +162,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.brailleroledescription] -->
   @override
   @Accessor(key: 'aria-brailleroledescription')
-  String? get brailleroledescription =>
-      (props[_$key__brailleroledescription___$AriaPropsMixin] ?? null)
-          as String?;
-
+  String? get brailleroledescription => (props[_$key__brailleroledescription___$AriaPropsMixin] ?? null) as String?;
   /// Defines a human-readable, author-localized abbreviated description for the role of an element intended to
   /// be converted into Braille
   ///
@@ -189,9 +171,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.brailleroledescription] -->
   @override
   @Accessor(key: 'aria-brailleroledescription')
-  set brailleroledescription(String? value) =>
-      props[_$key__brailleroledescription___$AriaPropsMixin] = value;
-
+  set brailleroledescription(String? value) => props[_$key__brailleroledescription___$AriaPropsMixin] = value;
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
   /// The default is that aria-busy is false. If authors know that multiple parts of the same element
@@ -208,7 +188,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-busy')
   bool? get busy => (props[_$key__busy___$AriaPropsMixin] ?? null) as bool?;
-
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
   /// The default is that aria-busy is false. If authors know that multiple parts of the same element
@@ -225,7 +204,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-busy')
   set busy(bool? value) => props[_$key__busy___$AriaPropsMixin] = value;
-
   /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
   ///
@@ -246,9 +224,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.checked] -->
   @override
   @Accessor(key: 'aria-checked')
-  dynamic get checked =>
-      (props[_$key__checked___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get checked => (props[_$key__checked___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
   ///
@@ -270,7 +246,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-checked')
   set checked(dynamic value) => props[_$key__checked___$AriaPropsMixin] = value;
-
   /// Defines the total number of columns in a table, grid, or treegrid when not all columns are present
   /// in the DOM.
   ///
@@ -279,9 +254,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colcount] -->
   @override
   @Accessor(key: 'aria-colcount')
-  int? get colcount =>
-      (props[_$key__colcount___$AriaPropsMixin] ?? null) as int?;
-
+  int? get colcount => (props[_$key__colcount___$AriaPropsMixin] ?? null) as int?;
   /// Defines the total number of columns in a table, grid, or treegrid when not all columns are present
   /// in the DOM.
   ///
@@ -291,7 +264,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-colcount')
   set colcount(int? value) => props[_$key__colcount___$AriaPropsMixin] = value;
-
   /// Defines an element's column index or position with respect to the total number of columns within a
   /// table, grid, or treegrid
   ///
@@ -300,9 +272,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindex] -->
   @override
   @Accessor(key: 'aria-colindex')
-  int? get colindex =>
-      (props[_$key__colindex___$AriaPropsMixin] ?? null) as int?;
-
+  int? get colindex => (props[_$key__colindex___$AriaPropsMixin] ?? null) as int?;
   /// Defines an element's column index or position with respect to the total number of columns within a
   /// table, grid, or treegrid
   ///
@@ -312,7 +282,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-colindex')
   set colindex(int? value) => props[_$key__colindex___$AriaPropsMixin] = value;
-
   /// Defines a text alternative of the numeric aria-colindex
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
@@ -320,9 +289,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindextext] -->
   @override
   @Accessor(key: 'aria-colindextext')
-  String? get colindextext =>
-      (props[_$key__colindextext___$AriaPropsMixin] ?? null) as String?;
-
+  String? get colindextext => (props[_$key__colindextext___$AriaPropsMixin] ?? null) as String?;
   /// Defines a text alternative of the numeric aria-colindex
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindextext>
@@ -330,9 +297,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.colindextext] -->
   @override
   @Accessor(key: 'aria-colindextext')
-  set colindextext(String? value) =>
-      props[_$key__colindextext___$AriaPropsMixin] = value;
-
+  set colindextext(String? value) => props[_$key__colindextext___$AriaPropsMixin] = value;
   ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
@@ -341,7 +306,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-colspan')
   int? get colspan => (props[_$key__colspan___$AriaPropsMixin] ?? null) as int?;
-
   ///  Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan>
@@ -350,7 +314,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-colspan')
   set colspan(int? value) => props[_$key__colspan___$AriaPropsMixin] = value;
-
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
   ///
@@ -365,9 +328,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.controls] -->
   @override
   @Accessor(key: 'aria-controls')
-  dynamic get controls =>
-      (props[_$key__controls___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get controls => (props[_$key__controls___$AriaPropsMixin] ?? null) as dynamic;
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
   ///
@@ -382,9 +343,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.controls] -->
   @override
   @Accessor(key: 'aria-controls')
-  set controls(dynamic value) =>
-      props[_$key__controls___$AriaPropsMixin] = value;
-
+  set controls(dynamic value) => props[_$key__controls___$AriaPropsMixin] = value;
   /// Indicates that the element represents the current item within a container or set of related elements
   ///
   /// Indicates the element on which it is set, to a value other than false, represents the current item within
@@ -395,9 +354,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.current] -->
   @override
   @Accessor(key: 'aria-current')
-  dynamic get current =>
-      (props[_$key__current___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get current => (props[_$key__current___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates that the element represents the current item within a container or set of related elements
   ///
   /// Indicates the element on which it is set, to a value other than false, represents the current item within
@@ -409,7 +366,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-current')
   set current(dynamic value) => props[_$key__current___$AriaPropsMixin] = value;
-
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
   ///
   /// The aria-labelledby attribute is similar to aria-describedby in that both reference other
@@ -425,9 +381,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.describedby] -->
   @override
   @Accessor(key: 'aria-describedby')
-  dynamic get describedby =>
-      (props[_$key__describedby___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get describedby => (props[_$key__describedby___$AriaPropsMixin] ?? null) as dynamic;
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
   ///
   /// The aria-labelledby attribute is similar to aria-describedby in that both reference other
@@ -443,9 +397,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.describedby] -->
   @override
   @Accessor(key: 'aria-describedby')
-  set describedby(dynamic value) =>
-      props[_$key__describedby___$AriaPropsMixin] = value;
-
+  set describedby(dynamic value) => props[_$key__describedby___$AriaPropsMixin] = value;
   /// Defines a string value that describes or annotates the current element
   ///
   /// Provides a mechanism for the developer to describe or annotate the current element providing
@@ -456,9 +408,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
-  String? get description =>
-      (props[_$key__description___$AriaPropsMixin] ?? null) as String?;
-
+  String? get description => (props[_$key__description___$AriaPropsMixin] ?? null) as String?;
   /// Defines a string value that describes or annotates the current element
   ///
   /// Provides a mechanism for the developer to describe or annotate the current element providing
@@ -469,9 +419,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.description] -->
   @override
   @Accessor(key: 'aria-description')
-  set description(String? value) =>
-      props[_$key__description___$AriaPropsMixin] = value;
-
+  set description(String? value) => props[_$key__description___$AriaPropsMixin] = value;
   /// Identifies the element (or elements) that provide additional information related to the object
   /// or complex descriptions to an object
   ///
@@ -480,9 +428,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.details] -->
   @override
   @Accessor(key: 'aria-details')
-  dynamic get details =>
-      (props[_$key__details___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get details => (props[_$key__details___$AriaPropsMixin] ?? null) as dynamic;
   /// Identifies the element (or elements) that provide additional information related to the object
   /// or complex descriptions to an object
   ///
@@ -492,7 +438,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-details')
   set details(dynamic value) => props[_$key__details___$AriaPropsMixin] = value;
-
   /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise
   /// operable. See related aria-hidden and aria-readonly.
   ///
@@ -510,9 +455,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.disabled] -->
   @override
   @Accessor(key: 'aria-disabled')
-  bool? get disabled =>
-      (props[_$key__disabled___$AriaPropsMixin] ?? null) as bool?;
-
+  bool? get disabled => (props[_$key__disabled___$AriaPropsMixin] ?? null) as bool?;
   /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise
   /// operable. See related aria-hidden and aria-readonly.
   ///
@@ -531,7 +474,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-disabled')
   set disabled(bool? value) => props[_$key__disabled___$AriaPropsMixin] = value;
-
   /// Indicates what functions can be performed when the dragged object is released on the drop
   /// target. This allows assistive technologies to convey the possible drag options available to
   /// users, including whether a pop-up menu of choices is provided by the application. Typically,
@@ -549,9 +491,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.dropeffect] -->
   @override
   @Accessor(key: 'aria-dropeffect')
-  dynamic get dropeffect =>
-      (props[_$key__dropeffect___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get dropeffect => (props[_$key__dropeffect___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates what functions can be performed when the dragged object is released on the drop
   /// target. This allows assistive technologies to convey the possible drag options available to
   /// users, including whether a pop-up menu of choices is provided by the application. Typically,
@@ -569,9 +509,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.dropeffect] -->
   @override
   @Accessor(key: 'aria-dropeffect')
-  set dropeffect(dynamic value) =>
-      props[_$key__dropeffect___$AriaPropsMixin] = value;
-
+  set dropeffect(dynamic value) => props[_$key__dropeffect___$AriaPropsMixin] = value;
   /// Identifies the element that provides an error message for that object
   ///
   /// When there is a user-created error, you want to let them know it exists and tell them how to fix it.
@@ -584,9 +522,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.errormessage] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  String? get errormessage =>
-      (props[_$key__errormessage___$AriaPropsMixin] ?? null) as String?;
-
+  String? get errormessage => (props[_$key__errormessage___$AriaPropsMixin] ?? null) as String?;
   /// Identifies the element that provides an error message for that object
   ///
   /// When there is a user-created error, you want to let them know it exists and tell them how to fix it.
@@ -599,9 +535,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.errormessage] -->
   @override
   @Accessor(key: 'aria-errormessage')
-  set errormessage(String? value) =>
-      props[_$key__errormessage___$AriaPropsMixin] = value;
-
+  set errormessage(String? value) => props[_$key__errormessage___$AriaPropsMixin] = value;
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
   ///
@@ -619,9 +553,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.expanded] -->
   @override
   @Accessor(key: 'aria-expanded')
-  dynamic get expanded =>
-      (props[_$key__expanded___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get expanded => (props[_$key__expanded___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
   ///
@@ -639,9 +571,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.expanded] -->
   @override
   @Accessor(key: 'aria-expanded')
-  set expanded(dynamic value) =>
-      props[_$key__expanded___$AriaPropsMixin] = value;
-
+  set expanded(dynamic value) => props[_$key__expanded___$AriaPropsMixin] = value;
   /// Identifies the next element (or elements) in an alternate reading order of content which,
   /// at the user's discretion, allows assistive technology to override the general default of reading
   /// in document source order.
@@ -661,9 +591,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.flowto] -->
   @override
   @Accessor(key: 'aria-flowto')
-  dynamic get flowto =>
-      (props[_$key__flowto___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get flowto => (props[_$key__flowto___$AriaPropsMixin] ?? null) as dynamic;
   /// Identifies the next element (or elements) in an alternate reading order of content which,
   /// at the user's discretion, allows assistive technology to override the general default of reading
   /// in document source order.
@@ -684,7 +612,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-flowto')
   set flowto(dynamic value) => props[_$key__flowto___$AriaPropsMixin] = value;
-
   /// Indicates an element's 'grabbed' state in a drag-and-drop operation.
   ///
   /// When it is set to true it has been selected for dragging, false indicates that the element
@@ -702,9 +629,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.grabbed] -->
   @override
   @Accessor(key: 'aria-grabbed')
-  dynamic get grabbed =>
-      (props[_$key__grabbed___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get grabbed => (props[_$key__grabbed___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates an element's 'grabbed' state in a drag-and-drop operation.
   ///
   /// When it is set to true it has been selected for dragging, false indicates that the element
@@ -723,7 +648,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-grabbed')
   set grabbed(dynamic value) => props[_$key__grabbed___$AriaPropsMixin] = value;
-
   /// Indicates that the element has a popup context menu or sub-level menu.
   ///
   /// This means that activation renders conditional content. Note that ordinary tooltips are not
@@ -737,9 +661,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.haspopup] -->
   @override
   @Accessor(key: 'aria-haspopup')
-  bool? get haspopup =>
-      (props[_$key__haspopup___$AriaPropsMixin] ?? null) as bool?;
-
+  bool? get haspopup => (props[_$key__haspopup___$AriaPropsMixin] ?? null) as bool?;
   /// Indicates that the element has a popup context menu or sub-level menu.
   ///
   /// This means that activation renders conditional content. Note that ordinary tooltips are not
@@ -754,7 +676,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-haspopup')
   set haspopup(bool? value) => props[_$key__haspopup___$AriaPropsMixin] = value;
-
   /// Indicates that the element and all of its descendants are not visible or perceivable to any
   /// user as implemented by the author. See related aria-disabled.
   ///
@@ -804,7 +725,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-hidden')
   bool? get hidden => (props[_$key__hidden___$AriaPropsMixin] ?? null) as bool?;
-
   /// Indicates that the element and all of its descendants are not visible or perceivable to any
   /// user as implemented by the author. See related aria-disabled.
   ///
@@ -854,7 +774,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-hidden')
   set hidden(bool? value) => props[_$key__hidden___$AriaPropsMixin] = value;
-
   /// Indicates the entered value does not conform to the format expected by the application.
   ///
   /// If the value is computed to be invalid or out-of-range, the application author SHOULD set
@@ -877,9 +796,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.invalid] -->
   @override
   @Accessor(key: 'aria-invalid')
-  dynamic get invalid =>
-      (props[_$key__invalid___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get invalid => (props[_$key__invalid___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates the entered value does not conform to the format expected by the application.
   ///
   /// If the value is computed to be invalid or out-of-range, the application author SHOULD set
@@ -903,7 +820,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-invalid')
   set invalid(dynamic value) => props[_$key__invalid___$AriaPropsMixin] = value;
-
   /// Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element
   ///
   /// A series of one or several keys that tells software to perform a pre-programmed action. Keyboard shortcuts
@@ -916,9 +832,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.keyshortcuts] -->
   @override
   @Accessor(key: 'aria-keyshortcuts')
-  dynamic get keyshortcuts =>
-      (props[_$key__keyshortcuts___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get keyshortcuts => (props[_$key__keyshortcuts___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element
   ///
   /// A series of one or several keys that tells software to perform a pre-programmed action. Keyboard shortcuts
@@ -931,9 +845,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.keyshortcuts] -->
   @override
   @Accessor(key: 'aria-keyshortcuts')
-  set keyshortcuts(dynamic value) =>
-      props[_$key__keyshortcuts___$AriaPropsMixin] = value;
-
+  set keyshortcuts(dynamic value) => props[_$key__keyshortcuts___$AriaPropsMixin] = value;
   /// Defines a string value that labels the current element. See related aria-labelledby.
   ///
   /// The purpose of aria-label is the same as that of aria-labelledby. It provides the user with
@@ -955,9 +867,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.label] -->
   @override
   @Accessor(key: 'aria-label')
-  String? get label =>
-      (props[_$key__label___$AriaPropsMixin] ?? null) as String?;
-
+  String? get label => (props[_$key__label___$AriaPropsMixin] ?? null) as String?;
   /// Defines a string value that labels the current element. See related aria-labelledby.
   ///
   /// The purpose of aria-label is the same as that of aria-labelledby. It provides the user with
@@ -980,7 +890,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-label')
   set label(String? value) => props[_$key__label___$AriaPropsMixin] = value;
-
   /// Identifies the element (or elements) that labels the current element. See related aria-label
   /// and aria-describedby.
   ///
@@ -1007,9 +916,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.labelledby] -->
   @override
   @Accessor(key: 'aria-labelledby')
-  dynamic get labelledby =>
-      (props[_$key__labelledby___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get labelledby => (props[_$key__labelledby___$AriaPropsMixin] ?? null) as dynamic;
   /// Identifies the element (or elements) that labels the current element. See related aria-label
   /// and aria-describedby.
   ///
@@ -1036,9 +943,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.labelledby] -->
   @override
   @Accessor(key: 'aria-labelledby')
-  set labelledby(dynamic value) =>
-      props[_$key__labelledby___$AriaPropsMixin] = value;
-
+  set labelledby(dynamic value) => props[_$key__labelledby___$AriaPropsMixin] = value;
   /// Defines the hierarchical level of an element within a structure.
   ///
   /// This can be applied inside trees to tree items, to headings inside a document, to nested grids,
@@ -1076,7 +981,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-level')
   int? get level => (props[_$key__level___$AriaPropsMixin] ?? null) as int?;
-
   /// Defines the hierarchical level of an element within a structure.
   ///
   /// This can be applied inside trees to tree items, to headings inside a document, to nested grids,
@@ -1114,7 +1018,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-level')
   set level(int? value) => props[_$key__level___$AriaPropsMixin] = value;
-
   /// Indicates that an element will be updated, and describes the types of updates the user agents,
   /// assistive technologies, and user can expect from the live region.
   ///
@@ -1152,7 +1055,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-live')
   dynamic get live => (props[_$key__live___$AriaPropsMixin] ?? null) as dynamic;
-
   /// Indicates that an element will be updated, and describes the types of updates the user agents,
   /// assistive technologies, and user can expect from the live region.
   ///
@@ -1190,7 +1092,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-live')
   set live(dynamic value) => props[_$key__live___$AriaPropsMixin] = value;
-
   /// Indicates whether a text box accepts multiple lines of input or only a single line.
   ///
   /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key
@@ -1205,9 +1106,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.multiline] -->
   @override
   @Accessor(key: 'aria-multiline')
-  bool? get multiline =>
-      (props[_$key__multiline___$AriaPropsMixin] ?? null) as bool?;
-
+  bool? get multiline => (props[_$key__multiline___$AriaPropsMixin] ?? null) as bool?;
   /// Indicates whether a text box accepts multiple lines of input or only a single line.
   ///
   /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key
@@ -1222,9 +1121,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.multiline] -->
   @override
   @Accessor(key: 'aria-multiline')
-  set multiline(bool? value) =>
-      props[_$key__multiline___$AriaPropsMixin] = value;
-
+  set multiline(bool? value) => props[_$key__multiline___$AriaPropsMixin] = value;
   /// Indicates that the user may select more than one item from the current selectable descendants.
   ///
   /// Authors SHOULD ensure that selected descendants have the aria-selected attribute set to true,
@@ -1239,9 +1136,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.multiselectable] -->
   @override
   @Accessor(key: 'aria-multiselectable')
-  bool? get multiselectable =>
-      (props[_$key__multiselectable___$AriaPropsMixin] ?? null) as bool?;
-
+  bool? get multiselectable => (props[_$key__multiselectable___$AriaPropsMixin] ?? null) as bool?;
   /// Indicates that the user may select more than one item from the current selectable descendants.
   ///
   /// Authors SHOULD ensure that selected descendants have the aria-selected attribute set to true,
@@ -1256,9 +1151,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.multiselectable] -->
   @override
   @Accessor(key: 'aria-multiselectable')
-  set multiselectable(bool? value) =>
-      props[_$key__multiselectable___$AriaPropsMixin] = value;
-
+  set multiselectable(bool? value) => props[_$key__multiselectable___$AriaPropsMixin] = value;
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
@@ -1266,9 +1159,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.orientation] -->
   @override
   @Accessor(key: 'aria-orientation')
-  dynamic get orientation =>
-      (props[_$key__orientation___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get orientation => (props[_$key__orientation___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation>
@@ -1276,9 +1167,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.orientation] -->
   @override
   @Accessor(key: 'aria-orientation')
-  set orientation(dynamic value) =>
-      props[_$key__orientation___$AriaPropsMixin] = value;
-
+  set orientation(dynamic value) => props[_$key__orientation___$AriaPropsMixin] = value;
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
   /// the relationship. See related aria-controls.
@@ -1299,7 +1188,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-owns')
   dynamic get owns => (props[_$key__owns___$AriaPropsMixin] ?? null) as dynamic;
-
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
   /// the relationship. See related aria-controls.
@@ -1320,7 +1208,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-owns')
   set owns(dynamic value) => props[_$key__owns___$AriaPropsMixin] = value;
-
   /// Defines a short hint (a word or short phrase) intended to help the user with data entry when a form
   /// control has no value. The hint can be a sample value or a brief description of the expected format
   ///
@@ -1329,9 +1216,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
   @override
   @Accessor(key: 'aria-placeholder')
-  String? get placeholder =>
-      (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String?;
-
+  String? get placeholder => (props[_$key__placeholder___$AriaPropsMixin] ?? null) as String?;
   /// Defines a short hint (a word or short phrase) intended to help the user with data entry when a form
   /// control has no value. The hint can be a sample value or a brief description of the expected format
   ///
@@ -1340,9 +1225,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.placeholder] -->
   @override
   @Accessor(key: 'aria-placeholder')
-  set placeholder(String? value) =>
-      props[_$key__placeholder___$AriaPropsMixin] = value;
-
+  set placeholder(String? value) => props[_$key__placeholder___$AriaPropsMixin] = value;
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
   ///
@@ -1360,9 +1243,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.posinset] -->
   @override
   @Accessor(key: 'aria-posinset')
-  int? get posinset =>
-      (props[_$key__posinset___$AriaPropsMixin] ?? null) as int?;
-
+  int? get posinset => (props[_$key__posinset___$AriaPropsMixin] ?? null) as int?;
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
   ///
@@ -1381,7 +1262,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-posinset')
   set posinset(int? value) => props[_$key__posinset___$AriaPropsMixin] = value;
-
   /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
   /// Toggle buttons require a full press-and-release cycle to change their value. Activating it
@@ -1398,9 +1278,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.pressed] -->
   @override
   @Accessor(key: 'aria-pressed')
-  dynamic get pressed =>
-      (props[_$key__pressed___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get pressed => (props[_$key__pressed___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
   /// Toggle buttons require a full press-and-release cycle to change their value. Activating it
@@ -1418,7 +1296,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-pressed')
   set pressed(dynamic value) => props[_$key__pressed___$AriaPropsMixin] = value;
-
   ///  Indicates that the element is not editable, but is otherwise operable. See related aria-disabled.
   ///
   /// This means the user can read but not set the value of the widget. Readonly elements are relevant
@@ -1437,9 +1314,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.readonly] -->
   @override
   @Accessor(key: 'aria-readonly')
-  bool? get readonly =>
-      (props[_$key__readonly___$AriaPropsMixin] ?? null) as bool?;
-
+  bool? get readonly => (props[_$key__readonly___$AriaPropsMixin] ?? null) as bool?;
   ///  Indicates that the element is not editable, but is otherwise operable. See related aria-disabled.
   ///
   /// This means the user can read but not set the value of the widget. Readonly elements are relevant
@@ -1459,7 +1334,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-readonly')
   set readonly(bool? value) => props[_$key__readonly___$AriaPropsMixin] = value;
-
   /// Indicates what user agent change notifications (additions, removals, etc.) assistive technologies
   /// will receive within a live region. See related aria-atomic.
   ///
@@ -1507,9 +1381,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.relevant] -->
   @override
   @Accessor(key: 'aria-relevant')
-  dynamic get relevant =>
-      (props[_$key__relevant___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get relevant => (props[_$key__relevant___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates what user agent change notifications (additions, removals, etc.) assistive technologies
   /// will receive within a live region. See related aria-atomic.
   ///
@@ -1557,9 +1429,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.relevant] -->
   @override
   @Accessor(key: 'aria-relevant')
-  set relevant(dynamic value) =>
-      props[_$key__relevant___$AriaPropsMixin] = value;
-
+  set relevant(dynamic value) => props[_$key__relevant___$AriaPropsMixin] = value;
   /// Indicates that user input is required on the element before a form may be submitted.
   ///
   /// For example, if the user needs to fill in an address field, the author will need to set the
@@ -1578,9 +1448,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.required] -->
   @override
   @Accessor(key: 'aria-required')
-  bool? get required =>
-      (props[_$key__required___$AriaPropsMixin] ?? null) as bool?;
-
+  bool? get required => (props[_$key__required___$AriaPropsMixin] ?? null) as bool?;
   /// Indicates that user input is required on the element before a form may be submitted.
   ///
   /// For example, if the user needs to fill in an address field, the author will need to set the
@@ -1600,7 +1468,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-required')
   set required(bool? value) => props[_$key__required___$AriaPropsMixin] = value;
-
   /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
   /// gives assistive technologies information about how to handle each element.
   ///
@@ -1609,7 +1476,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.role] -->
   @override
   String? get role => (props[_$key__role___$AriaPropsMixin] ?? null) as String?;
-
   /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
   /// gives assistive technologies information about how to handle each element.
   ///
@@ -1618,7 +1484,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.role] -->
   @override
   set role(String? value) => props[_$key__role___$AriaPropsMixin] = value;
-
   /// Defines an author-localized description for the role of an element
   ///
   /// Only use aria-roledescription to clarify the purpose of non-interactive container roles like group or
@@ -1629,9 +1494,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
-  String? get roledescription =>
-      (props[_$key__roledescription___$AriaPropsMixin] ?? null) as String?;
-
+  String? get roledescription => (props[_$key__roledescription___$AriaPropsMixin] ?? null) as String?;
   /// Defines an author-localized description for the role of an element
   ///
   /// Only use aria-roledescription to clarify the purpose of non-interactive container roles like group or
@@ -1642,9 +1505,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.roledescription] -->
   @override
   @Accessor(key: 'aria-roledescription')
-  set roledescription(String? value) =>
-      props[_$key__roledescription___$AriaPropsMixin] = value;
-
+  set roledescription(String? value) => props[_$key__roledescription___$AriaPropsMixin] = value;
   /// Defines the total number of rows in a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
@@ -1652,9 +1513,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowcount] -->
   @override
   @Accessor(key: 'aria-rowcount')
-  int? get rowcount =>
-      (props[_$key__rowcount___$AriaPropsMixin] ?? null) as int?;
-
+  int? get rowcount => (props[_$key__rowcount___$AriaPropsMixin] ?? null) as int?;
   /// Defines the total number of rows in a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount>
@@ -1663,7 +1522,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-rowcount')
   set rowcount(int? value) => props[_$key__rowcount___$AriaPropsMixin] = value;
-
   /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
@@ -1671,9 +1529,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindex] -->
   @override
   @Accessor(key: 'aria-rowindex')
-  int? get rowindex =>
-      (props[_$key__rowindex___$AriaPropsMixin] ?? null) as int?;
-
+  int? get rowindex => (props[_$key__rowindex___$AriaPropsMixin] ?? null) as int?;
   /// Defines an element's position with respect to the total number of rows within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex>
@@ -1682,7 +1538,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-rowindex')
   set rowindex(int? value) => props[_$key__rowindex___$AriaPropsMixin] = value;
-
   /// Defines a text alternative of aria-rowindex
   ///
   /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
@@ -1691,9 +1546,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindextext] -->
   @override
   @Accessor(key: 'aria-rowindextext')
-  String? get rowindextext =>
-      (props[_$key__rowindextext___$AriaPropsMixin] ?? null) as String?;
-
+  String? get rowindextext => (props[_$key__rowindextext___$AriaPropsMixin] ?? null) as String?;
   /// Defines a text alternative of aria-rowindex
   ///
   /// The aria-rowindextext should only be included in addition to, not as a replacement of, the aria-rowindex
@@ -1702,9 +1555,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.rowindextext] -->
   @override
   @Accessor(key: 'aria-rowindextext')
-  set rowindextext(String? value) =>
-      props[_$key__rowindextext___$AriaPropsMixin] = value;
-
+  set rowindextext(String? value) => props[_$key__rowindextext___$AriaPropsMixin] = value;
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
@@ -1713,7 +1564,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-rowspan')
   int? get rowspan => (props[_$key__rowspan___$AriaPropsMixin] ?? null) as int?;
-
   /// Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid
   ///
   /// See: <https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan>
@@ -1722,7 +1572,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-rowspan')
   set rowspan(int? value) => props[_$key__rowspan___$AriaPropsMixin] = value;
-
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
   /// This attribute is used with single-selection and multiple-selection widgets:
@@ -1743,9 +1592,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.selected] -->
   @override
   @Accessor(key: 'aria-selected')
-  dynamic get selected =>
-      (props[_$key__selected___$AriaPropsMixin] ?? null) as dynamic;
-
+  dynamic get selected => (props[_$key__selected___$AriaPropsMixin] ?? null) as dynamic;
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
   /// This attribute is used with single-selection and multiple-selection widgets:
@@ -1766,9 +1613,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.selected] -->
   @override
   @Accessor(key: 'aria-selected')
-  set selected(dynamic value) =>
-      props[_$key__selected___$AriaPropsMixin] = value;
-
+  set selected(dynamic value) => props[_$key__selected___$AriaPropsMixin] = value;
   /// Defines the number of items in the current set of listitems or treeitems. Not required if
   /// all elements in the set are present in the DOM. See related aria-posinset.
   ///
@@ -1791,7 +1636,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-setsize')
   int? get setsize => (props[_$key__setsize___$AriaPropsMixin] ?? null) as int?;
-
   /// Defines the number of items in the current set of listitems or treeitems. Not required if
   /// all elements in the set are present in the DOM. See related aria-posinset.
   ///
@@ -1814,7 +1658,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-setsize')
   set setsize(int? value) => props[_$key__setsize___$AriaPropsMixin] = value;
-
   /// Indicates if items in a table or grid are sorted in ascending or descending order.
   ///
   /// Authors SHOULD only apply this property to table headers or grid headers. If the property
@@ -1827,7 +1670,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-sort')
   dynamic get sort => (props[_$key__sort___$AriaPropsMixin] ?? null) as dynamic;
-
   /// Indicates if items in a table or grid are sorted in ascending or descending order.
   ///
   /// Authors SHOULD only apply this property to table headers or grid headers. If the property
@@ -1840,7 +1682,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-sort')
   set sort(dynamic value) => props[_$key__sort___$AriaPropsMixin] = value;
-
   /// Defines the maximum allowed value for a range widget.
   ///
   /// A range widget may start with a given value, which can be increased until a maximum value,
@@ -1857,9 +1698,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuemax] -->
   @override
   @Accessor(key: 'aria-valuemax')
-  num? get valuemax =>
-      (props[_$key__valuemax___$AriaPropsMixin] ?? null) as num?;
-
+  num? get valuemax => (props[_$key__valuemax___$AriaPropsMixin] ?? null) as num?;
   /// Defines the maximum allowed value for a range widget.
   ///
   /// A range widget may start with a given value, which can be increased until a maximum value,
@@ -1877,7 +1716,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-valuemax')
   set valuemax(num? value) => props[_$key__valuemax___$AriaPropsMixin] = value;
-
   /// Defines the minimum allowed value for a range widget.
   ///
   /// A range widget may start with a given value, which can be decreased until a minimum value,
@@ -1895,9 +1733,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuemin] -->
   @override
   @Accessor(key: 'aria-valuemin')
-  num? get valuemin =>
-      (props[_$key__valuemin___$AriaPropsMixin] ?? null) as num?;
-
+  num? get valuemin => (props[_$key__valuemin___$AriaPropsMixin] ?? null) as num?;
   /// Defines the minimum allowed value for a range widget.
   ///
   /// A range widget may start with a given value, which can be decreased until a minimum value,
@@ -1916,7 +1752,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-valuemin')
   set valuemin(num? value) => props[_$key__valuemin___$AriaPropsMixin] = value;
-
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///
   /// This property is used, for example, on a range widget such as a slider or progress bar.
@@ -1951,9 +1786,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuenow] -->
   @override
   @Accessor(key: 'aria-valuenow')
-  num? get valuenow =>
-      (props[_$key__valuenow___$AriaPropsMixin] ?? null) as num?;
-
+  num? get valuenow => (props[_$key__valuenow___$AriaPropsMixin] ?? null) as num?;
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///
   /// This property is used, for example, on a range widget such as a slider or progress bar.
@@ -1989,7 +1822,6 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-valuenow')
   set valuenow(num? value) => props[_$key__valuenow___$AriaPropsMixin] = value;
-
   /// Defines the human readable text alternative of aria-valuenow for a range widget.
   ///
   /// This property is used, for example, on a range widget such as a slider or progress bar.
@@ -2012,9 +1844,7 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuetext] -->
   @override
   @Accessor(key: 'aria-valuetext')
-  String? get valuetext =>
-      (props[_$key__valuetext___$AriaPropsMixin] ?? null) as String?;
-
+  String? get valuetext => (props[_$key__valuetext___$AriaPropsMixin] ?? null) as String?;
   /// Defines the human readable text alternative of aria-valuenow for a range widget.
   ///
   /// This property is used, for example, on a range widget such as a slider or progress bar.
@@ -2037,130 +1867,71 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuetext] -->
   @override
   @Accessor(key: 'aria-valuetext')
-  set valuetext(String? value) =>
-      props[_$key__valuetext___$AriaPropsMixin] = value;
+  set valuetext(String? value) => props[_$key__valuetext___$AriaPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__activedescendant___$AriaPropsMixin =
-      PropDescriptor(_$key__activedescendant___$AriaPropsMixin);
-  static const PropDescriptor _$prop__atomic___$AriaPropsMixin =
-      PropDescriptor(_$key__atomic___$AriaPropsMixin);
-  static const PropDescriptor _$prop__autocomplete___$AriaPropsMixin =
-      PropDescriptor(_$key__autocomplete___$AriaPropsMixin);
-  static const PropDescriptor _$prop__braillelabel___$AriaPropsMixin =
-      PropDescriptor(_$key__braillelabel___$AriaPropsMixin);
-  static const PropDescriptor _$prop__brailleroledescription___$AriaPropsMixin =
-      PropDescriptor(_$key__brailleroledescription___$AriaPropsMixin);
-  static const PropDescriptor _$prop__busy___$AriaPropsMixin =
-      PropDescriptor(_$key__busy___$AriaPropsMixin);
-  static const PropDescriptor _$prop__checked___$AriaPropsMixin =
-      PropDescriptor(_$key__checked___$AriaPropsMixin);
-  static const PropDescriptor _$prop__colcount___$AriaPropsMixin =
-      PropDescriptor(_$key__colcount___$AriaPropsMixin);
-  static const PropDescriptor _$prop__colindex___$AriaPropsMixin =
-      PropDescriptor(_$key__colindex___$AriaPropsMixin);
-  static const PropDescriptor _$prop__colindextext___$AriaPropsMixin =
-      PropDescriptor(_$key__colindextext___$AriaPropsMixin);
-  static const PropDescriptor _$prop__colspan___$AriaPropsMixin =
-      PropDescriptor(_$key__colspan___$AriaPropsMixin);
-  static const PropDescriptor _$prop__controls___$AriaPropsMixin =
-      PropDescriptor(_$key__controls___$AriaPropsMixin);
-  static const PropDescriptor _$prop__current___$AriaPropsMixin =
-      PropDescriptor(_$key__current___$AriaPropsMixin);
-  static const PropDescriptor _$prop__describedby___$AriaPropsMixin =
-      PropDescriptor(_$key__describedby___$AriaPropsMixin);
-  static const PropDescriptor _$prop__description___$AriaPropsMixin =
-      PropDescriptor(_$key__description___$AriaPropsMixin);
-  static const PropDescriptor _$prop__details___$AriaPropsMixin =
-      PropDescriptor(_$key__details___$AriaPropsMixin);
-  static const PropDescriptor _$prop__disabled___$AriaPropsMixin =
-      PropDescriptor(_$key__disabled___$AriaPropsMixin);
-  static const PropDescriptor _$prop__dropeffect___$AriaPropsMixin =
-      PropDescriptor(_$key__dropeffect___$AriaPropsMixin);
-  static const PropDescriptor _$prop__errormessage___$AriaPropsMixin =
-      PropDescriptor(_$key__errormessage___$AriaPropsMixin);
-  static const PropDescriptor _$prop__expanded___$AriaPropsMixin =
-      PropDescriptor(_$key__expanded___$AriaPropsMixin);
-  static const PropDescriptor _$prop__flowto___$AriaPropsMixin =
-      PropDescriptor(_$key__flowto___$AriaPropsMixin);
-  static const PropDescriptor _$prop__grabbed___$AriaPropsMixin =
-      PropDescriptor(_$key__grabbed___$AriaPropsMixin);
-  static const PropDescriptor _$prop__haspopup___$AriaPropsMixin =
-      PropDescriptor(_$key__haspopup___$AriaPropsMixin);
-  static const PropDescriptor _$prop__hidden___$AriaPropsMixin =
-      PropDescriptor(_$key__hidden___$AriaPropsMixin);
-  static const PropDescriptor _$prop__invalid___$AriaPropsMixin =
-      PropDescriptor(_$key__invalid___$AriaPropsMixin);
-  static const PropDescriptor _$prop__keyshortcuts___$AriaPropsMixin =
-      PropDescriptor(_$key__keyshortcuts___$AriaPropsMixin);
-  static const PropDescriptor _$prop__label___$AriaPropsMixin =
-      PropDescriptor(_$key__label___$AriaPropsMixin);
-  static const PropDescriptor _$prop__labelledby___$AriaPropsMixin =
-      PropDescriptor(_$key__labelledby___$AriaPropsMixin);
-  static const PropDescriptor _$prop__level___$AriaPropsMixin =
-      PropDescriptor(_$key__level___$AriaPropsMixin);
-  static const PropDescriptor _$prop__live___$AriaPropsMixin =
-      PropDescriptor(_$key__live___$AriaPropsMixin);
-  static const PropDescriptor _$prop__multiline___$AriaPropsMixin =
-      PropDescriptor(_$key__multiline___$AriaPropsMixin);
-  static const PropDescriptor _$prop__multiselectable___$AriaPropsMixin =
-      PropDescriptor(_$key__multiselectable___$AriaPropsMixin);
-  static const PropDescriptor _$prop__orientation___$AriaPropsMixin =
-      PropDescriptor(_$key__orientation___$AriaPropsMixin);
-  static const PropDescriptor _$prop__owns___$AriaPropsMixin =
-      PropDescriptor(_$key__owns___$AriaPropsMixin);
-  static const PropDescriptor _$prop__placeholder___$AriaPropsMixin =
-      PropDescriptor(_$key__placeholder___$AriaPropsMixin);
-  static const PropDescriptor _$prop__posinset___$AriaPropsMixin =
-      PropDescriptor(_$key__posinset___$AriaPropsMixin);
-  static const PropDescriptor _$prop__pressed___$AriaPropsMixin =
-      PropDescriptor(_$key__pressed___$AriaPropsMixin);
-  static const PropDescriptor _$prop__readonly___$AriaPropsMixin =
-      PropDescriptor(_$key__readonly___$AriaPropsMixin);
-  static const PropDescriptor _$prop__relevant___$AriaPropsMixin =
-      PropDescriptor(_$key__relevant___$AriaPropsMixin);
-  static const PropDescriptor _$prop__required___$AriaPropsMixin =
-      PropDescriptor(_$key__required___$AriaPropsMixin);
-  static const PropDescriptor _$prop__role___$AriaPropsMixin =
-      PropDescriptor(_$key__role___$AriaPropsMixin);
-  static const PropDescriptor _$prop__roledescription___$AriaPropsMixin =
-      PropDescriptor(_$key__roledescription___$AriaPropsMixin);
-  static const PropDescriptor _$prop__rowcount___$AriaPropsMixin =
-      PropDescriptor(_$key__rowcount___$AriaPropsMixin);
-  static const PropDescriptor _$prop__rowindex___$AriaPropsMixin =
-      PropDescriptor(_$key__rowindex___$AriaPropsMixin);
-  static const PropDescriptor _$prop__rowindextext___$AriaPropsMixin =
-      PropDescriptor(_$key__rowindextext___$AriaPropsMixin);
-  static const PropDescriptor _$prop__rowspan___$AriaPropsMixin =
-      PropDescriptor(_$key__rowspan___$AriaPropsMixin);
-  static const PropDescriptor _$prop__selected___$AriaPropsMixin =
-      PropDescriptor(_$key__selected___$AriaPropsMixin);
-  static const PropDescriptor _$prop__setsize___$AriaPropsMixin =
-      PropDescriptor(_$key__setsize___$AriaPropsMixin);
-  static const PropDescriptor _$prop__sort___$AriaPropsMixin =
-      PropDescriptor(_$key__sort___$AriaPropsMixin);
-  static const PropDescriptor _$prop__valuemax___$AriaPropsMixin =
-      PropDescriptor(_$key__valuemax___$AriaPropsMixin);
-  static const PropDescriptor _$prop__valuemin___$AriaPropsMixin =
-      PropDescriptor(_$key__valuemin___$AriaPropsMixin);
-  static const PropDescriptor _$prop__valuenow___$AriaPropsMixin =
-      PropDescriptor(_$key__valuenow___$AriaPropsMixin);
-  static const PropDescriptor _$prop__valuetext___$AriaPropsMixin =
-      PropDescriptor(_$key__valuetext___$AriaPropsMixin);
-  static const String _$key__activedescendant___$AriaPropsMixin =
-      'aria-activedescendant';
+  static const PropDescriptor _$prop__activedescendant___$AriaPropsMixin = PropDescriptor(_$key__activedescendant___$AriaPropsMixin);
+  static const PropDescriptor _$prop__atomic___$AriaPropsMixin = PropDescriptor(_$key__atomic___$AriaPropsMixin);
+  static const PropDescriptor _$prop__autocomplete___$AriaPropsMixin = PropDescriptor(_$key__autocomplete___$AriaPropsMixin);
+  static const PropDescriptor _$prop__braillelabel___$AriaPropsMixin = PropDescriptor(_$key__braillelabel___$AriaPropsMixin);
+  static const PropDescriptor _$prop__brailleroledescription___$AriaPropsMixin = PropDescriptor(_$key__brailleroledescription___$AriaPropsMixin);
+  static const PropDescriptor _$prop__busy___$AriaPropsMixin = PropDescriptor(_$key__busy___$AriaPropsMixin);
+  static const PropDescriptor _$prop__checked___$AriaPropsMixin = PropDescriptor(_$key__checked___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colcount___$AriaPropsMixin = PropDescriptor(_$key__colcount___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colindex___$AriaPropsMixin = PropDescriptor(_$key__colindex___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colindextext___$AriaPropsMixin = PropDescriptor(_$key__colindextext___$AriaPropsMixin);
+  static const PropDescriptor _$prop__colspan___$AriaPropsMixin = PropDescriptor(_$key__colspan___$AriaPropsMixin);
+  static const PropDescriptor _$prop__controls___$AriaPropsMixin = PropDescriptor(_$key__controls___$AriaPropsMixin);
+  static const PropDescriptor _$prop__current___$AriaPropsMixin = PropDescriptor(_$key__current___$AriaPropsMixin);
+  static const PropDescriptor _$prop__describedby___$AriaPropsMixin = PropDescriptor(_$key__describedby___$AriaPropsMixin);
+  static const PropDescriptor _$prop__description___$AriaPropsMixin = PropDescriptor(_$key__description___$AriaPropsMixin);
+  static const PropDescriptor _$prop__details___$AriaPropsMixin = PropDescriptor(_$key__details___$AriaPropsMixin);
+  static const PropDescriptor _$prop__disabled___$AriaPropsMixin = PropDescriptor(_$key__disabled___$AriaPropsMixin);
+  static const PropDescriptor _$prop__dropeffect___$AriaPropsMixin = PropDescriptor(_$key__dropeffect___$AriaPropsMixin);
+  static const PropDescriptor _$prop__errormessage___$AriaPropsMixin = PropDescriptor(_$key__errormessage___$AriaPropsMixin);
+  static const PropDescriptor _$prop__expanded___$AriaPropsMixin = PropDescriptor(_$key__expanded___$AriaPropsMixin);
+  static const PropDescriptor _$prop__flowto___$AriaPropsMixin = PropDescriptor(_$key__flowto___$AriaPropsMixin);
+  static const PropDescriptor _$prop__grabbed___$AriaPropsMixin = PropDescriptor(_$key__grabbed___$AriaPropsMixin);
+  static const PropDescriptor _$prop__haspopup___$AriaPropsMixin = PropDescriptor(_$key__haspopup___$AriaPropsMixin);
+  static const PropDescriptor _$prop__hidden___$AriaPropsMixin = PropDescriptor(_$key__hidden___$AriaPropsMixin);
+  static const PropDescriptor _$prop__invalid___$AriaPropsMixin = PropDescriptor(_$key__invalid___$AriaPropsMixin);
+  static const PropDescriptor _$prop__keyshortcuts___$AriaPropsMixin = PropDescriptor(_$key__keyshortcuts___$AriaPropsMixin);
+  static const PropDescriptor _$prop__label___$AriaPropsMixin = PropDescriptor(_$key__label___$AriaPropsMixin);
+  static const PropDescriptor _$prop__labelledby___$AriaPropsMixin = PropDescriptor(_$key__labelledby___$AriaPropsMixin);
+  static const PropDescriptor _$prop__level___$AriaPropsMixin = PropDescriptor(_$key__level___$AriaPropsMixin);
+  static const PropDescriptor _$prop__live___$AriaPropsMixin = PropDescriptor(_$key__live___$AriaPropsMixin);
+  static const PropDescriptor _$prop__multiline___$AriaPropsMixin = PropDescriptor(_$key__multiline___$AriaPropsMixin);
+  static const PropDescriptor _$prop__multiselectable___$AriaPropsMixin = PropDescriptor(_$key__multiselectable___$AriaPropsMixin);
+  static const PropDescriptor _$prop__orientation___$AriaPropsMixin = PropDescriptor(_$key__orientation___$AriaPropsMixin);
+  static const PropDescriptor _$prop__owns___$AriaPropsMixin = PropDescriptor(_$key__owns___$AriaPropsMixin);
+  static const PropDescriptor _$prop__placeholder___$AriaPropsMixin = PropDescriptor(_$key__placeholder___$AriaPropsMixin);
+  static const PropDescriptor _$prop__posinset___$AriaPropsMixin = PropDescriptor(_$key__posinset___$AriaPropsMixin);
+  static const PropDescriptor _$prop__pressed___$AriaPropsMixin = PropDescriptor(_$key__pressed___$AriaPropsMixin);
+  static const PropDescriptor _$prop__readonly___$AriaPropsMixin = PropDescriptor(_$key__readonly___$AriaPropsMixin);
+  static const PropDescriptor _$prop__relevant___$AriaPropsMixin = PropDescriptor(_$key__relevant___$AriaPropsMixin);
+  static const PropDescriptor _$prop__required___$AriaPropsMixin = PropDescriptor(_$key__required___$AriaPropsMixin);
+  static const PropDescriptor _$prop__role___$AriaPropsMixin = PropDescriptor(_$key__role___$AriaPropsMixin);
+  static const PropDescriptor _$prop__roledescription___$AriaPropsMixin = PropDescriptor(_$key__roledescription___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowcount___$AriaPropsMixin = PropDescriptor(_$key__rowcount___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowindex___$AriaPropsMixin = PropDescriptor(_$key__rowindex___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowindextext___$AriaPropsMixin = PropDescriptor(_$key__rowindextext___$AriaPropsMixin);
+  static const PropDescriptor _$prop__rowspan___$AriaPropsMixin = PropDescriptor(_$key__rowspan___$AriaPropsMixin);
+  static const PropDescriptor _$prop__selected___$AriaPropsMixin = PropDescriptor(_$key__selected___$AriaPropsMixin);
+  static const PropDescriptor _$prop__setsize___$AriaPropsMixin = PropDescriptor(_$key__setsize___$AriaPropsMixin);
+  static const PropDescriptor _$prop__sort___$AriaPropsMixin = PropDescriptor(_$key__sort___$AriaPropsMixin);
+  static const PropDescriptor _$prop__valuemax___$AriaPropsMixin = PropDescriptor(_$key__valuemax___$AriaPropsMixin);
+  static const PropDescriptor _$prop__valuemin___$AriaPropsMixin = PropDescriptor(_$key__valuemin___$AriaPropsMixin);
+  static const PropDescriptor _$prop__valuenow___$AriaPropsMixin = PropDescriptor(_$key__valuenow___$AriaPropsMixin);
+  static const PropDescriptor _$prop__valuetext___$AriaPropsMixin = PropDescriptor(_$key__valuetext___$AriaPropsMixin);
+  static const String _$key__activedescendant___$AriaPropsMixin = 'aria-activedescendant';
   static const String _$key__atomic___$AriaPropsMixin = 'aria-atomic';
-  static const String _$key__autocomplete___$AriaPropsMixin =
-      'aria-autocomplete';
-  static const String _$key__braillelabel___$AriaPropsMixin =
-      'aria-braillelabel';
-  static const String _$key__brailleroledescription___$AriaPropsMixin =
-      'aria-brailleroledescription';
+  static const String _$key__autocomplete___$AriaPropsMixin = 'aria-autocomplete';
+  static const String _$key__braillelabel___$AriaPropsMixin = 'aria-braillelabel';
+  static const String _$key__brailleroledescription___$AriaPropsMixin = 'aria-brailleroledescription';
   static const String _$key__busy___$AriaPropsMixin = 'aria-busy';
   static const String _$key__checked___$AriaPropsMixin = 'aria-checked';
   static const String _$key__colcount___$AriaPropsMixin = 'aria-colcount';
   static const String _$key__colindex___$AriaPropsMixin = 'aria-colindex';
-  static const String _$key__colindextext___$AriaPropsMixin =
-      'aria-colindextext';
+  static const String _$key__colindextext___$AriaPropsMixin = 'aria-colindextext';
   static const String _$key__colspan___$AriaPropsMixin = 'aria-colspan';
   static const String _$key__controls___$AriaPropsMixin = 'aria-controls';
   static const String _$key__current___$AriaPropsMixin = 'aria-current';
@@ -2169,23 +1940,20 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__details___$AriaPropsMixin = 'aria-details';
   static const String _$key__disabled___$AriaPropsMixin = 'aria-disabled';
   static const String _$key__dropeffect___$AriaPropsMixin = 'aria-dropeffect';
-  static const String _$key__errormessage___$AriaPropsMixin =
-      'aria-errormessage';
+  static const String _$key__errormessage___$AriaPropsMixin = 'aria-errormessage';
   static const String _$key__expanded___$AriaPropsMixin = 'aria-expanded';
   static const String _$key__flowto___$AriaPropsMixin = 'aria-flowto';
   static const String _$key__grabbed___$AriaPropsMixin = 'aria-grabbed';
   static const String _$key__haspopup___$AriaPropsMixin = 'aria-haspopup';
   static const String _$key__hidden___$AriaPropsMixin = 'aria-hidden';
   static const String _$key__invalid___$AriaPropsMixin = 'aria-invalid';
-  static const String _$key__keyshortcuts___$AriaPropsMixin =
-      'aria-keyshortcuts';
+  static const String _$key__keyshortcuts___$AriaPropsMixin = 'aria-keyshortcuts';
   static const String _$key__label___$AriaPropsMixin = 'aria-label';
   static const String _$key__labelledby___$AriaPropsMixin = 'aria-labelledby';
   static const String _$key__level___$AriaPropsMixin = 'aria-level';
   static const String _$key__live___$AriaPropsMixin = 'aria-live';
   static const String _$key__multiline___$AriaPropsMixin = 'aria-multiline';
-  static const String _$key__multiselectable___$AriaPropsMixin =
-      'aria-multiselectable';
+  static const String _$key__multiselectable___$AriaPropsMixin = 'aria-multiselectable';
   static const String _$key__orientation___$AriaPropsMixin = 'aria-orientation';
   static const String _$key__owns___$AriaPropsMixin = 'aria-owns';
   static const String _$key__placeholder___$AriaPropsMixin = 'aria-placeholder';
@@ -2195,12 +1963,10 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__relevant___$AriaPropsMixin = 'aria-relevant';
   static const String _$key__required___$AriaPropsMixin = 'aria-required';
   static const String _$key__role___$AriaPropsMixin = 'role';
-  static const String _$key__roledescription___$AriaPropsMixin =
-      'aria-roledescription';
+  static const String _$key__roledescription___$AriaPropsMixin = 'aria-roledescription';
   static const String _$key__rowcount___$AriaPropsMixin = 'aria-rowcount';
   static const String _$key__rowindex___$AriaPropsMixin = 'aria-rowindex';
-  static const String _$key__rowindextext___$AriaPropsMixin =
-      'aria-rowindextext';
+  static const String _$key__rowindextext___$AriaPropsMixin = 'aria-rowindextext';
   static const String _$key__rowspan___$AriaPropsMixin = 'aria-rowspan';
   static const String _$key__selected___$AriaPropsMixin = 'aria-selected';
   static const String _$key__setsize___$AriaPropsMixin = 'aria-setsize';
@@ -2210,116 +1976,8 @@ mixin AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__valuenow___$AriaPropsMixin = 'aria-valuenow';
   static const String _$key__valuetext___$AriaPropsMixin = 'aria-valuetext';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__activedescendant___$AriaPropsMixin,
-    _$prop__atomic___$AriaPropsMixin,
-    _$prop__autocomplete___$AriaPropsMixin,
-    _$prop__braillelabel___$AriaPropsMixin,
-    _$prop__brailleroledescription___$AriaPropsMixin,
-    _$prop__busy___$AriaPropsMixin,
-    _$prop__checked___$AriaPropsMixin,
-    _$prop__colcount___$AriaPropsMixin,
-    _$prop__colindex___$AriaPropsMixin,
-    _$prop__colindextext___$AriaPropsMixin,
-    _$prop__colspan___$AriaPropsMixin,
-    _$prop__controls___$AriaPropsMixin,
-    _$prop__current___$AriaPropsMixin,
-    _$prop__describedby___$AriaPropsMixin,
-    _$prop__description___$AriaPropsMixin,
-    _$prop__details___$AriaPropsMixin,
-    _$prop__disabled___$AriaPropsMixin,
-    _$prop__dropeffect___$AriaPropsMixin,
-    _$prop__errormessage___$AriaPropsMixin,
-    _$prop__expanded___$AriaPropsMixin,
-    _$prop__flowto___$AriaPropsMixin,
-    _$prop__grabbed___$AriaPropsMixin,
-    _$prop__haspopup___$AriaPropsMixin,
-    _$prop__hidden___$AriaPropsMixin,
-    _$prop__invalid___$AriaPropsMixin,
-    _$prop__keyshortcuts___$AriaPropsMixin,
-    _$prop__label___$AriaPropsMixin,
-    _$prop__labelledby___$AriaPropsMixin,
-    _$prop__level___$AriaPropsMixin,
-    _$prop__live___$AriaPropsMixin,
-    _$prop__multiline___$AriaPropsMixin,
-    _$prop__multiselectable___$AriaPropsMixin,
-    _$prop__orientation___$AriaPropsMixin,
-    _$prop__owns___$AriaPropsMixin,
-    _$prop__placeholder___$AriaPropsMixin,
-    _$prop__posinset___$AriaPropsMixin,
-    _$prop__pressed___$AriaPropsMixin,
-    _$prop__readonly___$AriaPropsMixin,
-    _$prop__relevant___$AriaPropsMixin,
-    _$prop__required___$AriaPropsMixin,
-    _$prop__role___$AriaPropsMixin,
-    _$prop__roledescription___$AriaPropsMixin,
-    _$prop__rowcount___$AriaPropsMixin,
-    _$prop__rowindex___$AriaPropsMixin,
-    _$prop__rowindextext___$AriaPropsMixin,
-    _$prop__rowspan___$AriaPropsMixin,
-    _$prop__selected___$AriaPropsMixin,
-    _$prop__setsize___$AriaPropsMixin,
-    _$prop__sort___$AriaPropsMixin,
-    _$prop__valuemax___$AriaPropsMixin,
-    _$prop__valuemin___$AriaPropsMixin,
-    _$prop__valuenow___$AriaPropsMixin,
-    _$prop__valuetext___$AriaPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__activedescendant___$AriaPropsMixin,
-    _$key__atomic___$AriaPropsMixin,
-    _$key__autocomplete___$AriaPropsMixin,
-    _$key__braillelabel___$AriaPropsMixin,
-    _$key__brailleroledescription___$AriaPropsMixin,
-    _$key__busy___$AriaPropsMixin,
-    _$key__checked___$AriaPropsMixin,
-    _$key__colcount___$AriaPropsMixin,
-    _$key__colindex___$AriaPropsMixin,
-    _$key__colindextext___$AriaPropsMixin,
-    _$key__colspan___$AriaPropsMixin,
-    _$key__controls___$AriaPropsMixin,
-    _$key__current___$AriaPropsMixin,
-    _$key__describedby___$AriaPropsMixin,
-    _$key__description___$AriaPropsMixin,
-    _$key__details___$AriaPropsMixin,
-    _$key__disabled___$AriaPropsMixin,
-    _$key__dropeffect___$AriaPropsMixin,
-    _$key__errormessage___$AriaPropsMixin,
-    _$key__expanded___$AriaPropsMixin,
-    _$key__flowto___$AriaPropsMixin,
-    _$key__grabbed___$AriaPropsMixin,
-    _$key__haspopup___$AriaPropsMixin,
-    _$key__hidden___$AriaPropsMixin,
-    _$key__invalid___$AriaPropsMixin,
-    _$key__keyshortcuts___$AriaPropsMixin,
-    _$key__label___$AriaPropsMixin,
-    _$key__labelledby___$AriaPropsMixin,
-    _$key__level___$AriaPropsMixin,
-    _$key__live___$AriaPropsMixin,
-    _$key__multiline___$AriaPropsMixin,
-    _$key__multiselectable___$AriaPropsMixin,
-    _$key__orientation___$AriaPropsMixin,
-    _$key__owns___$AriaPropsMixin,
-    _$key__placeholder___$AriaPropsMixin,
-    _$key__posinset___$AriaPropsMixin,
-    _$key__pressed___$AriaPropsMixin,
-    _$key__readonly___$AriaPropsMixin,
-    _$key__relevant___$AriaPropsMixin,
-    _$key__required___$AriaPropsMixin,
-    _$key__role___$AriaPropsMixin,
-    _$key__roledescription___$AriaPropsMixin,
-    _$key__rowcount___$AriaPropsMixin,
-    _$key__rowindex___$AriaPropsMixin,
-    _$key__rowindextext___$AriaPropsMixin,
-    _$key__rowspan___$AriaPropsMixin,
-    _$key__selected___$AriaPropsMixin,
-    _$key__setsize___$AriaPropsMixin,
-    _$key__sort___$AriaPropsMixin,
-    _$key__valuemax___$AriaPropsMixin,
-    _$key__valuemin___$AriaPropsMixin,
-    _$key__valuenow___$AriaPropsMixin,
-    _$key__valuetext___$AriaPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop__activedescendant___$AriaPropsMixin, _$prop__atomic___$AriaPropsMixin, _$prop__autocomplete___$AriaPropsMixin, _$prop__braillelabel___$AriaPropsMixin, _$prop__brailleroledescription___$AriaPropsMixin, _$prop__busy___$AriaPropsMixin, _$prop__checked___$AriaPropsMixin, _$prop__colcount___$AriaPropsMixin, _$prop__colindex___$AriaPropsMixin, _$prop__colindextext___$AriaPropsMixin, _$prop__colspan___$AriaPropsMixin, _$prop__controls___$AriaPropsMixin, _$prop__current___$AriaPropsMixin, _$prop__describedby___$AriaPropsMixin, _$prop__description___$AriaPropsMixin, _$prop__details___$AriaPropsMixin, _$prop__disabled___$AriaPropsMixin, _$prop__dropeffect___$AriaPropsMixin, _$prop__errormessage___$AriaPropsMixin, _$prop__expanded___$AriaPropsMixin, _$prop__flowto___$AriaPropsMixin, _$prop__grabbed___$AriaPropsMixin, _$prop__haspopup___$AriaPropsMixin, _$prop__hidden___$AriaPropsMixin, _$prop__invalid___$AriaPropsMixin, _$prop__keyshortcuts___$AriaPropsMixin, _$prop__label___$AriaPropsMixin, _$prop__labelledby___$AriaPropsMixin, _$prop__level___$AriaPropsMixin, _$prop__live___$AriaPropsMixin, _$prop__multiline___$AriaPropsMixin, _$prop__multiselectable___$AriaPropsMixin, _$prop__orientation___$AriaPropsMixin, _$prop__owns___$AriaPropsMixin, _$prop__placeholder___$AriaPropsMixin, _$prop__posinset___$AriaPropsMixin, _$prop__pressed___$AriaPropsMixin, _$prop__readonly___$AriaPropsMixin, _$prop__relevant___$AriaPropsMixin, _$prop__required___$AriaPropsMixin, _$prop__role___$AriaPropsMixin, _$prop__roledescription___$AriaPropsMixin, _$prop__rowcount___$AriaPropsMixin, _$prop__rowindex___$AriaPropsMixin, _$prop__rowindextext___$AriaPropsMixin, _$prop__rowspan___$AriaPropsMixin, _$prop__selected___$AriaPropsMixin, _$prop__setsize___$AriaPropsMixin, _$prop__sort___$AriaPropsMixin, _$prop__valuemax___$AriaPropsMixin, _$prop__valuemin___$AriaPropsMixin, _$prop__valuenow___$AriaPropsMixin, _$prop__valuetext___$AriaPropsMixin];
+  static const List<String> $propKeys = [_$key__activedescendant___$AriaPropsMixin, _$key__atomic___$AriaPropsMixin, _$key__autocomplete___$AriaPropsMixin, _$key__braillelabel___$AriaPropsMixin, _$key__brailleroledescription___$AriaPropsMixin, _$key__busy___$AriaPropsMixin, _$key__checked___$AriaPropsMixin, _$key__colcount___$AriaPropsMixin, _$key__colindex___$AriaPropsMixin, _$key__colindextext___$AriaPropsMixin, _$key__colspan___$AriaPropsMixin, _$key__controls___$AriaPropsMixin, _$key__current___$AriaPropsMixin, _$key__describedby___$AriaPropsMixin, _$key__description___$AriaPropsMixin, _$key__details___$AriaPropsMixin, _$key__disabled___$AriaPropsMixin, _$key__dropeffect___$AriaPropsMixin, _$key__errormessage___$AriaPropsMixin, _$key__expanded___$AriaPropsMixin, _$key__flowto___$AriaPropsMixin, _$key__grabbed___$AriaPropsMixin, _$key__haspopup___$AriaPropsMixin, _$key__hidden___$AriaPropsMixin, _$key__invalid___$AriaPropsMixin, _$key__keyshortcuts___$AriaPropsMixin, _$key__label___$AriaPropsMixin, _$key__labelledby___$AriaPropsMixin, _$key__level___$AriaPropsMixin, _$key__live___$AriaPropsMixin, _$key__multiline___$AriaPropsMixin, _$key__multiselectable___$AriaPropsMixin, _$key__orientation___$AriaPropsMixin, _$key__owns___$AriaPropsMixin, _$key__placeholder___$AriaPropsMixin, _$key__posinset___$AriaPropsMixin, _$key__pressed___$AriaPropsMixin, _$key__readonly___$AriaPropsMixin, _$key__relevant___$AriaPropsMixin, _$key__required___$AriaPropsMixin, _$key__role___$AriaPropsMixin, _$key__roledescription___$AriaPropsMixin, _$key__rowcount___$AriaPropsMixin, _$key__rowindex___$AriaPropsMixin, _$key__rowindextext___$AriaPropsMixin, _$key__rowspan___$AriaPropsMixin, _$key__selected___$AriaPropsMixin, _$key__setsize___$AriaPropsMixin, _$key__sort___$AriaPropsMixin, _$key__valuemax___$AriaPropsMixin, _$key__valuemin___$AriaPropsMixin, _$key__valuenow___$AriaPropsMixin, _$key__valuetext___$AriaPropsMixin];
 }
 
 const PropsMeta _$metaForAriaPropsMixin = PropsMeta(

@@ -31,7 +31,7 @@ export './ui_props_self_typed_extension.dart';
 //   to-be-generated members.
 // ----------------------------------------------------------------------
 
-class GeneratedClass {
+mixin GeneratedClass {
   /// Whether this class has been generated.
   ///
   /// Used to allow certain behavior (e.g., instantiation) on generated implementation classes,

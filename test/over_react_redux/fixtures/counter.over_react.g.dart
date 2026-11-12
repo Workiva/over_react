@@ -24,74 +24,40 @@ mixin _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  int? get currentCount =>
-      (props[_$key__currentCount___$CounterProps] ?? null) as int?;
-
+  int? get currentCount => (props[_$key__currentCount___$CounterProps] ?? null) as int?;
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  set currentCount(int? value) =>
-      props[_$key__currentCount___$CounterProps] = value;
-
+  set currentCount(int? value) => props[_$key__currentCount___$CounterProps] = value;
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  Map<String, dynamic>? get wrapperStyles =>
-      (props[_$key__wrapperStyles___$CounterProps] ?? null)
-          as Map<String, dynamic>?;
-
+  Map<String, dynamic>? get wrapperStyles => (props[_$key__wrapperStyles___$CounterProps] ?? null) as Map<String, dynamic>?;
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  set wrapperStyles(Map<String, dynamic>? value) =>
-      props[_$key__wrapperStyles___$CounterProps] = value;
-
+  set wrapperStyles(Map<String, dynamic>? value) => props[_$key__wrapperStyles___$CounterProps] = value;
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  void Function()? get increment =>
-      (props[_$key__increment___$CounterProps] ?? null) as void Function()?;
-
+  void Function()? get increment => (props[_$key__increment___$CounterProps] ?? null) as void Function()?;
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  set increment(void Function()? value) =>
-      props[_$key__increment___$CounterProps] = value;
-
+  set increment(void Function()? value) => props[_$key__increment___$CounterProps] = value;
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  void Function()? get decrement =>
-      (props[_$key__decrement___$CounterProps] ?? null) as void Function()?;
-
+  void Function()? get decrement => (props[_$key__decrement___$CounterProps] ?? null) as void Function()?;
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  set decrement(void Function()? value) =>
-      props[_$key__decrement___$CounterProps] = value;
+  set decrement(void Function()? value) => props[_$key__decrement___$CounterProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__currentCount___$CounterProps =
-      PropDescriptor(_$key__currentCount___$CounterProps);
-  static const PropDescriptor _$prop__wrapperStyles___$CounterProps =
-      PropDescriptor(_$key__wrapperStyles___$CounterProps);
-  static const PropDescriptor _$prop__increment___$CounterProps =
-      PropDescriptor(_$key__increment___$CounterProps);
-  static const PropDescriptor _$prop__decrement___$CounterProps =
-      PropDescriptor(_$key__decrement___$CounterProps);
-  static const String _$key__currentCount___$CounterProps =
-      'CounterProps.currentCount';
-  static const String _$key__wrapperStyles___$CounterProps =
-      'CounterProps.wrapperStyles';
-  static const String _$key__increment___$CounterProps =
-      'CounterProps.increment';
-  static const String _$key__decrement___$CounterProps =
-      'CounterProps.decrement';
+  static const PropDescriptor _$prop__currentCount___$CounterProps = PropDescriptor(_$key__currentCount___$CounterProps);
+  static const PropDescriptor _$prop__wrapperStyles___$CounterProps = PropDescriptor(_$key__wrapperStyles___$CounterProps);
+  static const PropDescriptor _$prop__increment___$CounterProps = PropDescriptor(_$key__increment___$CounterProps);
+  static const PropDescriptor _$prop__decrement___$CounterProps = PropDescriptor(_$key__decrement___$CounterProps);
+  static const String _$key__currentCount___$CounterProps = 'CounterProps.currentCount';
+  static const String _$key__wrapperStyles___$CounterProps = 'CounterProps.wrapperStyles';
+  static const String _$key__increment___$CounterProps = 'CounterProps.increment';
+  static const String _$key__decrement___$CounterProps = 'CounterProps.decrement';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__currentCount___$CounterProps,
-    _$prop__wrapperStyles___$CounterProps,
-    _$prop__increment___$CounterProps,
-    _$prop__decrement___$CounterProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__currentCount___$CounterProps,
-    _$key__wrapperStyles___$CounterProps,
-    _$key__increment___$CounterProps,
-    _$key__decrement___$CounterProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__currentCount___$CounterProps, _$prop__wrapperStyles___$CounterProps, _$prop__increment___$CounterProps, _$prop__decrement___$CounterProps];
+  static const List<String> $propKeys = [_$key__currentCount___$CounterProps, _$key__wrapperStyles___$CounterProps, _$key__increment___$CounterProps, _$key__decrement___$CounterProps];
 }
 
 const PropsMeta _$metaForCounterProps = PropsMeta(
@@ -102,15 +68,11 @@ const PropsMeta _$metaForCounterProps = PropsMeta(
 class CounterProps extends _$CounterProps with _$CounterPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForCounterProps;
 }
-
 _$$CounterProps _$Counter([Map? backingProps]) => _$$CounterProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$CounterProps extends _$CounterProps
-    with _$CounterPropsAccessorsMixin
-    implements CounterProps {
+class _$$CounterProps extends _$CounterProps with _$CounterPropsAccessorsMixin implements CounterProps {
   _$$CounterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -123,22 +85,18 @@ class _$$CounterProps extends _$CounterProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $CounterComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $CounterComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'CounterProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$CounterProps(accessMap, (map) => _$$CounterProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$CounterProps(accessMap, (map) => _$$CounterProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$CounterProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -152,24 +110,21 @@ class _$CounterComponent extends CounterComponent {
   @override
   set props(Map value) {
     assert(
-        getBackingMap(value) is JsBackedMap,
+        getBackingMap(value) is JsBackedMap, 
         'Component2.props should never be set directly in '
         'production. If this is required for testing, the '
         'component should be rendered within the test. If '
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps =
-        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
-  _$$CounterProps typedPropsFactoryJs(JsBackedMap? backingMap) =>
-      _$$CounterProps(backingMap);
+  _$$CounterProps typedPropsFactoryJs(JsBackedMap? backingMap) => _$$CounterProps(backingMap);
 
   @override
-  _$$CounterProps typedPropsFactory(Map? backingMap) =>
-      _$$CounterProps(backingMap);
+  _$$CounterProps typedPropsFactory(Map? backingMap) => _$$CounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -181,7 +136,5 @@ class _$CounterComponent extends CounterComponent {
   /// The default consumed props, taken from _$CounterProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForCounterProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForCounterProps];
 }

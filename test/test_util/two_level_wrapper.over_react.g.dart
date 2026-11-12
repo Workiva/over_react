@@ -33,22 +33,15 @@ const PropsMeta _$metaForTwoLevelWrapperProps = PropsMeta(
   keys: _$TwoLevelWrapperPropsAccessorsMixin.$propKeys,
 );
 
-class TwoLevelWrapperProps extends _$TwoLevelWrapperProps
-    with _$TwoLevelWrapperPropsAccessorsMixin {
+class TwoLevelWrapperProps extends _$TwoLevelWrapperProps with _$TwoLevelWrapperPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTwoLevelWrapperProps;
 }
-
-_$$TwoLevelWrapperProps _$TwoLevelWrapper([Map? backingProps]) =>
-    _$$TwoLevelWrapperProps(backingProps);
-
+_$$TwoLevelWrapperProps _$TwoLevelWrapper([Map? backingProps]) => _$$TwoLevelWrapperProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
-    with _$TwoLevelWrapperPropsAccessorsMixin
-    implements TwoLevelWrapperProps {
-  _$$TwoLevelWrapperProps([Map? backingMap])
-      : this.props = backingMap ?? JsBackedMap();
+class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps with _$TwoLevelWrapperPropsAccessorsMixin implements TwoLevelWrapperProps {
+  _$$TwoLevelWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
   @override
@@ -60,31 +53,25 @@ class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TwoLevelWrapperComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TwoLevelWrapperComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TwoLevelWrapperProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TwoLevelWrapperProps(
-          accessMap, (map) => _$$TwoLevelWrapperProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TwoLevelWrapperProps(accessMap, (map) => _$$TwoLevelWrapperProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TwoLevelWrapperProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   @override
-  _$$TwoLevelWrapperProps typedPropsFactory(Map? backingMap) =>
-      _$$TwoLevelWrapperProps(backingMap);
+  _$$TwoLevelWrapperProps typedPropsFactory(Map? backingMap) => _$$TwoLevelWrapperProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -96,7 +83,5 @@ class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   /// The default consumed props, taken from _$TwoLevelWrapperProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTwoLevelWrapperProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTwoLevelWrapperProps];
 }

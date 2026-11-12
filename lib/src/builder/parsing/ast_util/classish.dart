@@ -15,14 +15,17 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 
-extension Classish on NamedCompilationUnitMember {
+// ignore: unused_import — shadowed by real ClassBody.members on analyzer >=12; needed on 10/11
+import '../ast_util.dart' show ClassBodyMembersCompat;
+
+extension Classish on CompilationUnitMember {
   ClassishDeclaration asClassish() => ClassishDeclaration(this);
 }
 
 /// Provides a common interface for [ClassDeclaration], [MixinDeclaration],
 /// and [ClassTypeAlias].
 abstract class ClassishDeclaration {
-  factory ClassishDeclaration(NamedCompilationUnitMember node) {
+  factory ClassishDeclaration(CompilationUnitMember node) {
     if (node is ClassDeclaration) {
       return _ClassishClass(node);
     } else if (node is ClassTypeAlias) {
@@ -37,12 +40,12 @@ abstract class ClassishDeclaration {
 
   ClassishDeclaration._();
 
-  NamedCompilationUnitMember get node;
+  CompilationUnitMember get node;
 
   //
   // Shared
 
-  Token get name => node.name;
+  Token get name;
   NodeList<Annotation> get metadata => node.metadata;
 
   TypeParameterList? get typeParameters;
@@ -79,6 +82,9 @@ class _ClassishClass extends ClassishDeclaration {
   _ClassishClass(this.node) : super._();
 
   @override
+  Token get name => node.namePart.typeName;
+
+  @override
   Token? get abstractKeyword => node.abstractKeyword;
 
   @override
@@ -96,10 +102,10 @@ class _ClassishClass extends ClassishDeclaration {
   Token get classOrMixinKeyword => node.classKeyword;
 
   @override
-  List<ClassMember> get members => node.members;
+  List<ClassMember> get members => node.body.members;
 
   @override
-  TypeParameterList? get typeParameters => node.typeParameters;
+  TypeParameterList? get typeParameters => node.namePart.typeParameters;
 }
 
 class _ClasssishMixin extends ClassishDeclaration {
@@ -107,6 +113,9 @@ class _ClasssishMixin extends ClassishDeclaration {
   final MixinDeclaration node;
 
   _ClasssishMixin(this.node) : super._();
+
+  @override
+  Token get name => node.name;
 
   @override
   Token? get abstractKeyword => null;
@@ -127,7 +136,7 @@ class _ClasssishMixin extends ClassishDeclaration {
   WithClause? get withClause => null;
 
   @override
-  List<ClassMember> get members => node.members;
+  List<ClassMember> get members => node.body.members;
 
   @override
   TypeParameterList? get typeParameters => node.typeParameters;
@@ -138,6 +147,9 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   final ClassTypeAlias node;
 
   _ClassishClassTypeAlias(this.node) : super._();
+
+  @override
+  Token get name => node.name;
 
   @override
   Token? get abstractKeyword => node.abstractKeyword;

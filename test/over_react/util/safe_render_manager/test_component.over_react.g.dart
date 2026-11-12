@@ -24,109 +24,56 @@ mixin _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
-  LifecycleCallback? get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$TestProps] ?? null)
-          as LifecycleCallback?;
-
+  LifecycleCallback? get onComponentDidMount => (props[_$key__onComponentDidMount___$TestProps] ?? null) as LifecycleCallback?;
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(LifecycleCallback? value) =>
-      props[_$key__onComponentDidMount___$TestProps] = value;
-
+  set onComponentDidMount(LifecycleCallback? value) => props[_$key__onComponentDidMount___$TestProps] = value;
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
-  LifecycleCallback? get onComponentWillUpdate =>
-      (props[_$key__onComponentWillUpdate___$TestProps] ?? null)
-          as LifecycleCallback?;
-
+  LifecycleCallback? get onComponentWillUpdate => (props[_$key__onComponentWillUpdate___$TestProps] ?? null) as LifecycleCallback?;
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
-  set onComponentWillUpdate(LifecycleCallback? value) =>
-      props[_$key__onComponentWillUpdate___$TestProps] = value;
-
+  set onComponentWillUpdate(LifecycleCallback? value) => props[_$key__onComponentWillUpdate___$TestProps] = value;
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
-  LifecycleCallback? get onComponentWillReceiveProps =>
-      (props[_$key__onComponentWillReceiveProps___$TestProps] ?? null)
-          as LifecycleCallback?;
-
+  LifecycleCallback? get onComponentWillReceiveProps => (props[_$key__onComponentWillReceiveProps___$TestProps] ?? null) as LifecycleCallback?;
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
-  set onComponentWillReceiveProps(LifecycleCallback? value) =>
-      props[_$key__onComponentWillReceiveProps___$TestProps] = value;
-
+  set onComponentWillReceiveProps(LifecycleCallback? value) => props[_$key__onComponentWillReceiveProps___$TestProps] = value;
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
-  LifecycleCallback? get onComponentDidUpdate =>
-      (props[_$key__onComponentDidUpdate___$TestProps] ?? null)
-          as LifecycleCallback?;
-
+  LifecycleCallback? get onComponentDidUpdate => (props[_$key__onComponentDidUpdate___$TestProps] ?? null) as LifecycleCallback?;
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
-  set onComponentDidUpdate(LifecycleCallback? value) =>
-      props[_$key__onComponentDidUpdate___$TestProps] = value;
-
+  set onComponentDidUpdate(LifecycleCallback? value) => props[_$key__onComponentDidUpdate___$TestProps] = value;
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
-  LifecycleCallback? get onComponentWillUnmount =>
-      (props[_$key__onComponentWillUnmount___$TestProps] ?? null)
-          as LifecycleCallback?;
-
+  LifecycleCallback? get onComponentWillUnmount => (props[_$key__onComponentWillUnmount___$TestProps] ?? null) as LifecycleCallback?;
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
-  set onComponentWillUnmount(LifecycleCallback? value) =>
-      props[_$key__onComponentWillUnmount___$TestProps] = value;
-
+  set onComponentWillUnmount(LifecycleCallback? value) => props[_$key__onComponentWillUnmount___$TestProps] = value;
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
-  LifecycleCallback? get onRender =>
-      (props[_$key__onRender___$TestProps] ?? null) as LifecycleCallback?;
-
+  LifecycleCallback? get onRender => (props[_$key__onRender___$TestProps] ?? null) as LifecycleCallback?;
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
-  set onRender(LifecycleCallback? value) =>
-      props[_$key__onRender___$TestProps] = value;
+  set onRender(LifecycleCallback? value) => props[_$key__onRender___$TestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onComponentDidMount___$TestProps =
-      PropDescriptor(_$key__onComponentDidMount___$TestProps);
-  static const PropDescriptor _$prop__onComponentWillUpdate___$TestProps =
-      PropDescriptor(_$key__onComponentWillUpdate___$TestProps);
-  static const PropDescriptor _$prop__onComponentWillReceiveProps___$TestProps =
-      PropDescriptor(_$key__onComponentWillReceiveProps___$TestProps);
-  static const PropDescriptor _$prop__onComponentDidUpdate___$TestProps =
-      PropDescriptor(_$key__onComponentDidUpdate___$TestProps);
-  static const PropDescriptor _$prop__onComponentWillUnmount___$TestProps =
-      PropDescriptor(_$key__onComponentWillUnmount___$TestProps);
-  static const PropDescriptor _$prop__onRender___$TestProps =
-      PropDescriptor(_$key__onRender___$TestProps);
-  static const String _$key__onComponentDidMount___$TestProps =
-      'TestProps.onComponentDidMount';
-  static const String _$key__onComponentWillUpdate___$TestProps =
-      'TestProps.onComponentWillUpdate';
-  static const String _$key__onComponentWillReceiveProps___$TestProps =
-      'TestProps.onComponentWillReceiveProps';
-  static const String _$key__onComponentDidUpdate___$TestProps =
-      'TestProps.onComponentDidUpdate';
-  static const String _$key__onComponentWillUnmount___$TestProps =
-      'TestProps.onComponentWillUnmount';
+  static const PropDescriptor _$prop__onComponentDidMount___$TestProps = PropDescriptor(_$key__onComponentDidMount___$TestProps);
+  static const PropDescriptor _$prop__onComponentWillUpdate___$TestProps = PropDescriptor(_$key__onComponentWillUpdate___$TestProps);
+  static const PropDescriptor _$prop__onComponentWillReceiveProps___$TestProps = PropDescriptor(_$key__onComponentWillReceiveProps___$TestProps);
+  static const PropDescriptor _$prop__onComponentDidUpdate___$TestProps = PropDescriptor(_$key__onComponentDidUpdate___$TestProps);
+  static const PropDescriptor _$prop__onComponentWillUnmount___$TestProps = PropDescriptor(_$key__onComponentWillUnmount___$TestProps);
+  static const PropDescriptor _$prop__onRender___$TestProps = PropDescriptor(_$key__onRender___$TestProps);
+  static const String _$key__onComponentDidMount___$TestProps = 'TestProps.onComponentDidMount';
+  static const String _$key__onComponentWillUpdate___$TestProps = 'TestProps.onComponentWillUpdate';
+  static const String _$key__onComponentWillReceiveProps___$TestProps = 'TestProps.onComponentWillReceiveProps';
+  static const String _$key__onComponentDidUpdate___$TestProps = 'TestProps.onComponentDidUpdate';
+  static const String _$key__onComponentWillUnmount___$TestProps = 'TestProps.onComponentWillUnmount';
   static const String _$key__onRender___$TestProps = 'TestProps.onRender';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__onComponentDidMount___$TestProps,
-    _$prop__onComponentWillUpdate___$TestProps,
-    _$prop__onComponentWillReceiveProps___$TestProps,
-    _$prop__onComponentDidUpdate___$TestProps,
-    _$prop__onComponentWillUnmount___$TestProps,
-    _$prop__onRender___$TestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__onComponentDidMount___$TestProps,
-    _$key__onComponentWillUpdate___$TestProps,
-    _$key__onComponentWillReceiveProps___$TestProps,
-    _$key__onComponentDidUpdate___$TestProps,
-    _$key__onComponentWillUnmount___$TestProps,
-    _$key__onRender___$TestProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__onComponentDidMount___$TestProps, _$prop__onComponentWillUpdate___$TestProps, _$prop__onComponentWillReceiveProps___$TestProps, _$prop__onComponentDidUpdate___$TestProps, _$prop__onComponentWillUnmount___$TestProps, _$prop__onRender___$TestProps];
+  static const List<String> $propKeys = [_$key__onComponentDidMount___$TestProps, _$key__onComponentWillUpdate___$TestProps, _$key__onComponentWillReceiveProps___$TestProps, _$key__onComponentDidUpdate___$TestProps, _$key__onComponentWillUnmount___$TestProps, _$key__onRender___$TestProps];
 }
 
 const PropsMeta _$metaForTestProps = PropsMeta(
@@ -137,15 +84,11 @@ const PropsMeta _$metaForTestProps = PropsMeta(
 class TestProps extends _$TestProps with _$TestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestProps;
 }
-
 _$$TestProps _$Test([Map? backingProps]) => _$$TestProps(backingProps);
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TestProps extends _$TestProps
-    with _$TestPropsAccessorsMixin
-    implements TestProps {
+class _$$TestProps extends _$TestProps with _$TestPropsAccessorsMixin implements TestProps {
   _$$TestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
 
   /// The backing props map proxied by this class.
@@ -158,22 +101,18 @@ class _$$TestProps extends _$TestProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $TestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestProps.';
 
   @override
-  String $getPropKey(void Function(Map m) accessMap) =>
-      _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
+  String $getPropKey(void Function(Map m) accessMap) => _$getPropKey$_$$TestProps(accessMap, (map) => _$$TestProps(map));
 }
-
 /// An alias for [getPropKey] so it can be referenced within the props class impl
 /// without being shadowed by the `getPropKey` instance extension member.
 const _$getPropKey$_$$TestProps = getPropKey;
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys

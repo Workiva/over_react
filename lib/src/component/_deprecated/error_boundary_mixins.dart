@@ -45,7 +45,7 @@ mixin LegacyErrorBoundaryApi<T extends ErrorBoundaryPropsMixin, S extends ErrorB
 /// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
 ///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
 /// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
-abstract class $ErrorBoundaryPropsMixin {
+mixin $ErrorBoundaryPropsMixin {
   static const PropsMeta meta = _$metaForErrorBoundaryPropsMixin;
 }
 
@@ -152,7 +152,7 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
 /// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
 ///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
 /// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
-abstract class $ErrorBoundaryStateMixin {
+mixin $ErrorBoundaryStateMixin {
   static const StateMeta meta = _$metaForErrorBoundaryStateMixin;
 }
 

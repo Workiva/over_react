@@ -72,7 +72,7 @@ BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
 ///
 /// See: [VersionConfidences], [BoilerplateMember].
 class _BoilerplateMemberDetector {
-  Map<String, NamedCompilationUnitMember>? _classishDeclarationsByName;
+  Map<String, CompilationUnitMember>? _classishDeclarationsByName;
 
   // Callbacks that will be triggered when the detector finds the correlating entity.
   final void Function(BoilerplateFactory) onFactory;
@@ -99,7 +99,7 @@ class _BoilerplateMemberDetector {
   void detect(CompilationUnit unit) {
     _classishDeclarationsByName = {};
     final visitor = _BoilerplateMemberDetectorVisitor(
-      onClassishDeclaration: (node) => _classishDeclarationsByName![node.name.name] = node,
+      onClassishDeclaration: (classish) => _classishDeclarationsByName![classish.name.lexeme] = classish.node,
       onTopLevelVariableDeclaration: _processTopLevelVariableDeclaration,
     );
 
@@ -113,7 +113,7 @@ class _BoilerplateMemberDetector {
     _detectFactory(node);
   }
 
-  void _processClassishDeclaration(NamedCompilationUnitMember node) {
+  void _processClassishDeclaration(CompilationUnitMember node) {
     // If this is a companion class, ignore it.
     final sourceClass = _getSourceClassForPotentialCompanion(node);
     if (sourceClass != null) return;
@@ -133,9 +133,8 @@ class _BoilerplateMemberDetector {
   //
 
   /// For `FooProps`, returns `_$FooProps`
-  NamedCompilationUnitMember? _getSourceClassForPotentialCompanion(
-      NamedCompilationUnitMember node) {
-    final name = node.name.name;
+  CompilationUnitMember? _getSourceClassForPotentialCompanion(CompilationUnitMember node) {
+    final name = node.asClassish().name.lexeme;
     if (name.startsWith(privateSourcePrefix)) {
       return null;
     }
@@ -144,8 +143,8 @@ class _BoilerplateMemberDetector {
   }
 
   /// For `_$FooProps`, returns `FooProps`
-  NamedCompilationUnitMember? _getCompanionClass(NamedCompilationUnitMember node) {
-    final name = node.name.name;
+  CompilationUnitMember? _getCompanionClass(CompilationUnitMember node) {
+    final name = node.asClassish().name.lexeme;
     if (!name.startsWith(privateSourcePrefix)) {
       return null;
     }
@@ -154,8 +153,8 @@ class _BoilerplateMemberDetector {
   }
 
   /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
-  bool _isMixinStub(NamedCompilationUnitMember node) {
-    final name = node.name.name;
+  bool _isMixinStub(CompilationUnitMember node) {
+    final name = node.asClassish().name.lexeme;
     return name.startsWith(r'$') && _classishDeclarationsByName!.containsKey('_$name');
   }
 
@@ -312,7 +311,7 @@ class _BoilerplateMemberDetector {
     assert(node is! MixinDeclaration,
         'Mixins should never make it in here they should be classified as Props/State mixins');
 
-    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
+    final hasGeneratedPrefix = classish.name.lexeme.startsWith(r'_$');
     final hasCompanionClass = companion != null;
 
     if (hasCompanionClass) {
@@ -370,7 +369,7 @@ class _BoilerplateMemberDetector {
         'this function assumes that all nodes passed to this function are annotated');
 
     final isMixin = node is MixinDeclaration;
-    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
+    final hasGeneratedPrefix = classish.name.lexeme.startsWith(r'_$');
 
     return VersionConfidences(
       v2_legacyBackwardsCompat: isMixin
@@ -489,7 +488,7 @@ class _BoilerplateMemberDetector {
 }
 
 class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
-  final void Function(NamedCompilationUnitMember) onClassishDeclaration;
+  final void Function(ClassishDeclaration) onClassishDeclaration;
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
   _BoilerplateMemberDetectorVisitor({
@@ -505,11 +504,11 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
       onTopLevelVariableDeclaration(node);
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) => onClassishDeclaration(node);
+  void visitClassDeclaration(ClassDeclaration node) => onClassishDeclaration(node.asClassish());
 
   @override
-  void visitClassTypeAlias(ClassTypeAlias node) => onClassishDeclaration(node);
+  void visitClassTypeAlias(ClassTypeAlias node) => onClassishDeclaration(node.asClassish());
 
   @override
-  void visitMixinDeclaration(MixinDeclaration node) => onClassishDeclaration(node);
+  void visitMixinDeclaration(MixinDeclaration node) => onClassishDeclaration(node.asClassish());
 }
