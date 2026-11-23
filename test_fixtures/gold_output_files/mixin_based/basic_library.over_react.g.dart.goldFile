@@ -29,16 +29,12 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) => _$$BasicPartOfLib
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibProps extends UiProps with ExamplePropsMixin,
+class _$$BasicPartOfLibProps extends GeneratedUiProps with ExamplePropsMixin,
  // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
 $ExamplePropsMixin,BasicPartOfLibPropsMixin,
  // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
 $BasicPartOfLibPropsMixin implements BasicPartOfLibProps {
-  _$$BasicPartOfLibProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$BasicPartOfLibProps([Map backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -80,16 +76,12 @@ const _$getPropKey$_$$BasicPartOfLibProps = getPropKey;
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibState extends UiState with ExampleStateMixin,
+class _$$BasicPartOfLibState extends GeneratedUiState with ExampleStateMixin,
  // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ExampleStateMixin, and check that $ExampleStateMixin is exported/imported properly.
 $ExampleStateMixin,BasicPartOfLibStateMixin,
  // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibStateMixin, and check that $BasicPartOfLibStateMixin is exported/imported properly.
 $BasicPartOfLibStateMixin implements BasicPartOfLibState {
-  _$$BasicPartOfLibState([Map backingMap]) : this.state = backingMap ?? JsBackedMap();
-
-  /// The backing state map proxied by this class.
-  @override
-  final Map state;
+  _$$BasicPartOfLibState([Map backingMap]) : super(backingMap);
 
   /// Let `UiState` internals know that this class has been generated.
   @override
@@ -271,16 +263,12 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => _$$SubPartOfLibProps(
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SubPartOfLibProps extends UiProps with SuperPartOfLibPropsMixin,
+class _$$SubPartOfLibProps extends GeneratedUiProps with SuperPartOfLibPropsMixin,
  // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
 $SuperPartOfLibPropsMixin,SubPartOfLibPropsMixin,
  // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
 $SubPartOfLibPropsMixin implements SubPartOfLibProps {
-  _$$SubPartOfLibProps([Map backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$SubPartOfLibProps([Map backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

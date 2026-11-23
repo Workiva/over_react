@@ -26,15 +26,11 @@ _$$BasicProps _$Basic([Map? backingProps]) => _$$BasicProps(backingProps);
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicProps extends UiProps with
+class _$$BasicProps extends GeneratedUiProps with
  BasicProps,
  // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
  $BasicProps {
-  _$$BasicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$BasicProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -185,15 +181,11 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig = _$BasicU
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicUiFunctionProps extends UiProps with
+class _$$BasicUiFunctionProps extends GeneratedUiProps with
  BasicUiFunctionProps,
  // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
  $BasicUiFunctionProps {
-  _$$BasicUiFunctionProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$BasicUiFunctionProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -232,14 +224,10 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps> $TopLevelForwardUiRefFun
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SecondaryBasicUiFunctionProps extends UiProps with BasicUiFunctionProps,
+class _$$SecondaryBasicUiFunctionProps extends GeneratedUiProps with BasicUiFunctionProps,
  // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
 $BasicUiFunctionProps implements SecondaryBasicUiFunctionProps {
-  _$$SecondaryBasicUiFunctionProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$SecondaryBasicUiFunctionProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

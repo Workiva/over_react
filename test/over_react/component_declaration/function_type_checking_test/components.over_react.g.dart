@@ -26,15 +26,11 @@ _$$DoNotReferenceThisFactoryExceptForInASingleTestProps _$DoNotReferenceThisFact
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps extends UiProps with
+class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps extends GeneratedUiProps with
  DoNotReferenceThisFactoryExceptForInASingleTestProps,
  // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
  $DoNotReferenceThisFactoryExceptForInASingleTestProps {
-  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -387,15 +383,11 @@ final UiFactoryConfig<_$$TestAProps> $TestAConfig = _$TestAConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestAProps extends UiProps with
+class _$$TestAProps extends GeneratedUiProps with
  TestAProps,
  // If this generated mixin is undefined, it's likely because TestAProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestAProps, and check that $TestAProps is exported/imported properly.
  $TestAProps {
-  _$$TestAProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestAProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -434,15 +426,11 @@ final UiFactoryConfig<_$$TestBProps> $TestBConfig = _$TestBConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestBProps extends UiProps with
+class _$$TestBProps extends GeneratedUiProps with
  TestBProps,
  // If this generated mixin is undefined, it's likely because TestBProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestBProps, and check that $TestBProps is exported/imported properly.
  $TestBProps {
-  _$$TestBProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestBProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -481,15 +469,11 @@ final UiFactoryConfig<_$$TestParentProps> $TestParentConfig = _$TestParentConfig
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestParentProps extends UiProps with
+class _$$TestParentProps extends GeneratedUiProps with
  TestParentProps,
  // If this generated mixin is undefined, it's likely because TestParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestParentProps, and check that $TestParentProps is exported/imported properly.
  $TestParentProps {
-  _$$TestParentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestParentProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -528,15 +512,11 @@ final UiFactoryConfig<_$$TestSubtypeProps> $TestSubtypeConfig = _$TestSubtypeCon
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSubtypeProps extends UiProps with
+class _$$TestSubtypeProps extends GeneratedUiProps with
  TestSubtypeProps,
  // If this generated mixin is undefined, it's likely because TestSubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubtypeProps, and check that $TestSubtypeProps is exported/imported properly.
  $TestSubtypeProps {
-  _$$TestSubtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestSubtypeProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -575,15 +555,11 @@ final UiFactoryConfig<_$$TestSubsubtypeProps> $TestSubsubtypeConfig = _$TestSubs
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSubsubtypeProps extends UiProps with
+class _$$TestSubsubtypeProps extends GeneratedUiProps with
  TestSubsubtypeProps,
  // If this generated mixin is undefined, it's likely because TestSubsubtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestSubsubtypeProps, and check that $TestSubsubtypeProps is exported/imported properly.
  $TestSubsubtypeProps {
-  _$$TestSubsubtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestSubsubtypeProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -622,15 +598,11 @@ final UiFactoryConfig<_$$TestExtendtypeProps> $TestExtendtypeConfig = _$TestExte
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestExtendtypeProps extends UiProps with
+class _$$TestExtendtypeProps extends GeneratedUiProps with
  TestExtendtypeProps,
  // If this generated mixin is undefined, it's likely because TestExtendtypeProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestExtendtypeProps, and check that $TestExtendtypeProps is exported/imported properly.
  $TestExtendtypeProps {
-  _$$TestExtendtypeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestExtendtypeProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -669,15 +641,11 @@ final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig = _$OneLev
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$OneLevelWrapperProps extends UiProps with
+class _$$OneLevelWrapperProps extends GeneratedUiProps with
  OneLevelWrapperProps,
  // If this generated mixin is undefined, it's likely because OneLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OneLevelWrapperProps, and check that $OneLevelWrapperProps is exported/imported properly.
  $OneLevelWrapperProps {
-  _$$OneLevelWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$OneLevelWrapperProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -716,15 +684,11 @@ final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig = _$TwoLev
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TwoLevelWrapperProps extends UiProps with
+class _$$TwoLevelWrapperProps extends GeneratedUiProps with
  TwoLevelWrapperProps,
  // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
  $TwoLevelWrapperProps {
-  _$$TwoLevelWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TwoLevelWrapperProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -763,15 +727,11 @@ final UiFactoryConfig<_$$TestUninitializedParentProps> $TestUninitializedParentC
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestUninitializedParentProps extends UiProps with
+class _$$TestUninitializedParentProps extends GeneratedUiProps with
  TestUninitializedParentProps,
  // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
  $TestUninitializedParentProps {
-  _$$TestUninitializedParentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestUninitializedParentProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

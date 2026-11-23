@@ -77,15 +77,11 @@ final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig = _$Us
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UseStoreCounterFnProps extends UiProps with
+class _$$UseStoreCounterFnProps extends GeneratedUiProps with
  UseStoreCounterFnProps,
  // If this generated mixin is undefined, it's likely because UseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseStoreCounterFnProps, and check that $UseStoreCounterFnProps is exported/imported properly.
  $UseStoreCounterFnProps {
-  _$$UseStoreCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$UseStoreCounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -124,15 +120,11 @@ final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps> $CustomContextUseS
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomContextUseStoreCounterFnProps extends UiProps with
+class _$$CustomContextUseStoreCounterFnProps extends GeneratedUiProps with
  CustomContextUseStoreCounterFnProps,
  // If this generated mixin is undefined, it's likely because CustomContextUseStoreCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseStoreCounterFnProps, and check that $CustomContextUseStoreCounterFnProps is exported/imported properly.
  $CustomContextUseStoreCounterFnProps {
-  _$$CustomContextUseStoreCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$CustomContextUseStoreCounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

@@ -145,16 +145,12 @@ final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestProps extends UiProps with TestPropsMixin,
+class _$$TestProps extends GeneratedUiProps with TestPropsMixin,
  // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
 $TestPropsMixin,ASecondPropsMixin,
  // If this generated mixin is undefined, it's likely because ASecondPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ASecondPropsMixin, and check that $ASecondPropsMixin is exported/imported properly.
 $ASecondPropsMixin implements TestProps {
-  _$$TestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

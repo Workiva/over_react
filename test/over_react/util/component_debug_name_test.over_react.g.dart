@@ -26,15 +26,11 @@ _$$TestComponent2Props _$TestComponent2([Map? backingProps]) => _$$TestComponent
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestComponent2Props extends UiProps with
+class _$$TestComponent2Props extends GeneratedUiProps with
  TestComponent2Props,
  // If this generated mixin is undefined, it's likely because TestComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestComponent2Props, and check that $TestComponent2Props is exported/imported properly.
  $TestComponent2Props {
-  _$$TestComponent2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestComponent2Props([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

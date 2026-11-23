@@ -27,15 +27,11 @@ _$$ErrorBoundaryProps _$ErrorBoundary([Map? backingProps]) => _$$ErrorBoundaryPr
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ErrorBoundaryProps extends UiProps with
+class _$$ErrorBoundaryProps extends GeneratedUiProps with
  ErrorBoundaryProps,
  // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryProps, and check that $ErrorBoundaryProps is exported/imported properly.
  $ErrorBoundaryProps {
-  _$$ErrorBoundaryProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ErrorBoundaryProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -69,15 +65,11 @@ const _$getPropKey$_$$ErrorBoundaryProps = getPropKey;
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ErrorBoundaryState extends UiState with
+class _$$ErrorBoundaryState extends GeneratedUiState with
  ErrorBoundaryState,
  // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryState, and check that $ErrorBoundaryState is exported/imported properly.
  $ErrorBoundaryState {
-  _$$ErrorBoundaryState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
-
-  /// The backing state map proxied by this class.
-  @override
-  final Map state;
+  _$$ErrorBoundaryState([Map? backingMap]) : super(backingMap);
 
   /// Let `UiState` internals know that this class has been generated.
   @override

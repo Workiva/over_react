@@ -27,14 +27,10 @@ _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary([Map? backingProps])
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$RecoverableErrorBoundaryProps extends UiProps with v2.ErrorBoundaryProps,
+class _$$RecoverableErrorBoundaryProps extends GeneratedUiProps with v2.ErrorBoundaryProps,
  // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryProps, and check that v2.$ErrorBoundaryProps is exported/imported properly.
 v2.$ErrorBoundaryProps implements RecoverableErrorBoundaryProps {
-  _$$RecoverableErrorBoundaryProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$RecoverableErrorBoundaryProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -68,14 +64,10 @@ const _$getPropKey$_$$RecoverableErrorBoundaryProps = getPropKey;
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$RecoverableErrorBoundaryState extends UiState with v2.ErrorBoundaryState,
+class _$$RecoverableErrorBoundaryState extends GeneratedUiState with v2.ErrorBoundaryState,
  // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.ErrorBoundaryState, and check that v2.$ErrorBoundaryState is exported/imported properly.
 v2.$ErrorBoundaryState implements RecoverableErrorBoundaryState {
-  _$$RecoverableErrorBoundaryState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
-
-  /// The backing state map proxied by this class.
-  @override
-  final Map state;
+  _$$RecoverableErrorBoundaryState([Map? backingMap]) : super(backingMap);
 
   /// Let `UiState` internals know that this class has been generated.
   @override

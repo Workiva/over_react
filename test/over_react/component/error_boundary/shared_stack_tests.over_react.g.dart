@@ -26,15 +26,11 @@ _$$ThrowingComponent2Props _$ThrowingComponent2([Map? backingProps]) => _$$Throw
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ThrowingComponent2Props extends UiProps with
+class _$$ThrowingComponent2Props extends GeneratedUiProps with
  ThrowingComponent2Props,
  // If this generated mixin is undefined, it's likely because ThrowingComponent2Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingComponent2Props, and check that $ThrowingComponent2Props is exported/imported properly.
  $ThrowingComponent2Props {
-  _$$ThrowingComponent2Props([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ThrowingComponent2Props([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -283,15 +279,11 @@ final UiFactoryConfig<_$$ThrowingFunctionComponentProps> $ThrowingFunctionCompon
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ThrowingFunctionComponentProps extends UiProps with
+class _$$ThrowingFunctionComponentProps extends GeneratedUiProps with
  ThrowingFunctionComponentProps,
  // If this generated mixin is undefined, it's likely because ThrowingFunctionComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingFunctionComponentProps, and check that $ThrowingFunctionComponentProps is exported/imported properly.
  $ThrowingFunctionComponentProps {
-  _$$ThrowingFunctionComponentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ThrowingFunctionComponentProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -330,15 +322,11 @@ final UiFactoryConfig<_$$ThrowingForwardRefComponentProps> $ThrowingForwardRefCo
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ThrowingForwardRefComponentProps extends UiProps with
+class _$$ThrowingForwardRefComponentProps extends GeneratedUiProps with
  ThrowingForwardRefComponentProps,
  // If this generated mixin is undefined, it's likely because ThrowingForwardRefComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ThrowingForwardRefComponentProps, and check that $ThrowingForwardRefComponentProps is exported/imported properly.
  $ThrowingForwardRefComponentProps {
-  _$$ThrowingForwardRefComponentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ThrowingForwardRefComponentProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

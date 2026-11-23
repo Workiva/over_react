@@ -26,16 +26,12 @@ _$$WithTransitionTesterProps _$WithTransitionTester([Map? backingProps]) => _$$W
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionTesterProps extends UiProps with WithTransitionPropsMixin,
+class _$$WithTransitionTesterProps extends GeneratedUiProps with WithTransitionPropsMixin,
  // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
 $WithTransitionPropsMixin,TransitionPropsMixin,
  // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
 $TransitionPropsMixin implements WithTransitionTesterProps {
-  _$$WithTransitionTesterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$WithTransitionTesterProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

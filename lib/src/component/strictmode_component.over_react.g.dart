@@ -25,12 +25,8 @@ final UiFactoryConfig<_$$StrictModeProps> $StrictModeConfig = _$StrictModeConfig
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$StrictModeProps extends UiProps implements StrictModeProps {
-  _$$StrictModeProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+class _$$StrictModeProps extends GeneratedUiProps implements StrictModeProps {
+  _$$StrictModeProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
