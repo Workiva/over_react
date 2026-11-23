@@ -26,15 +26,11 @@ _$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map? backingProps]) =
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SafeRenderManagerHelperProps extends UiProps with
+class _$$SafeRenderManagerHelperProps extends GeneratedUiProps with
  SafeRenderManagerHelperProps,
  // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperProps, and check that $SafeRenderManagerHelperProps is exported/imported properly.
  $SafeRenderManagerHelperProps {
-  _$$SafeRenderManagerHelperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$SafeRenderManagerHelperProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -65,15 +61,11 @@ const _$getPropKey$_$$SafeRenderManagerHelperProps = getPropKey;
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SafeRenderManagerHelperState extends UiState with
+class _$$SafeRenderManagerHelperState extends GeneratedUiState with
  SafeRenderManagerHelperState,
  // If this generated mixin is undefined, it's likely because SafeRenderManagerHelperState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of SafeRenderManagerHelperState, and check that $SafeRenderManagerHelperState is exported/imported properly.
  $SafeRenderManagerHelperState {
-  _$$SafeRenderManagerHelperState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
-
-  /// The backing state map proxied by this class.
-  @override
-  final Map state;
+  _$$SafeRenderManagerHelperState([Map? backingMap]) : super(backingMap);
 
   /// Let `UiState` internals know that this class has been generated.
   @override

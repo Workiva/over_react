@@ -26,15 +26,11 @@ _$$ContextTypeDynamicProps _$ContextTypeDynamic([Map? backingProps]) => _$$Conte
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ContextTypeDynamicProps extends UiProps with
+class _$$ContextTypeDynamicProps extends GeneratedUiProps with
  ContextTypeDynamicProps,
  // If this generated mixin is undefined, it's likely because ContextTypeDynamicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeDynamicProps, and check that $ContextTypeDynamicProps is exported/imported properly.
  $ContextTypeDynamicProps {
-  _$$ContextTypeDynamicProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ContextTypeDynamicProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -128,15 +124,11 @@ _$$ContextTypeWithoutDefaultProps _$ContextTypeWithoutDefault([Map? backingProps
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ContextTypeWithoutDefaultProps extends UiProps with
+class _$$ContextTypeWithoutDefaultProps extends GeneratedUiProps with
  ContextTypeWithoutDefaultProps,
  // If this generated mixin is undefined, it's likely because ContextTypeWithoutDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithoutDefaultProps, and check that $ContextTypeWithoutDefaultProps is exported/imported properly.
  $ContextTypeWithoutDefaultProps {
-  _$$ContextTypeWithoutDefaultProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ContextTypeWithoutDefaultProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -230,15 +222,11 @@ _$$ContextTypeWithDefaultProps _$ContextTypeWithDefault([Map? backingProps]) => 
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ContextTypeWithDefaultProps extends UiProps with
+class _$$ContextTypeWithDefaultProps extends GeneratedUiProps with
  ContextTypeWithDefaultProps,
  // If this generated mixin is undefined, it's likely because ContextTypeWithDefaultProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ContextTypeWithDefaultProps, and check that $ContextTypeWithDefaultProps is exported/imported properly.
  $ContextTypeWithDefaultProps {
-  _$$ContextTypeWithDefaultProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ContextTypeWithDefaultProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

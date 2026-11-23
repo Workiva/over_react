@@ -671,7 +671,7 @@ main() {
 
         String generatedPropsMapForConfig(String propsName) {
           // No need to validate the whole implementation; that's tedious to reconstruct here, and it's tested elsewhere.
-          return 'class _\$\$$propsName extends UiProps with';
+          return 'class _\$\$$propsName extends GeneratedUiProps with';
         }
 
         void sharedUiConfigGenerationTests(String wrapperFunction) {

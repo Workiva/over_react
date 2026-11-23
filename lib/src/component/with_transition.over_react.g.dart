@@ -26,16 +26,12 @@ _$$WithTransitionProps _$WithTransition([Map? backingProps]) => _$$WithTransitio
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionProps extends UiProps with v2.TransitionPropsMixin,
+class _$$WithTransitionProps extends GeneratedUiProps with v2.TransitionPropsMixin,
  // If this generated mixin is undefined, it's likely because v2.TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of v2.TransitionPropsMixin, and check that v2.$TransitionPropsMixin is exported/imported properly.
 v2.$TransitionPropsMixin,WithTransitionPropsMixin,
  // If this generated mixin is undefined, it's likely because WithTransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionPropsMixin, and check that $WithTransitionPropsMixin is exported/imported properly.
 $WithTransitionPropsMixin implements WithTransitionProps {
-  _$$WithTransitionProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$WithTransitionProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -71,15 +67,11 @@ const _$getPropKey$_$$WithTransitionProps = getPropKey;
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$WithTransitionState extends UiState with
+class _$$WithTransitionState extends GeneratedUiState with
  WithTransitionState,
  // If this generated mixin is undefined, it's likely because WithTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of WithTransitionState, and check that $WithTransitionState is exported/imported properly.
  $WithTransitionState {
-  _$$WithTransitionState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
-
-  /// The backing state map proxied by this class.
-  @override
-  final Map state;
+  _$$WithTransitionState([Map? backingMap]) : super(backingMap);
 
   /// Let `UiState` internals know that this class has been generated.
   @override

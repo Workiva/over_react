@@ -57,14 +57,10 @@ final UiFactoryConfig<_$$SuspenseProps> $SuspenseConfig = _$SuspenseConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$SuspenseProps extends UiProps with SuspensePropsMixin,
+class _$$SuspenseProps extends GeneratedUiProps with SuspensePropsMixin,
  // If this generated mixin is undefined, it's likely because SuspensePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuspensePropsMixin, and check that $SuspensePropsMixin is exported/imported properly.
 $SuspensePropsMixin implements SuspenseProps {
-  _$$SuspenseProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$SuspenseProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

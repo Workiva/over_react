@@ -26,16 +26,12 @@ _$$TransitionerProps _$Transitioner([Map? backingProps]) => _$$TransitionerProps
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionerProps extends UiProps with TransitionerPropsMixin,
+class _$$TransitionerProps extends GeneratedUiProps with TransitionerPropsMixin,
  // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
 $TransitionerPropsMixin,TransitionPropsMixin,
  // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
 $TransitionPropsMixin implements TransitionerProps {
-  _$$TransitionerProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TransitionerProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -71,14 +67,10 @@ const _$getPropKey$_$$TransitionerProps = getPropKey;
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionerState extends UiState with AbstractTransitionState,
+class _$$TransitionerState extends GeneratedUiState with AbstractTransitionState,
  // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractTransitionState, and check that $AbstractTransitionState is exported/imported properly.
 $AbstractTransitionState implements TransitionerState {
-  _$$TransitionerState([Map? backingMap]) : this.state = backingMap ?? JsBackedMap();
-
-  /// The backing state map proxied by this class.
-  @override
-  final Map state;
+  _$$TransitionerState([Map? backingMap]) : super(backingMap);
 
   /// Let `UiState` internals know that this class has been generated.
   @override

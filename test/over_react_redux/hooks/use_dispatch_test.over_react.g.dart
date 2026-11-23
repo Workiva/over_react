@@ -77,15 +77,11 @@ final UiFactoryConfig<_$$UseDispatchCounterFnProps> $UseDispatchCounterFnConfig 
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UseDispatchCounterFnProps extends UiProps with
+class _$$UseDispatchCounterFnProps extends GeneratedUiProps with
  UseDispatchCounterFnProps,
  // If this generated mixin is undefined, it's likely because UseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDispatchCounterFnProps, and check that $UseDispatchCounterFnProps is exported/imported properly.
  $UseDispatchCounterFnProps {
-  _$$UseDispatchCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$UseDispatchCounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -124,15 +120,11 @@ final UiFactoryConfig<_$$CustomContextUseDispatchCounterFnProps> $CustomContextU
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomContextUseDispatchCounterFnProps extends UiProps with
+class _$$CustomContextUseDispatchCounterFnProps extends GeneratedUiProps with
  CustomContextUseDispatchCounterFnProps,
  // If this generated mixin is undefined, it's likely because CustomContextUseDispatchCounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextUseDispatchCounterFnProps, and check that $CustomContextUseDispatchCounterFnProps is exported/imported properly.
  $CustomContextUseDispatchCounterFnProps {
-  _$$CustomContextUseDispatchCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$CustomContextUseDispatchCounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

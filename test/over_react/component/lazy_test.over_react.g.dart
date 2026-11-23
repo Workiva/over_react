@@ -26,16 +26,12 @@ _$$TestDartClassProps _$TestDartClass([Map? backingProps]) => _$$TestDartClassPr
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDartClassProps extends UiProps with TestJsProps,
+class _$$TestDartClassProps extends GeneratedUiProps with TestJsProps,
  // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
 $TestJsProps,TestDartPropsMixin,
  // If this generated mixin is undefined, it's likely because TestDartPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestDartPropsMixin, and check that $TestDartPropsMixin is exported/imported properly.
 $TestDartPropsMixin implements TestDartClassProps {
-  _$$TestDartClassProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestDartClassProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -133,15 +129,11 @@ _$$ClassComponentTypeTesterProps _$ClassComponentTypeTester([Map? backingProps])
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ClassComponentTypeTesterProps extends UiProps with
+class _$$ClassComponentTypeTesterProps extends GeneratedUiProps with
  ClassComponentTypeTesterProps,
  // If this generated mixin is undefined, it's likely because ClassComponentTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentTypeTesterProps, and check that $ClassComponentTypeTesterProps is exported/imported properly.
  $ClassComponentTypeTesterProps {
-  _$$ClassComponentTypeTesterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ClassComponentTypeTesterProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -437,16 +429,12 @@ final UiFactoryConfig<_$$DartTestJsWrapperProps> $DartTestJsWrapperConfig = _$Da
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$DartTestJsWrapperProps extends UiProps with TestJsProps,
+class _$$DartTestJsWrapperProps extends GeneratedUiProps with TestJsProps,
  // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
 $TestJsProps,DartTestJsWrapperPropsMixin,
  // If this generated mixin is undefined, it's likely because DartTestJsWrapperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DartTestJsWrapperPropsMixin, and check that $DartTestJsWrapperPropsMixin is exported/imported properly.
 $DartTestJsWrapperPropsMixin implements DartTestJsWrapperProps {
-  _$$DartTestJsWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$DartTestJsWrapperProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -487,15 +475,11 @@ final UiFactoryConfig<_$$JsTypeTesterProps> $JsTypeTesterConfig = _$JsTypeTester
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$JsTypeTesterProps extends UiProps with
+class _$$JsTypeTesterProps extends GeneratedUiProps with
  JsTypeTesterProps,
  // If this generated mixin is undefined, it's likely because JsTypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of JsTypeTesterProps, and check that $JsTypeTesterProps is exported/imported properly.
  $JsTypeTesterProps {
-  _$$JsTypeTesterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$JsTypeTesterProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -534,16 +518,12 @@ final UiFactoryConfig<_$$TestDartProps> $TestDartConfig = _$TestDartConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDartProps extends UiProps with TestJsProps,
+class _$$TestDartProps extends GeneratedUiProps with TestJsProps,
  // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
 $TestJsProps,TestDartPropsMixin,
  // If this generated mixin is undefined, it's likely because TestDartPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestDartPropsMixin, and check that $TestDartPropsMixin is exported/imported properly.
 $TestDartPropsMixin implements TestDartProps {
-  _$$TestDartProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestDartProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -584,15 +564,11 @@ final UiFactoryConfig<_$$TypeTesterProps> $UiForwardRefTypeTesterConfig = _$UiFo
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TypeTesterProps extends UiProps with
+class _$$TypeTesterProps extends GeneratedUiProps with
  TypeTesterProps,
  // If this generated mixin is undefined, it's likely because TypeTesterProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TypeTesterProps, and check that $TypeTesterProps is exported/imported properly.
  $TypeTesterProps {
-  _$$TypeTesterProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TypeTesterProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

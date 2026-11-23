@@ -45,15 +45,11 @@ _$$LazyLoadMePropsMixin _$LazyLoadMePropsMapView([Map? backingProps]) => _$$Lazy
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$LazyLoadMePropsMixin extends UiProps with
+class _$$LazyLoadMePropsMixin extends GeneratedUiProps with
  LazyLoadMePropsMixin,
  // If this generated mixin is undefined, it's likely because LazyLoadMePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LazyLoadMePropsMixin, and check that $LazyLoadMePropsMixin is exported/imported properly.
  $LazyLoadMePropsMixin {
-  _$$LazyLoadMePropsMixin([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$LazyLoadMePropsMixin([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

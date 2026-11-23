@@ -26,15 +26,11 @@ _$$CustomTestProps _$CustomTest([Map? backingProps]) => _$$CustomTestProps(backi
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomTestProps extends UiProps with
+class _$$CustomTestProps extends GeneratedUiProps with
  CustomTestProps,
  // If this generated mixin is undefined, it's likely because CustomTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomTestProps, and check that $CustomTestProps is exported/imported properly.
  $CustomTestProps {
-  _$$CustomTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$CustomTestProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -179,15 +175,11 @@ final UiFactoryConfig<_$$CustomFnTestProps> $CustomFnTestConfig = _$CustomFnTest
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomFnTestProps extends UiProps with
+class _$$CustomFnTestProps extends GeneratedUiProps with
  CustomFnTestProps,
  // If this generated mixin is undefined, it's likely because CustomFnTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomFnTestProps, and check that $CustomFnTestProps is exported/imported properly.
  $CustomFnTestProps {
-  _$$CustomFnTestProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$CustomFnTestProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
