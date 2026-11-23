@@ -48,8 +48,10 @@ import 'package:react/react_dom.dart' as react_dom;
 /// for a given react-dart [ReactElement] or [ReactComponent] [instance].
 // ignore: deprecated_member_use
 ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */ instance) =>
+    // Read `props` via `getProperty` rather than a dynamic `instance.props`, which dart2js has to treat as
+    // potentially targeting every `props` member in the program, slowing down global type inference.
     // ignore: deprecated_member_use
-    (instance.props as InteropProps).internal;
+    (getProperty(instance as Object, 'props') as InteropProps).internal;
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
