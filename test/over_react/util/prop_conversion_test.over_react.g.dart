@@ -26,15 +26,11 @@ _$$ClassComponentProps _$ClassComponent([Map? backingProps]) => _$$ClassComponen
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ClassComponentProps extends UiProps with
+class _$$ClassComponentProps extends GeneratedUiProps with
  ClassComponentProps,
  // If this generated mixin is undefined, it's likely because ClassComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ClassComponentProps, and check that $ClassComponentProps is exported/imported properly.
  $ClassComponentProps {
-  _$$ClassComponentProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ClassComponentProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -371,15 +367,11 @@ final UiFactoryConfig<_$$ExpectsDartMapPropProps> $ExpectsDartMapPropConfig = _$
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ExpectsDartMapPropProps extends UiProps with
+class _$$ExpectsDartMapPropProps extends GeneratedUiProps with
  ExpectsDartMapPropProps,
  // If this generated mixin is undefined, it's likely because ExpectsDartMapPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartMapPropProps, and check that $ExpectsDartMapPropProps is exported/imported properly.
  $ExpectsDartMapPropProps {
-  _$$ExpectsDartMapPropProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ExpectsDartMapPropProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -418,15 +410,11 @@ final UiFactoryConfig<_$$ExpectsDartStylePropProps> $ExpectsDartStylePropConfig 
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ExpectsDartStylePropProps extends UiProps with
+class _$$ExpectsDartStylePropProps extends GeneratedUiProps with
  ExpectsDartStylePropProps,
  // If this generated mixin is undefined, it's likely because ExpectsDartStylePropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsDartStylePropProps, and check that $ExpectsDartStylePropProps is exported/imported properly.
  $ExpectsDartStylePropProps {
-  _$$ExpectsDartStylePropProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ExpectsDartStylePropProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -465,15 +453,11 @@ final UiFactoryConfig<_$$ExpectsListChildrenPropProps> $ExpectsListChildrenPropC
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ExpectsListChildrenPropProps extends UiProps with
+class _$$ExpectsListChildrenPropProps extends GeneratedUiProps with
  ExpectsListChildrenPropProps,
  // If this generated mixin is undefined, it's likely because ExpectsListChildrenPropProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExpectsListChildrenPropProps, and check that $ExpectsListChildrenPropProps is exported/imported properly.
  $ExpectsListChildrenPropProps {
-  _$$ExpectsListChildrenPropProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ExpectsListChildrenPropProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -512,15 +496,11 @@ final UiFactoryConfig<_$$BasicForwardRefProps> $BasicForwardRefConfig = _$BasicF
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicForwardRefProps extends UiProps with
+class _$$BasicForwardRefProps extends GeneratedUiProps with
  BasicForwardRefProps,
  // If this generated mixin is undefined, it's likely because BasicForwardRefProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicForwardRefProps, and check that $BasicForwardRefProps is exported/imported properly.
  $BasicForwardRefProps {
-  _$$BasicForwardRefProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$BasicForwardRefProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -559,16 +539,12 @@ final UiFactoryConfig<_$$DartTestJsWrapperProps> $DartTestJsWrapperConfig = _$Da
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$DartTestJsWrapperProps extends UiProps with TestJsProps,
+class _$$DartTestJsWrapperProps extends GeneratedUiProps with TestJsProps,
  // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
 $TestJsProps,DartTestJsWrapperPropsMixin,
  // If this generated mixin is undefined, it's likely because DartTestJsWrapperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DartTestJsWrapperPropsMixin, and check that $DartTestJsWrapperPropsMixin is exported/imported properly.
 $DartTestJsWrapperPropsMixin implements DartTestJsWrapperProps {
-  _$$DartTestJsWrapperProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$DartTestJsWrapperProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -609,15 +585,11 @@ final UiFactoryConfig<_$$TestJsProps> $TestJsConfig = _$TestJsConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestJsProps extends UiProps with
+class _$$TestJsProps extends GeneratedUiProps with
  TestJsProps,
  // If this generated mixin is undefined, it's likely because TestJsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestJsProps, and check that $TestJsProps is exported/imported properly.
  $TestJsProps {
-  _$$TestJsProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestJsProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

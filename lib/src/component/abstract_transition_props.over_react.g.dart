@@ -81,15 +81,11 @@ _$$TransitionPropsMixin _$TransitionPropsMapView([Map? backingProps]) => _$$Tran
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionPropsMixin extends UiProps with
+class _$$TransitionPropsMixin extends GeneratedUiProps with
  TransitionPropsMixin,
  // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
  $TransitionPropsMixin {
-  _$$TransitionPropsMixin([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TransitionPropsMixin([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

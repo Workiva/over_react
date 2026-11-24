@@ -25,14 +25,10 @@ final UiFactoryConfig<_$$TestDomProps> $TestDomConfig = _$TestDomConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestDomProps extends UiProps with DomPropsMixin,
+class _$$TestDomProps extends GeneratedUiProps with DomPropsMixin,
  // If this generated mixin is undefined, it's likely because DomPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DomPropsMixin, and check that $DomPropsMixin is exported/imported properly.
 $DomPropsMixin implements TestDomProps {
-  _$$TestDomProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestDomProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -71,14 +67,10 @@ final UiFactoryConfig<_$$TestSvgProps> $TestSvgConfig = _$TestSvgConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestSvgProps extends UiProps with SvgPropsMixin,
+class _$$TestSvgProps extends GeneratedUiProps with SvgPropsMixin,
  // If this generated mixin is undefined, it's likely because SvgPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SvgPropsMixin, and check that $SvgPropsMixin is exported/imported properly.
 $SvgPropsMixin implements TestSvgProps {
-  _$$TestSvgProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestSvgProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -117,14 +109,10 @@ final UiFactoryConfig<_$$TestAriaProps> $TestAriaConfig = _$TestAriaConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestAriaProps extends UiProps with AriaPropsMixin,
+class _$$TestAriaProps extends GeneratedUiProps with AriaPropsMixin,
  // If this generated mixin is undefined, it's likely because AriaPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AriaPropsMixin, and check that $AriaPropsMixin is exported/imported properly.
 $AriaPropsMixin implements TestAriaProps {
-  _$$TestAriaProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestAriaProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -163,14 +151,10 @@ final UiFactoryConfig<_$$TestConnectFluxProps> $TestConnectFluxConfig = _$TestCo
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$TestConnectFluxProps extends UiProps with ConnectFluxPropsMixin,
+class _$$TestConnectFluxProps extends GeneratedUiProps with ConnectFluxPropsMixin,
  // If this generated mixin is undefined, it's likely because ConnectFluxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectFluxPropsMixin, and check that $ConnectFluxPropsMixin is exported/imported properly.
 $ConnectFluxPropsMixin implements TestConnectFluxProps {
-  _$$TestConnectFluxProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$TestConnectFluxProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

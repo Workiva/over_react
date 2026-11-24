@@ -82,14 +82,10 @@ _$$ProviderProps _$_Provider([Map? backingProps]) => _$$ProviderProps(backingPro
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ProviderProps<TValue> extends UiProps with _ProviderPropsMixin<TValue>,
+class _$$ProviderProps<TValue> extends GeneratedUiProps with _ProviderPropsMixin<TValue>,
  // If this generated mixin is undefined, it's likely because _ProviderPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ProviderPropsMixin, and check that $_ProviderPropsMixin is exported/imported properly.
 $_ProviderPropsMixin<TValue> implements ProviderProps<TValue> {
-  _$$ProviderProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ProviderProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -116,14 +112,10 @@ _$$ConsumerProps _$_Consumer([Map? backingProps]) => _$$ConsumerProps(backingPro
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ConsumerProps<TValue> extends UiProps with _ConsumerPropsMixin<TValue>,
+class _$$ConsumerProps<TValue> extends GeneratedUiProps with _ConsumerPropsMixin<TValue>,
  // If this generated mixin is undefined, it's likely because _ConsumerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _ConsumerPropsMixin, and check that $_ConsumerPropsMixin is exported/imported properly.
 $_ConsumerPropsMixin<TValue> implements ConsumerProps<TValue> {
-  _$$ConsumerProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ConsumerProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

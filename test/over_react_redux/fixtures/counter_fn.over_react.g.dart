@@ -121,15 +121,11 @@ final UiFactoryConfig<_$$CounterFnProps> $CounterFnConfig = _$CounterFnConfig;
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CounterFnProps extends UiProps with
+class _$$CounterFnProps extends GeneratedUiProps with
  CounterFnProps,
  // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
  $CounterFnProps {
-  _$$CounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$CounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -168,16 +164,12 @@ final UiFactoryConfig<_$$ModelCounterFnProps> $ModelCounterFnConfig = _$ModelCou
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$ModelCounterFnProps extends UiProps with CounterFnProps,
+class _$$ModelCounterFnProps extends GeneratedUiProps with CounterFnProps,
  // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
 $CounterFnProps,ModelCounterFnPropsMixin,
  // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
 $ModelCounterFnPropsMixin implements ModelCounterFnProps {
-  _$$ModelCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$ModelCounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -218,16 +210,12 @@ final UiFactoryConfig<_$$CustomContextCounterFnProps> $CustomContextCounterFnCon
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$CustomContextCounterFnProps extends UiProps with CounterFnProps,
+class _$$CustomContextCounterFnProps extends GeneratedUiProps with CounterFnProps,
  // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
 $CounterFnProps,CustomContextCounterFnPropsMixin,
  // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
 $CustomContextCounterFnPropsMixin implements CustomContextCounterFnProps {
-  _$$CustomContextCounterFnProps([Map? backingMap]) : this.props = backingMap ?? JsBackedMap();
-
-  /// The backing props map proxied by this class.
-  @override
-  final Map props;
+  _$$CustomContextCounterFnProps([Map? backingMap]) : super(backingMap);
 
   /// Let `UiProps` internals know that this class has been generated.
   @override

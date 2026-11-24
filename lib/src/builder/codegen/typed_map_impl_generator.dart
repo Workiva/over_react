@@ -103,6 +103,14 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   String _generateImplClassHeader();
 
+  /// Whether the impl class extends `GeneratedUiProps`/`GeneratedUiState`,
+  /// which own the backing map, rather than declaring its own.
+  ///
+  /// Sharing one backing map field keeps `props`/`state` from having an
+  /// override per generated class, which makes dart2js global inference
+  /// much slower for dynamic `props`/`state` accesses.
+  bool get _extendsGeneratedBase => false;
+
   /// Generates a concrete props or state implementation class for a given component.
   ///
   /// ## For Component2
@@ -172,8 +180,10 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       ..write(_generateImplClassHeader())
       ..writeln(' {')
       // Constructor
-      ..writeln('  ${names.implName}([Map${nullSafety ? '?' : ''} backingMap])'
-          ' : this.$propsOrState = backingMap ?? JsBackedMap();');
+      ..writeln('  ${names.implName}([Map${nullSafety ? '?' : ''} backingMap])' +
+          (_extendsGeneratedBase
+              ? ' : super(backingMap);'
+              : ' : this.$propsOrState = backingMap ?? JsBackedMap();'));
 
     // This needs to be a top-level member and not a static member, and it needs to be unique
     // to avoid collisions across typed map impls within the library, potentially in multiple parts.
@@ -181,11 +191,14 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     final topLevelGetPropKeyAliasName = '_\$getPropKey\$${names.implName}';
 
     // Members
+    if (!_extendsGeneratedBase) {
+      buffer
+        ..writeln()
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  final Map $propsOrState;');
+    }
     buffer
-      ..writeln()
-      ..writeln('  /// The backing $propsOrState map proxied by this class.')
-      ..writeln('  @override')
-      ..writeln('  final Map $propsOrState;')
       ..writeln()
       ..writeln(
           '  /// Let `${isProps ? 'UiProps' : 'UiState'}` internals know that this class has been generated.')
@@ -449,10 +462,13 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   }
 
   @override
+  bool get _extendsGeneratedBase => true;
+
+  @override
   String _generateImplClassHeader() {
     if (member is BoilerplatePropsOrStateMixin) {
       return 'class ${names.implName}$typeParamsOnClass'
-          ' extends ${isProps ? 'UiProps' : 'UiState'}'
+          ' extends ${isProps ? 'GeneratedUiProps' : 'GeneratedUiState'}'
           ' with\n'
           ' ${names.consumerName}$typeParamsOnSuper,\n'
           ' ${generatedMixinWarningCommentLine(names, isProps: isProps)}'
@@ -460,7 +476,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass'
-            ' extends ${isProps ? 'UiProps' : 'UiState'}');
+            ' extends ${isProps ? 'GeneratedUiProps' : 'GeneratedUiState'}');
       final mixins = member.nodeHelper.mixins;
 
       // Group the mixins with their generated mixins to avoid issues with covariant overrides.

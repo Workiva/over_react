@@ -15,6 +15,7 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:meta/meta.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 import '../util/map_util.dart';
 import './component_base.dart' as component_base;
@@ -298,6 +299,32 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
   }
 
   @override @toBeGenerated Map get state => throw UngeneratedError(member: #state);
+}
+
+/// The base class of generated props implementations, which owns the backing
+/// map so that [props] has a single implementation.
+///
+/// Not intended for use outside of generated code.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class GeneratedUiProps extends UiProps {
+  GeneratedUiProps([Map? backingMap]) : props = backingMap ?? JsBackedMap();
+
+  @override
+  final Map props;
+}
+
+/// The base class of generated state implementations, which owns the backing
+/// map so that [state] has a single implementation.
+///
+/// Not intended for use outside of generated code.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class GeneratedUiState extends UiState {
+  GeneratedUiState([Map? backingMap]) : state = backingMap ?? JsBackedMap();
+
+  @override
+  final Map state;
 }
 
 // ----------------------------------------------------------------------
