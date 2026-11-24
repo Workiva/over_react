@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 5.9.0
+- [#1022] Improve dart2js compile times and output size for apps with many components
+  - Generated props and state implementations for mixin-based boilerplate now extend the new `GeneratedUiProps`/`GeneratedUiState` base classes, which own the backing map, instead of each declaring its own `props`/`state` field. In a large app, this cut dart2js global type inference from ~985s to ~280s and reduced output size by 55KB.
+    - `GeneratedUiProps` and `GeneratedUiState` are for use by generated code only.
+    - Legacy boilerplate is unchanged.
+  - Avoid a dynamic `props` access in `react_wrappers` internals, which was responsible for about a third of global type inference time in a large app.
+
 ## 5.8.0
 - Update analyzer dependency to `>=10.0.0 <15.0.0` (allow 11, 12, 13, and 14)
 - Drop Dart 2 support; minimum SDK is now 3.0.0
