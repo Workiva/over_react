@@ -305,6 +305,8 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
 /// map so that [props] has a single implementation.
 ///
 /// Not intended for use outside of generated code.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class GeneratedUiProps extends UiProps {
   GeneratedUiProps([Map? backingMap]) : props = backingMap ?? JsBackedMap();
 
@@ -316,6 +318,8 @@ abstract class GeneratedUiProps extends UiProps {
 /// map so that [state] has a single implementation.
 ///
 /// Not intended for use outside of generated code.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class GeneratedUiState extends UiState {
   GeneratedUiState([Map? backingMap]) : state = backingMap ?? JsBackedMap();
 
