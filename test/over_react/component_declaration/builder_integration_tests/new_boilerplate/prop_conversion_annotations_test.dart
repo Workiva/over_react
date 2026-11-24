@@ -42,16 +42,30 @@ void main() {
           reason: 'getter should convert value');
     });
 
-    test('@convertJsMapProp works as expected', () {
-      final map = {'abc': true};
-      final mapPropKey = Test().getPropKey((p) => p.mapProp);
+    group('@convertJsMapProp works as expected', () {
+      test('without generics', () {
+        final map = {'abc': true};
+        final propKey = Test().getPropKey((p) => p.mapPropWithGenerics);
 
-      final setterResult = (Test()..mapProp = map)[mapPropKey];
-      expect(setterResult, isA<JsMap>(), reason: 'setter should convert value');
-      expect(unjsifyMapProp(setterResult as JsMap), map);
+        final setterResult = (Test()..mapPropWithGenerics = map)[propKey];
+        expect(setterResult, isA<JsMap>(), reason: 'setter should convert value');
+        expect(unjsifyMapProp(setterResult as JsMap), map);
 
-      expect(Test({mapPropKey: jsifyMapProp(map)}).mapProp, map,
-          reason: 'getter should convert value');
+        expect(Test({propKey: jsifyMapProp(map)}).mapPropWithGenerics, map,
+            reason: 'getter should convert value');
+      });
+
+      test('with generics', () {
+        final map = {'abc': true};
+        final propKey = Test().getPropKey((p) => p.mapProp);
+
+        final setterResult = (Test()..mapProp = map)[propKey];
+        expect(setterResult, isA<JsMap>(), reason: 'setter should convert value');
+        expect(unjsifyMapProp(setterResult as JsMap), map);
+
+        expect(Test({propKey: jsifyMapProp(map)}).mapProp, map,
+            reason: 'getter should convert value');
+      });
     });
 
     test('@convertJsRefProp works as expected', () {
@@ -88,6 +102,9 @@ mixin TestProps on UiProps {
 
   @convertJsMapProp
   Map? mapProp;
+
+  @convertJsMapProp
+  Map<dynamic, dynamic>? mapPropWithGenerics;
 
   @convertJsRefProp
   dynamic refProp;
